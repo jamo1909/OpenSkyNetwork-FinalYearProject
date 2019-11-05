@@ -1,4 +1,4 @@
-console.log("Entering javascript file");
+console.log("LEAFLET.JS - Plotting planes");
 
 function fetchData() {
     return fetch("https://opensky-network.org/api/states/all")
