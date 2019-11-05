@@ -7,9 +7,10 @@ const longOne = -6.2499098;
 const latTwo = 51.470020;
 const longTwo = -0.454295;
 
-distance(latOne, longOne, latTwo, longTwo); //Version 2
+//Call function
+distance(latOne, longOne, latTwo, longTwo);
 
-//Haversine function to calculate distance on the earth(GCD)
+//Haversine function to calculate distance on the earth(GreaterCircleDistance)
 function distance(latOne, longOne, latTwo, longTwo) {
     console.log("Point One: " + latOne + "," + longOne);
     console.log("Point Two: " + latTwo + "," + longTwo);
@@ -28,17 +29,18 @@ function distance(latOne, longOne, latTwo, longTwo) {
     return icaoDistanceCorrectionFactor(distance);
 }
 
-function distanceTwo(latOne, longOne, latTwo, longTwo) {
-    var x1 = toRadians(latOne);
-    var y1 = toRadians(longOne);
-    var x2 = toRadians(latTwo);
-    var y2 = toRadians(longTwo);
-    var angle1 = Math.acos(Math.sin(x1) * Math.sin(x2) + Math.cos(x1) * Math.cos(x2) * Math.cos(y1 - y2));
-    angle1 = angle1 * (180 / Math.PI);
-    var distance = 60 * angle1;
-    var distanceKm = distance * 1.852;
-    console.log("New Distance: " + distanceKm);
-}
+//Version 2 - GreaterCircleDistance
+// function distanceTwo(latOne, longOne, latTwo, longTwo) {
+//     var x1 = toRadians(latOne);
+//     var y1 = toRadians(longOne);
+//     var x2 = toRadians(latTwo);
+//     var y2 = toRadians(longTwo);
+//     var angle1 = Math.acos(Math.sin(x1) * Math.sin(x2) + Math.cos(x1) * Math.cos(x2) * Math.cos(y1 - y2));
+//     angle1 = angle1 * (180 / Math.PI);
+//     var distance = 60 * angle1;
+//     var distanceKm = distance * 1.852;
+//     console.log("New Distance: " + distanceKm);
+// }
 
 //Converting degree's to radians
 function toRadians(degrees) {
@@ -62,6 +64,7 @@ function icaoDistanceCorrectionFactor(distance) {
     return distance;
 }
 
+//Connecting DB
 async function getCurrentPLanes() {
     var icao = document.getElementById("icaoNumber").value;
     var time = getCurrentTimeInUnix();
