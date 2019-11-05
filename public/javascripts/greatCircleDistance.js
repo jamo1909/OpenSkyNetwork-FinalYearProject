@@ -7,7 +7,7 @@ const longOne = -6.2499098;
 const latTwo = 51.470020;
 const longTwo = -0.454295;
 
-distanceTwo(latOne, longOne, latTwo, longTwo); //Version 2
+distance(latOne, longOne, latTwo, longTwo); //Version 2
 
 //Haversine function to calculate distance on the earth(GCD)
 function distance(latOne, longOne, latTwo, longTwo) {
@@ -23,7 +23,7 @@ function distance(latOne, longOne, latTwo, longTwo) {
         Math.sin(longitude / 2) * Math.sin(longitude / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var distance = Math.round(earthRadius * c);
-    console.log("Distance in " + distance + "KM");
+    console.log("Distance in " + distance + " KM");
     console.log("Distance in " + distance * 0.62137 + " Miles");
     return icaoDistanceCorrectionFactor(distance);
 }
@@ -58,7 +58,7 @@ function icaoDistanceCorrectionFactor(distance) {
     } else {
         console.log("Error on distance");
     }
-    console.log("Correction factor: " + distance);
+    console.log("Correction factor: " + distance + " KM");
     return distance;
 }
 
