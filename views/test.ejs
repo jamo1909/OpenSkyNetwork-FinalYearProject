@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data</title>
+    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script rel="script" src='/javascripts/displayData.js'></script>
+</head>
+<body>
+<% include templates/header.ejs %>
+<table id="data">
+    <tr>
+        <th>ICAO24</th>
+        <th>CountryOrigin</th>
+        <th>longitude</th>
+        <th>latitude</th>
+        <th>altitude</th>
+        <th>velocity m/s</th>
+    </tr>
+
+</table>
+<% include templates/footer.ejs %>
+
+</body>
+</html>
