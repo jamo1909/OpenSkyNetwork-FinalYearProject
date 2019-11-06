@@ -59,9 +59,3 @@ function printValue(result) {
     console.log("Seats: " + result.rows[0].seats);
     console.log("FuelBurn:" + result.rows[0].fuelburn);
 }
-
-// while(value.rowCount > 1){
-//     for(var i=model; i>0;i--){
-//
-//     }
-// }
