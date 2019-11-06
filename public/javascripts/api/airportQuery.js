@@ -1,27 +1,28 @@
-//Get json of planes in an area
-const api_url = 'https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226';
-$(document).ready(() => {
-    $.get(api_url, ({states}, status) => {
-        const $data = $("#data");
+var arrivalAirport;
+var destinationAirport;
+var planeIcao = '3c675a';
+const test_url = 'https://opensky-network.org/api/flights/aircraft?icao24=3c675a&begin=1517184000&end=1517270400';
 
-        // use forEach and destructure the columns data
-        states.forEach(([col1, , col2, , , col3, col4, col5, , col6]) => {
-            const cols = [col1, col2, col3, col4, col5, col6]; // combine to a single array
+async function getAirports(planeIcao) {
+    const airport_url = 'https://opensky-network.org/api/flights/aircraft?icao24=' + planeIcao + '&begin=1517184000&end=1517270400';
+    const response = await fetch(airport_url);
+    const data = await response.json();
+    console.log(data[0]);
+    console.log(data[0].estArrivalAirport);
+    arrivalAirport = data[0].estArrivalAirport;
+    console.log(data[0].estDepartureAirport);
+    destinationAirport = data[0].estDepartureAirport;
+}
 
-            $data.append(
-                `<tr>${cols.map(c => `<td>${c}</td>`).join('')}</tr>` // iterate the cols and create the cells
-            );
-        });
-    })
-});
+getAirports(planeIcao);
 
-//Other Example;
-// const api_url = 'https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226';
-// $(document).ready(function() {
-//     $.get(api_url, function(data, status) {
-//         var states = (data.states);
-//         $.each(states, function(index, state) {
-//             $("#data").append('<tr><td>' + state[0] + '</td><td>' + state[2] + '</td><td>' + state[5] + '</td><td>' + state[6] + '</td><td>' + state[7] + '</td><td>' + state[9] + '</td></tr>')
-//         })
-//     })
-// })
+async function getPLane() {
+    const airport_url = 'https://opensky-network.org/api/flights/aircraft?icao24=' + planeIcao + '&begin=1517184000&end=1517270400';
+    const response = await fetch(airport_url);
+    const data = await response.json();
+    console.log(data[0]);
+    console.log(data[0].estArrivalAirport);
+    arrivalAirport = data[0].estArrivalAirport;
+    console.log(data[0].estDepartureAirport);
+    destinationAirport = data[0].estDepartureAirport;
+}
