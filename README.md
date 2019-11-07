@@ -1,4 +1,4 @@
-# OpenSkyNetwork-FinalYearProject
+# OpenSkyNetworkAPI-FinalYearProject
 
 Maynooth Final Year Project - OpenSky Network Api
 
