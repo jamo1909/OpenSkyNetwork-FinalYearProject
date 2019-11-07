@@ -1,24 +1,18 @@
-console.log("LEAFLET.JS - Plotting planes");
+/*
+Links:
+https://opensky-network.org/api/flights/all?begin=1517227200&end=1517230800
+https://opensky-network.org/api/states/all
+*/
 const unixTime = {
     now: 0,
     hourBehind: 0,
     twoHoursBehind: 0
 };
 
-function getCurrentTimeInUnix(unixTime) {
-    var myDate = new Date();
-    console.log("Date/Time: " + myDate);
-    unixTime.now = myDate.getTime() / 1000.0;
-    myDate.setHours(myDate.getHours() - 1);
-    unixTime.hourBehind = myDate.getTime() / 1000.0;
-    myDate.setHours(myDate.getHours() - 1);
-    unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
-    var unixTime = myDate.getTime() / 1000.0;
-}
-
 function fetchData() {
-    getCurrentTimeInUnix(unixTime);
-    return fetch("https://opensky-network.org/api/states/all")
+    getCurrentTimeInUnix();
+    console.log("Hour Behind: " + unixTime.hourBehind + "\nTwoHoursBehind: " + unixTime.twoHoursBehind);
+    return fetch("https://opensky-network.org/api/states/all?begin=" + unixTime.hourBehind + "&end=" + unixTime.twoHoursBehind)
         .then((res) => {
             return res.json();
         })
@@ -49,6 +43,18 @@ function plotStates(map, markers) {
         });
         setTimeout(() => plotStates(map, markers), 3000);
     });
+}
+
+function getCurrentTimeInUnix() {
+    let myDate = new Date();
+    unixTime.now = myDate.getTime() / 1000.0;
+    console.log("UnixTime.now: " + unixTime.now);
+    myDate.setHours(myDate.getHours() - 1);
+    unixTime.hourBehind = myDate.getTime() / 1000.0;
+    console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
+    myDate.setHours(myDate.getHours() - 1);
+    unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
+    console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
 }
 
 
