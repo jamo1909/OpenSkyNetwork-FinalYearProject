@@ -1,29 +1,32 @@
 //Distance ===================================================================
 //Default to Dublin Airport
-const latOne = 53.4264481;
-const longOne = -6.2499098;
-
+const originAirport = {
+    lat: 53.4264481,
+    long: -6.2499098
+};
 //Default to London Airport
-const latTwo = 51.470020;
-const longTwo = -0.454295;
+const destAirport = {
+    lat: 51.470020,
+    long: -0.454295
+};
 
 //Call function
-distance(latOne, longOne, latTwo, longTwo);
+distance(originAirport.lat, originAirport.long, destAirport.lat, destAirport.long);
 
 //Haversine function to calculate distance on the earth(GreaterCircleDistance)
 function distance(latOne, longOne, latTwo, longTwo) {
     console.log("Point One: " + latOne + "," + longOne);
     console.log("Point Two: " + latTwo + "," + longTwo);
-    var earthRadius = 6371; //Earths Radius in km
-    var latOneRad = toRadians(latOne);
-    var latitude = toRadians(latTwo - latOne);
-    var latTwoRad = toRadians(latTwo);
-    var longitude = toRadians(longTwo - longOne);
-    var a = Math.sin(latitude / 2) * Math.sin(latitude / 2) +
+    const earthRadius = 6371; //Earths Radius in km
+    let latOneRad = toRadians(latOne);
+    let latitude = toRadians(latTwo - latOne);
+    let latTwoRad = toRadians(latTwo);
+    let longitude = toRadians(longTwo - longOne);
+    let a = Math.sin(latitude / 2) * Math.sin(latitude / 2) +
         Math.cos(latOneRad) * Math.cos(latTwoRad) *
         Math.sin(longitude / 2) * Math.sin(longitude / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var distance = Math.round(earthRadius * c);
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let distance = Math.round(earthRadius * c);
     console.log("Distance in " + distance + " KM");
     console.log("Distance in " + distance * 0.62137 + " Miles");
     return icaoDistanceCorrectionFactor(distance);

@@ -26,12 +26,12 @@ let originAirportCoordinates = {
     lat: 0,
     long: 0
 };
-
 let destinationAirportCoordinates = {
     lat: 0,
     long: 0
 };
 
+//GET origin airport information from DB
 function originAirportLocation(airportCode) {
     model.connect()
         .then(() => console.log("Connected successfuly"))
@@ -41,6 +41,7 @@ function originAirportLocation(airportCode) {
         .finally(() => model.end())
 }
 
+//GET destination airport information from DB
 function destinationAirportLocation(airportCode) {
     dest.connect()
         .then(() => console.log("Connected successfuly"))
@@ -50,21 +51,24 @@ function destinationAirportLocation(airportCode) {
         .finally(() => dest.end())
 }
 
+//Collect origin airport long/lat
 function setOrigin(originAirportData) {
     console.log("Origin");
     // console.log(originAirportData.rows);
     console.log("Name: " + originAirportData.rows[0].name);
     console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
-    originAirportCoordinates.lat = originAirportData.rows[0].latitude;
-    originAirportCoordinates.long = originAirportData.rows[0].longitude;
+    originAirportCoordinates.lat = parseFloat(originAirportData.rows[0].latitude);
+    originAirportCoordinates.long = parseFloat(originAirportData.rows[0].longitude);
+
 }
 
+//Collect destination airport long/lat
 function setDest(destinationAirportData) {
     console.log("Destination");
     // console.log(destinationAirportData.rows);
     console.log("Name: " + destinationAirportData.rows[0].name);
     console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
-    destinationAirportCoordinates.lat = destinationAirportData.rows[0].latitude;
-    destinationAirportCoordinates.lat = destinationAirportData.rows[0].longitude;
+    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
+    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].longitude);
 }
 
