@@ -1,3 +1,4 @@
+//TODO: Restructure - One DB call
 const {Client} = require('pg');
 const model = new Client({
     user: "postgres",
@@ -17,8 +18,8 @@ const dest = new Client({
 
 //TODO: Remove
 //change to import values - Remove
-var originAirport = "ESSA";
-var destinationAirport = "EDDF";
+const originAirport = "ESSA";
+const destinationAirport = "EDDF";
 originAirportLocation(originAirport);
 destinationAirportLocation(destinationAirport);
 
@@ -31,6 +32,8 @@ let destinationAirportCoordinates = {
     long: 0
 };
 
+
+//TODO: Get proper return function for promise
 //GET origin airport information from DB
 function originAirportLocation(airportCode) {
     model.connect()
