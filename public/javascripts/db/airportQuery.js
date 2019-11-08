@@ -35,7 +35,7 @@ let destinationAirportCoordinates = {
 function originAirportLocation(airportCode) {
     model.connect()
         .then(() => console.log("Connected successfuly"))
-        .then(() => model.query("select * from \"airportDatabase\" where code = $1", [airportCode]))
+        .then(() => model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
         .then(results => setOrigin(results))
         .catch(e => console.log(e))
         .finally(() => model.end())
@@ -44,7 +44,7 @@ function originAirportLocation(airportCode) {
 function destinationAirportLocation(airportCode) {
     dest.connect()
         .then(() => console.log("Connected successfuly"))
-        .then(() => dest.query("select * from \"airportDatabase\" where code = $1", [airportCode]))
+        .then(() => dest.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
         .then(results => setDest(results))
         .catch(e => console.log(e))
         .finally(() => dest.end())
@@ -52,19 +52,19 @@ function destinationAirportLocation(airportCode) {
 
 function setOrigin(originAirportData) {
     console.log("Origin");
-    console.log(originAirportData.rows);
-    // console.log("Name: " + originAirportData.name);
-    // console.log("Latitude: " + originAirportData.latitude + "\nLongitude: " + originAirportData.longtitude);
-    // originAirportCoordinates.lat = originAirportData.latitude;
-    // originAirportlong.lat = originAirportData.longtitude;
+    // console.log(originAirportData.rows);
+    console.log("Name: " + originAirportData.rows[0].name);
+    console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
+    originAirportCoordinates.lat = originAirportData.rows[0].latitude;
+    originAirportCoordinates.long = originAirportData.rows[0].longitude;
 }
 
 function setDest(destinationAirportData) {
     console.log("Destination");
-    console.log(destinationAirportData.rows);
-    // console.log("Name: " + destinationAirportData.name);
-    // console.log("Latitude: " + destinationAirportData.latitude + "\nLongitude: " + destinationAirportData.longtitude);
-    // destinationAirportCoordinates.lat = destinationAirportData.latitude;
-    // destinationAirportCoordinates.lat = destinationAirportData.longtitude;
+    // console.log(destinationAirportData.rows);
+    console.log("Name: " + destinationAirportData.rows[0].name);
+    console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
+    destinationAirportCoordinates.lat = destinationAirportData.rows[0].latitude;
+    destinationAirportCoordinates.lat = destinationAirportData.rows[0].longitude;
 }
 
