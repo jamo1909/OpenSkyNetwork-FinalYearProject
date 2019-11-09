@@ -1,10 +1,11 @@
-module.exports = {
+// const fetch = require("node-fetch");
 
-
+// export {getAirports};
 // var planeIcao = '3c675a';
 // const test_url = 'https://opensky-network.org/api/flights/aircraft?icao24=3c675a&begin=1517184000&end=1517270400';
 
-    getAirports: async function (planeIcao) {
+async function getAirports(planeIcao) {
+    console.log(planeIcao);
         let airport = {
             arrival: "",
             destination: ""
@@ -19,6 +20,6 @@ module.exports = {
         airport.destination = data[0].estDepartureAirport;
         return airport;
     }
-};
+
 
 // getAirports(planeIcao);
