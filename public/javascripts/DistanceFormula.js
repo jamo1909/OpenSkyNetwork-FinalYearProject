@@ -11,12 +11,12 @@ let plane = {
     icao: 0,
     lat: 0,
     long: 0,
-    airportOrigin: "",
-    airportDest: "",
+    airportOrigin: "ESSA",
+    airportDest: "EDDF",
     distanceToOrigin: 0,
     distanceToDestination: 0
 };
-
+getPlane();
 //const url = 'https://opensky-network.org/api/states/all?begin="+unixTime.hourBehind+"&end="+unixTime.twoHoursBehind';
 
 async function getPlane() {
@@ -30,7 +30,24 @@ async function getPlane() {
     plane.lat = data.states[0][5];
     plane.long = data.states[0][6];
     console.log(plane);
-    return plane;
+
+    console.log(plane.icao);
+    var ports = getAirports(plane.icao);
+    Promise.resolve(ports).then(function (result) {
+        console.log(result);
+        // plane.airportOrigin = result.arrival;
+        // plane.airportDest = result.destination;
+        if (plane.airportOrigin == null || plane.airportDest == null) {
+            alert("ERROR - airport not found");
+        } else {
+            originAirportLocation(plane.airportOrigin);
+            console.log(originAirportCoordinates.long);
+            console.log(originAirportCoordinates.long);
+
+        }
+    });
+
+
 }
 
 function getCurrentTimeInUnix() {
@@ -44,15 +61,6 @@ function getCurrentTimeInUnix() {
     unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
     console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
 }
-
-getPlane();
-console.log(plane.icao);
-var ports = getAirports('3c675a');
-Promise.resolve(ports).then(function (result) {
-    console.log(result);
-    plane.airportOrigin = result.arrival;
-    plane.airportDest = result.destination
-});
 
 
 // console.log("Start");

@@ -20,8 +20,8 @@ const dest = new Client({
 //change to import values - Remove
 const originAirport = "ESSA";
 const destinationAirport = "EDDF";
-originAirportLocation(originAirport);
-destinationAirportLocation(destinationAirport);
+// originAirportLocation(originAirport);
+// destinationAirportLocation(destinationAirport);
 
 let originAirportCoordinates = {
     lat: 0,
