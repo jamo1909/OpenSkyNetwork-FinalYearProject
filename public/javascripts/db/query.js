@@ -17,7 +17,7 @@ const aircraft = new Client({
 
 //Database query to send to function
 // aircraftModel();
-aircraftDatabase("a21432");//change out for api
+// aircraftDatabase("a21432");//change out for api
 
 function aircraftDatabase(icao) {
     model.connect()

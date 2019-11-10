@@ -1,4 +1,3 @@
-//TODO: Restructure - One DB call
 const {Client} = require('pg');
 const model = new Client({
     user: "postgres",
@@ -18,8 +17,8 @@ const dest = new Client({
 
 //TODO: Remove
 //change to import values - Remove
-const originAirport = "ESSA";
-const destinationAirport = "EDDF";
+// const originAirport = "ESSA";
+// const destinationAirport = "EDDF";
 // originAirportLocation(originAirport);
 // destinationAirportLocation(destinationAirport);
 
@@ -35,7 +34,7 @@ let destinationAirportCoordinates = {
 
 //TODO: Get proper return function for promise
 //GET origin airport information from DB
-function originAirportLocation(airportCode) {
+function originAirportLocation() {
     model.connect()
         .then(() => console.log("Connected successfuly"))
         .then(() => model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
@@ -75,3 +74,25 @@ function setDest(destinationAirportData) {
     destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].longitude);
 }
 
+// var pg = require('pg');
+// var connectionString = "postgres://postgres:jamo1818@localhost/ip:5433/aircraftModel";
+// var pgClient = new pg.Client(connectionString);
+// pgClient.connect()
+//     .then(() => console.log("Connected successfuly"))
+//     .then(() => model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
+//     .then(results => setOrigin(results))
+//     .catch(e => console.log(e))
+//     .finally(() => model.end())
+
+// var pgp = require('pg-promise')(/* options */)
+// var db = pgp('postgres://postgres:jamo1818@localhost:5433/aircraftModel')
+//
+// function originAirportLocation(airportCode) {
+//     db.one("SELECT * from \"airportDatabase\" where icaocode = $1", [airportCode])
+//         .then(function (data) {
+//             console.log('DATA:', data)
+//         })
+//         .catch(function (error) {
+//             console.log('ERROR:', error)
+//         })
+// }

@@ -1,4 +1,4 @@
-// const fetch = require("node-fetch");
+
 
 // export {getAirports};
 // var planeIcao = '3c675a';
@@ -6,7 +6,7 @@
 
 async function getAirports(planeIcao) {
     console.log(planeIcao);
-        let airport = {
+    let airport = {
             arrival: "",
             destination: ""
         };
@@ -15,10 +15,11 @@ async function getAirports(planeIcao) {
     const data = await response.json();
     console.log(data[0]);
     console.log(data[0].estArrivalAirport);
-        airport.arrival = data[0].estArrivalAirport;
+    airport.arrival = data[0].estArrivalAirport;
     console.log(data[0].estDepartureAirport);
-        airport.destination = data[0].estDepartureAirport;
-        return airport;
+    airport.destination = data[0].estDepartureAirport;
+    return airport;
+
     }
 
 
