@@ -5,7 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!--    <script rel="script" src='/javascripts/api/airportQuery.js'></script>-->
-    <!--    <script rel="text/javascript" src='/javascripts/db/airportQuery.js'></script>-->
+    <!--    <script rel="text/javascript" src='javascripts/db/bundle.js'></script>-->
     <script rel="text/javascript" src='/javascripts/api/airportQuery.js'></script>
     <script rel="text/javascript" src='/javascripts/DistanceFormula.js'></script>
 
@@ -13,17 +13,13 @@
 </head>
 <body>
 <% include templates/header.ejs %>
-<table id="data">
-    <tr>
-        <th>ICAO24</th>
-        <th>CountryOrigin</th>
-        <th>longitude</th>
-        <th>latitude</th>
-        <th>altitude</th>
-        <th>velocity m/s</th>
-    </tr>
+<h1>Origin Name: <%= originName %></h1>
+<h2>Lat: <%= originLat %></h2>
+<h2>Long: <%= originLong %></h2>
 
-</table>
+<h1>Dest Name: <%= destName %></h1>
+<h2>Lat: <%= destLat %></h2>
+<h2>Long: <%= destLong %></h2>
 <% include templates/footer.ejs %>
 
 </body>

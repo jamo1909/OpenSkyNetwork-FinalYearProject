@@ -16,11 +16,11 @@ const dest = new Client({
 });
 
 //TODO: Remove
-//change to import values - Remove
-// const originAirport = "ESSA";
-// const destinationAirport = "EDDF";
-// originAirportLocation(originAirport);
-// destinationAirportLocation(destinationAirport);
+// change to import values - Remove
+const originAirport = "ESSA";
+const destinationAirport = "EDDF";
+originAirportLocation(originAirport);
+destinationAirportLocation(destinationAirport);
 
 let originAirportCoordinates = {
     lat: 0,
@@ -34,7 +34,7 @@ let destinationAirportCoordinates = {
 
 //TODO: Get proper return function for promise
 //GET origin airport information from DB
-function originAirportLocation() {
+function originAirportLocation(airportCode) {
     model.connect()
         .then(() => console.log("Connected successfuly"))
         .then(() => model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))

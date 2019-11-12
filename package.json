@@ -16,6 +16,7 @@
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.0",
     "pg": "^7.12.1",
+    "pg-native": "^3.0.0",
     "pg-promise": "^9.3.6"
   },
   "description": "Maynooth Final Year Project - OpenSky Network Api",
