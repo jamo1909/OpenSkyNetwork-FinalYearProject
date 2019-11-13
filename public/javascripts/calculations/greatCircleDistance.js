@@ -11,7 +11,7 @@ const destAirport = {
 };
 
 //Call function
-distance(originAirport.lat, originAirport.long, destAirport.lat, destAirport.long);
+// distance(originAirport.lat, originAirport.long, destAirport.lat, destAirport.long);
 
 //Haversine function to calculate distance on the earth(GreaterCircleDistance)
 function distance(latOne, longOne, latTwo, longTwo) {
