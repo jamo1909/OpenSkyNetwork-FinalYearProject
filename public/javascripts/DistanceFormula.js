@@ -2,6 +2,7 @@
 // import {getAirports} from "./api/airportQuery";
 // console.log(getAirports('3c675a'));
 //const url = 'https://opensky-network.org/api/states/all?begin="+unixTime.hourBehind+"&end="+unixTime.twoHoursBehind';
+// var test = require('./db/airportQuery');
 function getCurrentTimeInUnix() {
     const unixTime = {
         now: 0,
