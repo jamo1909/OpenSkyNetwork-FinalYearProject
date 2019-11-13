@@ -1,8 +1,10 @@
-// // const fetch = require("node-fetch");
+const fetch = require("node-fetch");
 // import {getAirports} from "./api/airportQuery";
 // console.log(getAirports('3c675a'));
 //const url = 'https://opensky-network.org/api/states/all?begin="+unixTime.hourBehind+"&end="+unixTime.twoHoursBehind';
 // var test = require('./db/airportQuery');
+
+
 function getCurrentTimeInUnix() {
     const unixTime = {
         now: 0,
@@ -21,7 +23,7 @@ function getCurrentTimeInUnix() {
     return unixTime;
 }
 
-function checkPlaneInformation() {
+function checkPlaneInformation(plane) {
     if (plane.icao == null || plane.lat == null || plane.long == null) {
         alert("There is a null " + plane);
     } else {
@@ -39,7 +41,7 @@ function checkAirportInformation(airports) {
     }
 }
 
-async function getPlane() {
+module.exports = async function getPlane() {
     let plane = {
         icao: 0,
         lat: 0,
@@ -51,31 +53,31 @@ async function getPlane() {
     };
     console.log("Searching plane");
     var unixTime = getCurrentTimeInUnix();
-    const url = 'https://opensky-network.org/api/states/all?begin="+unixTime.hourBehind+"&end="+unixTime.twoHoursBehind';
+    const url = "https://opensky-network.org/api/states/all?begin=" + unixTime.hourBehind + "&end=" + unixTime.twoHoursBehind + "";
     const response = await fetch(url);
     const data = await response.json();
     // console.log(data.states[0]);
     plane.icao = data.states[0][0];
     plane.lat = data.states[0][5];
     plane.long = data.states[0][6];
-    checkPlaneInformation();
+    checkPlaneInformation(plane);
     console.log("PLANE: ");
     console.log(plane);
 
-    getAirports(plane.icao).then(result => {
-        console.log("result");
-        checkAirportInformation(result);
-        console.log(result);
-        plane.airportOrigin = result.arrival;
-        plane.airportDest = result.destination;
-        // console.log(plane);
-    }).catch(err => {
-        console.log(err);
-    });
+    // getAirports(plane.icao).then(result => {
+    //     console.log("result");
+    //     checkAirportInformation(result);
+    //     console.log(result);
+    //     plane.airportOrigin = result.arrival;
+    //     plane.airportDest = result.destination;
+    //     // console.log(plane);
+    // }).catch(err => {
+    //     console.log(err);
+    // });
     // var test = originAirportLocation(plane.airportOrigin);
     // console.log(test);
     return plane;
-}
+};
 
 
 // console.log("Start");

@@ -4,7 +4,7 @@
 // var planeIcao = '3c675a';
 // const test_url = 'https://opensky-network.org/api/flights/aircraft?icao24=3c675a&begin=1517184000&end=1517270400';
 
-async function getAirports(planeIcao) {
+module.exports = async function getAirports(planeIcao) {
     console.log(planeIcao);
     let airport = {
             arrival: "",
@@ -19,8 +19,7 @@ async function getAirports(planeIcao) {
     console.log(data[0].estDepartureAirport);
     airport.destination = data[0].estDepartureAirport;
     return airport;
-
-    }
+};
 
 
 // getAirports(planeIcao);

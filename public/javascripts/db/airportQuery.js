@@ -44,15 +44,24 @@ function originAirportLocation(airportCode) {
 }
 
 //GET destination airport information from DB
+
 function destinationAirportLocation(airportCode) {
     dest.connect()
         .then(() => console.log("Connected successfuly"))
         .then(() => dest.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
-        .then(results => setDest(results))
+        .then(results => module.exports = setDest(results))
         .catch(e => console.log(e))
         .finally(() => dest.end())
 }
 
+function setDest(destinationAirportData) {
+    console.log("Destination");
+    // console.log(destinationAirportData.rows);
+    console.log("Name: " + destinationAirportData.rows[0].name);
+    console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
+    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
+    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].longitude);
+}
 //Collect origin airport long/lat
 function setOrigin(originAirportData) {
     console.log("Origin");
@@ -65,14 +74,7 @@ function setOrigin(originAirportData) {
 }
 
 //Collect destination airport long/lat
-function setDest(destinationAirportData) {
-    console.log("Destination");
-    // console.log(destinationAirportData.rows);
-    console.log("Name: " + destinationAirportData.rows[0].name);
-    console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
-    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
-    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].longitude);
-}
+
 
 // var pg = require('pg');
 // var connectionString = "postgres://postgres:jamo1818@localhost/ip:5433/aircraftModel";
