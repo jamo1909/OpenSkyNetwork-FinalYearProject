@@ -56,8 +56,8 @@ module.exports = async function getPlane() {
     const url = "https://opensky-network.org/api/states/all?begin=" + unixTime.hourBehind + "&end=" + unixTime.twoHoursBehind + "";
     const response = await fetch(url);
     const data = await response.json();
-    // console.log(data.states[0]);
     plane.icao = data.states[0][0];
+    console.log(plane.icao);
     plane.lat = data.states[0][5];
     plane.long = data.states[0][6];
     checkPlaneInformation(plane);
