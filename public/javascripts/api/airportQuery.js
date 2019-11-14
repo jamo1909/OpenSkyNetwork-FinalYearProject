@@ -22,6 +22,7 @@ function getCurrentTimeInUnix() {
     return unixTime;
 }
 
+//TODO: Fix here problem
 module.exports = async function getAirports(planeIcao) {
     let airport = {
             arrival: "",
