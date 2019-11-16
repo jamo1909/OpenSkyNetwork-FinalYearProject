@@ -4,23 +4,27 @@
     <title>Data</title>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script rel="script" src='/javascripts/api/airportQuery.js'></script>
-    <!--    <script rel="script" src='/javascripts/db/airportQuery.js'></script>-->
+    <!--    <script rel="script" src='/javascripts/api/airportQuery.js'></script>-->
+    <script rel="text/javascript" src='/javascripts/api/airportQuery.js'></script>
+    <script rel="text/javascript" src='/javascripts/DistanceFormula.js'></script>
+
 
 </head>
 <body>
 <% include templates/header.ejs %>
-<table id="data">
-    <tr>
-        <th>ICAO24</th>
-        <th>CountryOrigin</th>
-        <th>longitude</th>
-        <th>latitude</th>
-        <th>altitude</th>
-        <th>velocity m/s</th>
-    </tr>
+<p>Plane Icao: <%= planeIcao %></p>
+<p>Plane lat: <%= planeLat %></p>
+<p>Plane long: <%= planeLong %></p>
+<p>Origin Airport: <%= originAirportName %></p>
+<p>Latitude: <%= originAirportLat %></p>
+<p>Longitude: <%= originAirportLong %></p>
+<p>Destination Airport: <%= destinationAirportName %></p>
+<p>Latitude: <%= destinationAirportLat %></p>
+<p>Longitude: <%= destinationAirportLong %></p>
+<p>Distance Between Airports: <%= distanceOriginToDestination %></p>
+<p>Distance Between plane to Destination: <%= distancePlaneToDestination %></p>
+<p>Distance Between plane to Origin: <%= distancePlaneToOrigin %></p>
 
-</table>
 <% include templates/footer.ejs %>
 
 </body>

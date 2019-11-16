@@ -16,9 +16,9 @@ const dest = new Client({
 });
 
 //TODO: Remove
-//change to import values - Remove
-var originAirport = "ESSA";
-var destinationAirport = "EDDF";
+// change to import values - Remove
+const originAirport = "ESSA";
+const destinationAirport = "EDDF";
 originAirportLocation(originAirport);
 destinationAirportLocation(destinationAirport);
 
@@ -31,6 +31,8 @@ let destinationAirportCoordinates = {
     long: 0
 };
 
+
+//TODO: Get proper return function for promise
 //GET origin airport information from DB
 function originAirportLocation(airportCode) {
     model.connect()
@@ -42,15 +44,24 @@ function originAirportLocation(airportCode) {
 }
 
 //GET destination airport information from DB
+
 function destinationAirportLocation(airportCode) {
     dest.connect()
         .then(() => console.log("Connected successfuly"))
         .then(() => dest.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
-        .then(results => setDest(results))
+        .then(results => module.exports = setDest(results))
         .catch(e => console.log(e))
         .finally(() => dest.end())
 }
 
+function setDest(destinationAirportData) {
+    console.log("Destination");
+    // console.log(destinationAirportData.rows);
+    console.log("Name: " + destinationAirportData.rows[0].name);
+    console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
+    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
+    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].longitude);
+}
 //Collect origin airport long/lat
 function setOrigin(originAirportData) {
     console.log("Origin");
@@ -63,12 +74,27 @@ function setOrigin(originAirportData) {
 }
 
 //Collect destination airport long/lat
-function setDest(destinationAirportData) {
-    console.log("Destination");
-    // console.log(destinationAirportData.rows);
-    console.log("Name: " + destinationAirportData.rows[0].name);
-    console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
-    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
-    destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].longitude);
-}
 
+
+// var pg = require('pg');
+// var connectionString = "postgres://postgres:jamo1818@localhost/ip:5433/aircraftModel";
+// var pgClient = new pg.Client(connectionString);
+// pgClient.connect()
+//     .then(() => console.log("Connected successfuly"))
+//     .then(() => model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
+//     .then(results => setOrigin(results))
+//     .catch(e => console.log(e))
+//     .finally(() => model.end())
+
+// var pgp = require('pg-promise')(/* options */)
+// var db = pgp('postgres://postgres:jamo1818@localhost:5433/aircraftModel')
+//
+// function originAirportLocation(airportCode) {
+//     db.one("SELECT * from \"airportDatabase\" where icaocode = $1", [airportCode])
+//         .then(function (data) {
+//             console.log('DATA:', data)
+//         })
+//         .catch(function (error) {
+//             console.log('ERROR:', error)
+//         })
+// }
