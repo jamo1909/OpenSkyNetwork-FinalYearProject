@@ -12,26 +12,28 @@ function getCurrentTimeInUnix() {
     };
     let myDate = new Date();
     unixTime.now = myDate.getTime() / 1000.0;
-    console.log("UnixTime.now: " + unixTime.now);
+    // console.log("UnixTime.now: " + unixTime.now);
     myDate.setDate(myDate.getDay() - 1);
-    unixTime.hourBehind = myDate.getTime() / 1000.0;
+    // unixTime.hourBehind = myDate.getTime() / 1000.0;
     console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
-    myDate.setDate(myDate.getDay() - 1);
+    // myDate.setDate(myDate.getDay() - 2);
     unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
     console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
     return unixTime;
 }
 
-//TODO: Fix here problem
 module.exports = async function getAirports(planeIcao) {
+    console.log("PLane Icao: " + planeIcao);
     let airport = {
             arrival: "",
             destination: ""
         };
     var unixTime = getCurrentTimeInUnix();
-    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.now) + "&end=" + parseInt(unixTime.twoHoursBehind) + "";
+    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now);
+    console.log("https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.hourBehind) + "&end=" + parseInt(unixTime.twoHoursBehind));
     const response = await fetch(airport_url);
     const data = await response.json();
+    console.log("Airport: ");
     console.log(data[0]);
     console.log(data[0].estArrivalAirport);
     airport.arrival = data[0].estArrivalAirport;

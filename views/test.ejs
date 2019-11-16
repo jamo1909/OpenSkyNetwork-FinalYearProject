@@ -15,14 +15,16 @@
 <p>Plane Icao: <%= planeIcao %></p>
 <p>Plane lat: <%= planeLat %></p>
 <p>Plane long: <%= planeLong %></p>
-
 <p>Origin Airport: <%= originAirportName %></p>
 <p>Latitude: <%= originAirportLat %></p>
 <p>Longitude: <%= originAirportLong %></p>
 <p>Destination Airport: <%= destinationAirportName %></p>
 <p>Latitude: <%= destinationAirportLat %></p>
 <p>Longitude: <%= destinationAirportLong %></p>
-<p>Distance Between: <%= distance %></p>
+<p>Distance Between Airports: <%= distanceOriginToDestination %></p>
+<p>Distance Between plane to Destination: <%= distancePlaneToDestination %></p>
+<p>Distance Between plane to Origin: <%= distancePlaneToOrigin %></p>
+
 <% include templates/footer.ejs %>
 
 </body>

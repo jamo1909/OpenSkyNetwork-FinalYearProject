@@ -3,7 +3,7 @@ var router = express.Router();
 const {Client} = require('pg');
 var airport = require('./../public/javascripts/api/airportQuery');
 var dist = require('./../public/javascripts/calculations/greatCircleDistance');
-var plane = require('./../public/javascripts/DistanceFormula'); //Calls plane icao
+var plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
 
 
 const model = new Client({
@@ -41,12 +41,44 @@ let thisPlane = {
     }
 };
 
+let distance = {
+    originToDestination: 0,
+    planeToOrigin: 0,
+    planeToDestination: 0
+};
+
+plane().then(result => {
+    console.log("Returning plane");
+    thisPlane.icao = result.icao;
+    thisPlane.lat = result.lat;
+    thisPlane.long = result.long;
+    airport(result.icao).then(result => {
+        thisPlane.airport.origin = result.arrival;
+        thisPlane.airport.destination = result.destination;
+        checkAirportInformation(thisPlane.airport.origin);
+        checkAirportInformation(thisPlane.airport.destination);
+        console.log("Test: " + thisPlane.airport.origin);
+        console.log("Test: " + thisPlane.airport.destination);
+        originAirportLocation(thisPlane.airport.origin);
+        destinationAirportLocation(thisPlane.airport.destination);
 
 
-const originAirport = "ESSA";
-const destinationAirport = "EDDF";
-originAirportLocation(originAirport);
-destinationAirportLocation(destinationAirport);
+    }).catch(err => {
+        console.log(err);
+    });
+}).catch(err => {
+    console.log(err);
+});
+
+// const originAirport = "ESSA";
+// const destinationAirport = "EDDF";
+function checkAirportInformation(airports) {
+    if (airports == null) {
+        console.log("There is a null " + airports);
+    } else {
+        console.log("Information is correct");
+    }
+}
 
 
 function originAirportLocation(airportCode) {
@@ -56,6 +88,16 @@ function originAirportLocation(airportCode) {
         .then(results => setOrigin(results))
         .catch(e => console.log(e))
         .finally(() => model.end())
+}
+
+//GET destination airport information from DB
+function destinationAirportLocation(airportCode) {
+    dest.connect()
+        .then(() => console.log("Connected successfuly"))
+        .then(() => dest.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
+        .then(results => setDest(results))
+        .catch(e => console.log(e))
+        .finally(() => dest.end())
 }
 
 //Collect origin airport long/lat
@@ -80,35 +122,17 @@ function setDest(destinationAirportData) {
     destinationAirportCoordinates.long = parseFloat(destinationAirportData.rows[0].longitude);
 }
 
-//GET destination airport information from DB
-function destinationAirportLocation(airportCode) {
-    dest.connect()
-        .then(() => console.log("Connected successfuly"))
-        .then(() => dest.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
-        .then(results => setDest(results))
-        .catch(e => console.log(e))
-        .finally(() => dest.end())
-}
 
-plane().then(result => {
-    console.log("Returning plane");
-    thisPlane.icao = result.icao;
-    thisPlane.lat = result.lat;
-    thisPlane.long = result.long;
-    airport(result.icao).then(result => {
-        thisPlane.airport.origin = result.arrival;
-        thisPlane.airport.destination = result.destination;
-    }).catch(err => {
-        console.log(err);
-    });
-}).catch(err => {
-    console.log(err);
-});
-
+// thisPlane.airport.origin = result.airportOrigin;
+// thisPlane.airport.origin = result.airportDest;
 
 
 router.get('/', function (req, res, next) {
-    var distance = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+    console.log("PLANE: ");
+    console.log(thisPlane);
+    distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+    distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
+    distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
     res.render('test', {
         planeIcao: thisPlane.icao,
         planeLat: thisPlane.lat,
@@ -119,7 +143,9 @@ router.get('/', function (req, res, next) {
         destinationAirportName: destinationAirportCoordinates.name,
         destinationAirportLat: destinationAirportCoordinates.lat,
         destinationAirportLong: destinationAirportCoordinates.long,
-        distance: distance
+        distanceOriginToDestination: distance.originToDestination,
+        distancePlaneToDestination: distance.planeToDestination,
+        distancePlaneToOrigin: distance.planeToOrigin
     });
 });
 
