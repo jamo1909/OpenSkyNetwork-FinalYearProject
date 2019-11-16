@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 var map = require('./routes/map');
 var data = require('./routes/data');
 var search = require('./routes/search');
-var test = require('./routes/test');
+var test = require('./routes/distance');
 
 var app = express();
 
