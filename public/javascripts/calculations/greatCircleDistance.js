@@ -1,18 +1,3 @@
-
-//Default to Dublin Airport
-const originAirport = {
-    lat: 53.4264481,
-    long: -6.2499098
-};
-//Default to London Airport
-const destAirport = {
-    lat: 51.470020,
-    long: -0.454295
-};
-
-//Call function
-// distance(originAirport.lat, originAirport.long, destAirport.lat, destAirport.long);
-
 //Haversine function to calculate distance on the earth(GreaterCircleDistance)
 module.exports = function distance(latOne, longOne, latTwo, longTwo) {
     console.log("Point One: " + latOne + "," + longOne);
@@ -32,7 +17,7 @@ module.exports = function distance(latOne, longOne, latTwo, longTwo) {
     return icaoDistanceCorrectionFactor(distance);
 };
 
-//Version 2 - GreaterCircleDistance
+//V2 - GreaterCircleDistance
 // function distanceTwo(latOne, longOne, latTwo, longTwo) {
 //     var x1 = toRadians(latOne);
 //     var y1 = toRadians(longOne);
@@ -67,16 +52,16 @@ function icaoDistanceCorrectionFactor(distance) {
     return distance;
 }
 
-//Connecting DB
-async function getCurrentPLanes() {
-    var icao = document.getElementById("icaoNumber").value;
-    var time = getCurrentTimeInUnix();
-    //console.log(icao);
-    var api_url = 'https://opensky-network.org/api/states/all?';
-    const response = await fetch(api_url);
-    const data = await response.json();
-    console.log(data);
-    console.log(data.states[0][0]);
-    var plane = data.states[0][0];
-    document.getElementById("planes").innerHTML = plane;
-}
+//TESTING DISTANCE
+// //Default to Dublin Airport
+// const originAirport = {
+//     lat: 53.4264481,
+//     long: -6.2499098
+// };
+// //Default to London Airport
+// const destAirport = {
+//     lat: 51.470020,
+//     long: -0.454295
+// };
+// //Call function
+// distance(originAirport.lat, originAirport.long, destAirport.lat, destAirport.long);

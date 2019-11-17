@@ -133,7 +133,7 @@ router.get('/', function (req, res, next) {
     distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
     distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
     distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-    res.render('test', {
+    res.render('distance', {
         planeIcao: thisPlane.icao,
         planeLat: thisPlane.lat,
         planeLong: thisPlane.long,
@@ -151,7 +151,7 @@ router.get('/', function (req, res, next) {
 
 /* GET data page. */
 router.get('/data', function (req, res, next) {
-    res.render('test', {
+    res.render('distance', {
         title: 'Data'
     });
 });
