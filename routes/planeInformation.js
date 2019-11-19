@@ -34,6 +34,7 @@ plane().then(result => {
     console.log("Returning plane");
     thisPlane.icao = result.icao;
     aircraftDatabase(thisPlane.icao);
+    //TODO: thisPlane.modelIcao
     codeConvertion('A320');
 }).catch(err => {
     console.log(err);
@@ -47,6 +48,7 @@ function setAircraftInfo(aircraftData) {
     thisPlane.model = aircraftData.rows[0].model;
     thisPlane.owner = aircraftData.rows[0].owner;
     thisPlane.modelIcao = aircraftData.rows[0].typecode;
+    console.log(thisPlane);
 }
 
 function aircraftIata(aircraftData) {
@@ -73,13 +75,15 @@ function codeConvertion(airportCode) {
         .finally(() => code.end())
 }
 
-function shorten(str) {
-    thisPlane = thisPlane.model.length - 1;
-}
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('search', {
-        test: test
+        planeIcao: thisPlane.icao,
+        planeIata: thisPlane.iata,
+        planeManufacture: thisPlane.manufacture,
+        planeModel: thisPlane.model,
+        planeOwner: thisPlane.owner,
+        planeModelIcao: thisPlane.modelIcao
     });
 
 });

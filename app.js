@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var map = require('./routes/map');
 var data = require('./routes/data');
-var search = require('./routes/search');
+var planeInformation = require('./routes/planeInformation');
 var distance = require('./routes/distance');
 
 var app = express();
@@ -28,7 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/map', map);
 app.use('/data', data);
-app.use('/search', search);
+app.use('/planeInformation', planeInformation);
 app.use('/distance', distance);
 
 // catch 404 and forward to error handler
