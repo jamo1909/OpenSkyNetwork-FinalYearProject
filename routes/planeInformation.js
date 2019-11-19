@@ -77,7 +77,7 @@ function codeConvertion(airportCode) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('search', {
+    res.render('planeInformation', {
         planeIcao: thisPlane.icao,
         planeIata: thisPlane.iata,
         planeManufacture: thisPlane.manufacture,
