@@ -29,7 +29,7 @@ module.exports = async function getAirports(planeIcao) {
             destination: ""
         };
     var unixTime = getCurrentTimeInUnix();
-    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now);
+    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.hourBehind);
     console.log("https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now));
     const response = await fetch(airport_url);
     const data = await response.json();
@@ -42,5 +42,3 @@ module.exports = async function getAirports(planeIcao) {
     return airport;
 };
 
-
-// getAirports(planeIcao);
