@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const {Client} = require('pg');
-var plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
-var modelDb = require('../public/javascripts/db/aircraftModelQuery');
+const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+const modelDb = require('../public/javascripts/db/aircraftModelQuery');
 
 
 const model = new Client({

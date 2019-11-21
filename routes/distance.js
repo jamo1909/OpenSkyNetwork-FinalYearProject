@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const {Client} = require('pg');
-var airport = require('./../public/javascripts/api/airportQuery');
-var dist = require('./../public/javascripts/calculations/greatCircleDistance');
-var plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+const airport = require('./../public/javascripts/api/airportQuery');
+const dist = require('./../public/javascripts/calculations/greatCircleDistance');
+const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
 
 
 const model = new Client({
@@ -121,11 +121,6 @@ function setDest(destinationAirportData) {
     destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
     destinationAirportCoordinates.long = parseFloat(destinationAirportData.rows[0].longitude);
 }
-
-
-// thisPlane.airport.origin = result.airportOrigin;
-// thisPlane.airport.origin = result.airportDest;
-
 
 router.get('/', function (req, res, next) {
     console.log("PLANE: ");

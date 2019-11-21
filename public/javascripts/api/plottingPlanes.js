@@ -53,7 +53,7 @@ function getCurrentTimeInUnix() {
     myDate.setHours(myDate.getHours() - 1);
     unixTime.hourBehind = myDate.getTime() / 1000.0;
     console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
-    myDate.setHours(myDate.getHours() - 1);
+    myDate.setHours(myDate.getHours() - 2);
     unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
     console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
 }
