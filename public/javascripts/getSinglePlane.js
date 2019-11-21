@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 //TODO: fix to change
-let indexPlane = 4;
+let indexPlane = 2;
 
 function getCurrentTimeInUnix() {
     const unixTime = {
