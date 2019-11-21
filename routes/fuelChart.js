@@ -46,6 +46,7 @@ function fuelChartDatabase(code, distance) {
         .finally(() => model.end())
 }
 
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('fuelChart', {

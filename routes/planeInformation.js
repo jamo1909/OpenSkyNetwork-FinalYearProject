@@ -35,7 +35,6 @@ plane().then(result => {
     thisPlane.icao = result.icao;
     aircraftDatabase(thisPlane.icao);
     //TODO: thisPlane.modelIcao
-    codeConvertion('A320');
 }).catch(err => {
     console.log(err);
 });
@@ -48,7 +47,9 @@ function setAircraftInfo(aircraftData) {
     thisPlane.model = aircraftData.rows[0].model;
     thisPlane.owner = aircraftData.rows[0].owner;
     thisPlane.modelIcao = aircraftData.rows[0].typecode;
-    console.log(thisPlane);
+    console.log((thisPlane.model).substr(0, 3));
+    codeConvertion('A320');
+
 }
 
 function aircraftIata(aircraftData) {
