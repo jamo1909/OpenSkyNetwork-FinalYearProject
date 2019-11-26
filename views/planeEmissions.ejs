@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Aviation</title>
+    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    <link rel='stylesheet' href='/stylesheets/search.css'/>
+
+</head>
+<body>
+<% include templates/header.ejs %>
+<div class="search">
+    <p>Plane Icao: <%= planeIcao %></p>
+    <p>Plane lat: <%= planeLat %></p>
+    <p>Plane long: <%= planeLong %></p>
+    <p>Origin Airport: <%= originAirportName %></p>
+    <p>Latitude: <%= originAirportLat %></p>
+    <p>Longitude: <%= originAirportLong %></p>
+    <p>Destination Airport: <%= destinationAirportName %></p>
+    <p>Latitude: <%= destinationAirportLat %></p>
+    <p>Longitude: <%= destinationAirportLong %></p>
+    <p>Distance Between Airports: <%= distanceOriginToDestination %></p>
+    <p>Distance Between plane to Destination: <%= distancePlaneToDestination %></p>
+    <p>Distance Between plane to Origin: <%= distancePlaneToOrigin %></p>
+
+    <p>planeIata: <%= planeIata %></p>
+    <p>planeManufacture: <%= planeManufacture %></p>
+    <p>planeModel: <%= planeModel %></p>
+    <p>planeOwner: <%= planeOwner %></p>
+    <p>planeModelIcao: <%= planeModelIcao %></p>
+    <p>fuel used: <%= fuelUsed %> total kg/km</p>
+
+
+</div>
+</div>
+</body>
+</html>

@@ -12,13 +12,6 @@ const model = new Client({
     port: 5433,
     database: "aircraftModel"
 });
-const code = new Client({
-    user: "postgres",
-    password: "jamo1818",
-    host: "localhost",
-    port: 5433,
-    database: "aircraftModel"
-});
 
 let thisPlane = {
     icao: "",
@@ -33,7 +26,7 @@ let thisPlane = {
 plane().then(result => {
     console.log("Returning plane");
     thisPlane.icao = result.icao;
-    aircraftDatabase(thisPlane.icao);
+    aircraftDatabase('A320');
     //TODO: thisPlane.modelIcao
 }).catch(err => {
     console.log(err);
@@ -60,21 +53,15 @@ function aircraftIata(aircraftData) {
 }
 
 function aircraftDatabase(airportCode) {
-    model.connect()
-        .then(() => console.log("Connected successfuly"))
-        .then(() => model.query("SELECT * from Public.\"aircraftInformation\" where icao24 = $1", [airportCode]))
+    model.query("SELECT * from Public.\"aircraftInformation\" where icao24 = $1", [airportCode])
         .then(results => setAircraftInfo(results))
         .catch(e => console.log(e))
-        .finally(() => model.end())
 }
 
 function codeConvertion(airportCode) {
-    code.connect()
-        .then(() => console.log("Connected successfuly"))
-        .then(() => code.query("SELECT distinct *  FROM Public.\"aircraftCodeConvertion\" where icao=$1", [airportCode]))
+    model.query("SELECT distinct *  FROM Public.\"aircraftCodeConvertion\" where icao=$1", [airportCode])
         .then(results => aircraftIata(results))
         .catch(e => console.log(e))
-        .finally(() => code.end())
 }
 
 /* GET home page. */

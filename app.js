@@ -10,6 +10,7 @@ var map = require('./routes/map');
 var data = require('./routes/data');
 var planeInformation = require('./routes/planeInformation');
 var distance = require('./routes/distance');
+var planeEmissions = require('./routes/planeEmissions');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/map', map);
 app.use('/data', data);
 app.use('/planeInformation', planeInformation);
 app.use('/distance', distance);
+app.use('/planeEmissions', planeEmissions);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
