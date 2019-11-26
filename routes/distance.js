@@ -13,6 +13,7 @@ const model = new Client({
     port: 5433,
     database: "aircraftModel"
 });
+model.connect();
 const dest = new Client({
     user: "postgres",
     password: "jamo1818",
@@ -82,22 +83,17 @@ function checkAirportInformation(airports) {
 
 
 function originAirportLocation(airportCode) {
-    model.connect()
-        .then(() => console.log("Connected successfuly"))
-        .then(() => model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
+    model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
         .then(results => setOrigin(results))
         .catch(e => console.log(e))
-        .finally(() => model.end())
+
 }
 
 //GET destination airport information from DB
 function destinationAirportLocation(airportCode) {
-    dest.connect()
-        .then(() => console.log("Connected successfuly"))
-        .then(() => dest.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode]))
+    model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
         .then(results => setDest(results))
         .catch(e => console.log(e))
-        .finally(() => dest.end())
 }
 
 //Collect origin airport long/lat
