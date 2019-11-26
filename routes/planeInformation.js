@@ -12,6 +12,7 @@ const model = new Client({
     port: 5433,
     database: "aircraftModel"
 });
+model.connect();
 
 let thisPlane = {
     icao: "",
@@ -26,7 +27,7 @@ let thisPlane = {
 plane().then(result => {
     console.log("Returning plane");
     thisPlane.icao = result.icao;
-    aircraftDatabase('A320');
+    aircraftDatabase(thisPlane.icao);
     //TODO: thisPlane.modelIcao
 }).catch(err => {
     console.log(err);

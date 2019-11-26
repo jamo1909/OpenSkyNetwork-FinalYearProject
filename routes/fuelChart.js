@@ -9,6 +9,7 @@ const model = new Client({
     port: 5433,
     database: "aircraftModel"
 });
+model.connect();
 
 //Testing
 fuelChartDatabase("320", '500');
@@ -46,7 +47,6 @@ function fuelChartDatabase(code, distance) {
     model.query("SELECT \"" + RoundedDistance + "\" from Public.\"fuelChart\" where code = $1", [code])
         .then(results => fuelChartAssign(results, distance))
         .catch(e => console.log(e))
-        .finally(() => model.end())
 }
 
 
