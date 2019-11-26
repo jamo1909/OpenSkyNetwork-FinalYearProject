@@ -14,13 +14,6 @@ const model = new Client({
     database: "aircraftModel"
 });
 model.connect();
-const dest = new Client({
-    user: "postgres",
-    password: "jamo1818",
-    host: "localhost",
-    port: 5433,
-    database: "aircraftModel"
-});
 
 let originAirportCoordinates = {
     name: "",

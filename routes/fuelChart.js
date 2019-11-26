@@ -9,6 +9,7 @@ const model = new Client({
     port: 5433,
     database: "aircraftModel"
 });
+model.connect();
 
 //Testing
 fuelChartDatabase("320", '500');
@@ -43,12 +44,9 @@ function roundDistance(currentDistanceKm) {
 
 function fuelChartDatabase(code, distance) {
     let RoundedDistance = roundDistance(distance);
-    model.connect()
-        .then(() => console.log("Connected successfuly"))
-        .then(() => model.query("SELECT \"" + RoundedDistance + "\" from Public.\"fuelChart\" where code = $1", [code]))
+    model.query("SELECT \"" + RoundedDistance + "\" from Public.\"fuelChart\" where code = $1", [code])
         .then(results => fuelChartAssign(results, distance))
         .catch(e => console.log(e))
-        .finally(() => model.end())
 }
 
 
