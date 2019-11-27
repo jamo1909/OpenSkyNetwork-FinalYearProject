@@ -134,12 +134,6 @@ router.get('/', function (req, res, next) {
     });
 });
 
-/* GET data page. */
-router.get('/data', function (req, res, next) {
-    res.render('distance', {
-        title: 'Data'
-    });
-});
 
 
 module.exports = router;

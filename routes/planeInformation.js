@@ -41,9 +41,9 @@ function setAircraftInfo(aircraftData) {
     thisPlane.model = aircraftData.rows[0].model;
     thisPlane.owner = aircraftData.rows[0].owner;
     thisPlane.modelIcao = aircraftData.rows[0].typecode;
-    console.log((thisPlane.model).substr(0, 3));
+    console.log((thisPlane.model).substr(0, 4));
     //A320
-    codeConvertion((thisPlane.model).substr(0, 3));
+    codeConvertion((thisPlane.model).substr(0, 4));
 
 }
 
