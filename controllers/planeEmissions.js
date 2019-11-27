@@ -156,6 +156,7 @@ function fuelChartAssign(fuelUsed, distance) {
     console.log("distance: " + dist + "nm");
     let total = fuel / (dist * 1.852);
     console.log("fuel per km: " + total.toFixed(2)); //kg/km
+    thisPlane.fuelToUse = total.toFixed(2);
     thisPlane.fuelUsed = (total * distance).toFixed(2);
 }
 
@@ -213,7 +214,12 @@ exports.getPlane = function (req, res, next) {
         planeModelIcao: thisPlane.modelIcao,
         fuelUsed: thisPlane.fuelUsed,
         fuelToUse: thisPlane.fuelToUse
-    });
+    }).finally(
+        insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
+    );
 };
 
-
+function insert(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue) {
+    model.query("INSERT INTO Public.\"dataAnalysis\"(icao, originAirport, destinationAirport, owner, manufacture, model, fuelPerKm, fuelUsed) values($1,$2,$3,$4,$5,$6,$7,$8)", [icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue])
+        .catch(e => console.log(e))
+}
