@@ -7,3 +7,8 @@ The OpenSky Network API lets you retrieve live airspace information in the form 
 
 ## Reference:
 https://opensky-network.org/apidoc/index.html#
+
+https://www.icao.int/environmental-protection/CarbonOffset/Pages/default.aspx
+
+PDF Documentation: https://www.icao.int/environmental-protection/CarbonOffset/Documents/Methodology%20ICAO%20Carbon%20Calculator_v10-2017.pdf
+
