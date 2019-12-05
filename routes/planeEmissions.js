@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 let planeEmissions = require('../controllers/planeEmissions');
 
+router.get('/', planeEmissions.getPlaneEmissions);
 
-router.get('/', planeEmissions.getPlane);
+
+
+
+
 
 
 module.exports = router;

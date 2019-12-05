@@ -187,7 +187,7 @@ function fuelChartDatabase(code, distance) {
 }
 
 
-exports.getPlane = function (req, res, next) {
+exports.getPlaneEmissions = function (req, res, next) {
     console.log("PLANE: ");
     console.log(thisPlane);
     distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);

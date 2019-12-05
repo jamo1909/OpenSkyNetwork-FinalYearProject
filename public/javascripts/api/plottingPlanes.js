@@ -46,6 +46,7 @@ function plotStates(map, markers) {
     });
 }
 
+
 function getCurrentTimeInUnix() {
     let myDate = new Date();
     unixTime.now = myDate.getTime() / 1000.0;
