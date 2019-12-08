@@ -2,6 +2,8 @@ const {Client} = require('pg');
 const airport = require('./../public/javascripts/api/airportQuery');
 const dist = require('./../public/javascripts/calculations/greatCircleDistance');
 const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+// const plane = require('../public/javascripts/getPlanes'); //Calls plane icao
+
 const model = new Client({
     user: "postgres",
     password: "jamo1818",
@@ -172,7 +174,7 @@ function fuelChartAssign(fuelUsed, distance) {
     thisPlane.fuelToUse = total.toFixed(2);
     thisPlane.fuelUsed = (total * distance).toFixed(2);
     if (infoCorrect == true) {
-        insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
+        insertEmissions(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
 
     }
 }
@@ -203,6 +205,10 @@ function fuelChartDatabase(code, distance) {
         .catch(e => console.log(e))
 }
 
+function insertEmissions(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue) {
+    model.query("INSERT INTO Public.\"dataAnalysis\"(icao, originAirport, destinationAirport, owner, manufacture, model, fuelPerKm, fuelUsed) values($1,$2,$3,$4,$5,$6,$7,$8)", [icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue])
+        .catch(e => console.log(e))
+}
 
 exports.getPlaneEmissions = function (req, res, next) {
     console.log("PLANE: ");
@@ -236,7 +242,4 @@ exports.getPlaneEmissions = function (req, res, next) {
 
 };
 
-function insert(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue) {
-    model.query("INSERT INTO Public.\"dataAnalysis\"(icao, originAirport, destinationAirport, owner, manufacture, model, fuelPerKm, fuelUsed) values($1,$2,$3,$4,$5,$6,$7,$8)", [icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue])
-        .catch(e => console.log(e))
-}
+
