@@ -10,6 +10,7 @@ const model = new Client({
     database: "aircraftModel"
 });
 model.connect();
+var infoCorrect = true;
 
 
 let originAirportCoordinates = {
@@ -54,18 +55,15 @@ plane().then(result => {
     airport(result.icao).then(result => {
         thisPlane.airport.origin = result.arrival;
         thisPlane.airport.destination = result.destination;
-        checkAirportInformation(thisPlane.airport.origin);
-        checkAirportInformation(thisPlane.airport.destination);
-        console.log("Test: " + thisPlane.airport.origin);
-        console.log("Test: " + thisPlane.airport.destination);
+        console.log("Origin: " + thisPlane.airport.origin);
+        console.log("Destination: " + thisPlane.airport.destination);
         originAirportLocation(thisPlane.airport.origin);
         destinationAirportLocation(thisPlane.airport.destination);
+        aircraftDatabase(thisPlane.icao);
 
-    }).catch(err => {
-        console.log(err);
     }).then(
         function () {
-            aircraftDatabase(thisPlane.icao);
+            // aircraftDatabase(thisPlane.icao);
         }
     )
 }).catch(err => {
@@ -76,30 +74,36 @@ plane().then(result => {
 function checkAirportInformation(airports) {
     if (airports == null) {
         console.log("There is a null " + airports);
+        infoCorrect = false;
+        return false;
     } else {
         console.log("Information is correct");
+        return true;
     }
 }
 
 
 function originAirportLocation(airportCode) {
-    model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
-        .then(results => setOrigin(results))
-        .catch(e => console.log(e))
+    if (checkAirportInformation(airportCode)) {
+        model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
+            .then(results => setOrigin(results))
+            .catch(e => console.log(e))
+    }
 
 }
 
 //GET destination airport information from DB
 function destinationAirportLocation(airportCode) {
-    model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
-        .then(results => setDest(results))
-        .catch(e => console.log(e))
+    if (checkAirportInformation(airportCode)) {
+        model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
+            .then(results => setDest(results))
+            .catch(e => console.log(e))
+    }
 }
 
 //Collect origin airport long/lat
 function setOrigin(originAirportData) {
     console.log("Origin");
-    // console.log(originAirportData.rows);
     console.log("Name: " + originAirportData.rows[0].name);
     console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
     originAirportCoordinates.name = originAirportData.rows[0].name;
@@ -127,8 +131,12 @@ function setAircraftInfo(aircraftData) {
     thisPlane.owner = aircraftData.rows[0].owner;
     thisPlane.modelIcao = aircraftData.rows[0].typecode;
     console.log((thisPlane.model).substr(0, 4));
-    //A320
-    codeConvertion((thisPlane.model).substr(0, 4));
+    if (thisPlane.manufacture == "Airbus" || thisPlane.manufacture == "Airbus Industrie") {
+        codeConvertion((thisPlane.model).substr(0, 4));
+    } else {
+        codeConvertion((thisPlane.model).substr(0, 3));
+
+    }
 
 }
 
@@ -136,6 +144,11 @@ function aircraftIata(aircraftData) {
     console.log("Name: " + aircraftData.rows[0].iata);
     thisPlane.iata = aircraftData.rows[0].iata;
     console.log(thisPlane);
+    //TODO: Change tempete
+    distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+    distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
+    distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+    fuelChartDatabase(thisPlane.iata, distance.originToDestination);
 }
 
 function aircraftDatabase(airportCode) {
@@ -158,6 +171,10 @@ function fuelChartAssign(fuelUsed, distance) {
     console.log("fuel per km: " + total.toFixed(2)); //kg/km
     thisPlane.fuelToUse = total.toFixed(2);
     thisPlane.fuelUsed = (total * distance).toFixed(2);
+    if (infoCorrect == true) {
+        insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
+
+    }
 }
 
 function roundDistance(currentDistanceKm) {
@@ -190,10 +207,10 @@ function fuelChartDatabase(code, distance) {
 exports.getPlaneEmissions = function (req, res, next) {
     console.log("PLANE: ");
     console.log(thisPlane);
-    distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-    distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
-    distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-    fuelChartDatabase(thisPlane.iata, distance.originToDestination);
+    // distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+    // distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
+    // distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+    // fuelChartDatabase(thisPlane.iata, distance.originToDestination);
     res.render('planeEmissions', {
         planeIcao: thisPlane.icao,
         planeLat: thisPlane.lat,
@@ -214,9 +231,9 @@ exports.getPlaneEmissions = function (req, res, next) {
         planeModelIcao: thisPlane.modelIcao,
         fuelUsed: thisPlane.fuelUsed,
         fuelToUse: thisPlane.fuelToUse
-    }).finally(
-        insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
-    );
+    });
+    // insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
+
 };
 
 function insert(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue) {
