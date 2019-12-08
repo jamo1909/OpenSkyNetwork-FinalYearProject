@@ -40,15 +40,15 @@ module.exports = async function getPlane() {
     const response = await fetch(url);
     const data = await response.json();
     var planes = data.states;
-    for (x in planes) {
-        console.log(planes[x]);
-    }
+    // for (x in planes) {
+    //     console.log(planes[x]);
+    // }
     // plane.icao = data.states[indexPlane][0];
     // console.log(plane.icao);
     // plane.long = data.states[indexPlane][5];
     // plane.lat = data.states[indexPlane][6];
     // checkPlaneInformation(plane);
-    // return plane;
+    return planes;
 };
 
 
