@@ -12,7 +12,7 @@ const unixTime = {
 
 function fetchData() {
     getCurrentTimeInUnix();
-    console.log("Hour Behind: " + unixTime.hourBehind + "\nTwoHoursBehind: " + unixTime.twoHoursBehind);
+    // console.log("Hour Behind: " + unixTime.hourBehind + "\nTwoHoursBehind: " + unixTime.twoHoursBehind);
     return fetch("https://opensky-network.org/api/states/all?begin=" + unixTime.hourBehind + "&end=" + unixTime.twoHoursBehind)
         .then((res) => {
             return res.json();
@@ -56,13 +56,13 @@ function plotStates(map, markers) {
 function getCurrentTimeInUnix() {
     let myDate = new Date();
     unixTime.now = myDate.getTime() / 1000.0;
-    console.log("UnixTime.now: " + unixTime.now);
+    // console.log("UnixTime.now: " + unixTime.now);
     myDate.setHours(myDate.getHours() - 1);
     unixTime.hourBehind = myDate.getTime() / 1000.0;
-    console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
+    // console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
     myDate.setHours(myDate.getHours() - 2);
     unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
-    console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
+    // console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
 }
 
 const airportIcon = L.icon({

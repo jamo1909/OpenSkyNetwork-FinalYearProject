@@ -52,22 +52,22 @@ let distance = {
 plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
-    console.log("Returning plane");
     // for (var x=0; x<1;x++) {
-    var x = 0;
+    var x = 1;
     thisPlane.icao = result[x][0];//.icao;
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;
-    airport(thisPlane.icao).then(resultAirport => {
-        thisPlane.airport.origin = resultAirport.arrival;
-        thisPlane.airport.destination = resultAirport.destination;
-        console.log("Origin: " + thisPlane.airport.origin);
-        console.log("Destination: " + thisPlane.airport.destination);
-        originAirportLocation(thisPlane.airport.origin);
-        destinationAirportLocation(thisPlane.airport.destination);
-        aircraftDatabase(thisPlane.icao);
-    })
-    // }
+    if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
+        airport(thisPlane.icao).then(resultAirport => {
+            thisPlane.airport.origin = resultAirport.arrival;
+            thisPlane.airport.destination = resultAirport.destination;
+            console.log("Origin: " + thisPlane.airport.origin);
+            console.log("Destination: " + thisPlane.airport.destination);
+            originAirportLocation(thisPlane.airport.origin);
+            destinationAirportLocation(thisPlane.airport.destination);
+            aircraftDatabase(thisPlane.icao);
+        })
+    }
 }).catch(err => {
     console.log(err);
 });
@@ -84,6 +84,14 @@ function checkAirportInformation(airports) {
     }
 }
 
+function checkPlaneinformation(plane, long, lat) {
+    if (plane == null || long == null || lat == null) {
+        console.log("This Plane info is incorrect");
+        return false
+    } else {
+        return true
+    }
+}
 
 function originAirportLocation(airportCode) {
     if (checkAirportInformation(airportCode)) {
@@ -145,6 +153,8 @@ function setAircraftInfo(aircraftData) {
 function aircraftIata(aircraftData) {
     if (aircraftData.rowCount == 0) {
         console.log(thisPlane.model + "Not in Database");
+        model.query("INSERT INTO Public.\"missingPlanes\"(planeName) values($1)", [thisPlane.model])
+            .catch(e => console.log(e))
     } else {
         console.log("Name: " + aircraftData.rows[0].iata);
         thisPlane.iata = aircraftData.rows[0].iata;

@@ -40,7 +40,7 @@ module.exports = async function getPlane() {
     const response = await fetch(url);
     const data = await response.json();
     var planes = data.states;
-    console.log(planes[0]);
+    // console.log(planes[0]);
     // for (x in planes) {
     //     console.log(planes[x]);
     // }

@@ -44,9 +44,9 @@ function setAircraftInfo(aircraftData) {
     console.log(thisPlane.model);
     if (thisPlane.manufacture == "Airbus" || thisPlane.manufacture == "Airbus Industrie") {
         codeConvertion((thisPlane.model).substr(0, 4));
-        console.log((thisPlane.model).substr(0, 4));
+        // console.log((thisPlane.model).substr(0, 4));
     } else {
-        console.log((thisPlane.model).substr(0, 3));
+        // console.log((thisPlane.model).substr(0, 3));
         codeConvertion((thisPlane.model).substr(0, 3));
     }
 
@@ -54,9 +54,9 @@ function setAircraftInfo(aircraftData) {
 
 function aircraftIata(aircraftData) {
     if (aircraftData.rowCount == 0) {
-        console.log(thisPlane + " No IATA found");
+        // console.log(thisPlane + " No IATA found");
     } else {
-        console.log("Name: " + aircraftData.rows[0].iata);
+        // console.log("Name: " + aircraftData.rows[0].iata);
         thisPlane.iata = aircraftData.rows[0].iata;
         console.log(thisPlane);
     }

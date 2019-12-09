@@ -15,10 +15,8 @@ const dest = new Client({
     database: "aircraftModel"
 });
 
-//TODO: Remove
-// change to import values - Remove
-const originAirport = "ESSA";
-const destinationAirport = "EDDF";
+// const originAirport = "ESSA";
+// const destinationAirport = "EDDF";
 originAirportLocation(originAirport);
 destinationAirportLocation(destinationAirport);
 
@@ -55,19 +53,19 @@ function destinationAirportLocation(airportCode) {
 }
 
 function setDest(destinationAirportData) {
-    console.log("Destination");
-    // console.log(destinationAirportData.rows);
-    console.log("Name: " + destinationAirportData.rows[0].name);
-    console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
+    // console.log("Destination");
+    // // console.log(destinationAirportData.rows);
+    // console.log("Name: " + destinationAirportData.rows[0].name);
+    // console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
     destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
     destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].longitude);
 }
 //Collect origin airport long/lat
 function setOrigin(originAirportData) {
-    console.log("Origin");
-    // console.log(originAirportData.rows);
-    console.log("Name: " + originAirportData.rows[0].name);
-    console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
+    // console.log("Origin");
+    // // console.log(originAirportData.rows);
+    // console.log("Name: " + originAirportData.rows[0].name);
+    // console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
     originAirportCoordinates.lat = parseFloat(originAirportData.rows[0].latitude);
     originAirportCoordinates.long = parseFloat(originAirportData.rows[0].longitude);
 

@@ -43,7 +43,6 @@ let distance = {
 };
 
 plane().then(result => {
-    console.log("Returning plane");
     thisPlane.icao = result.icao;
     thisPlane.lat = result.lat;
     thisPlane.long = result.long;
@@ -69,9 +68,9 @@ plane().then(result => {
 // const destinationAirport = "EDDF";
 function checkAirportInformation(airports) {
     if (airports == null) {
-        console.log("There is a null " + airports);
+        // console.log("There is a null " + airports);
     } else {
-        console.log("Information is correct");
+        // console.log("Information is correct");
     }
 }
 
@@ -92,10 +91,10 @@ function destinationAirportLocation(airportCode) {
 
 //Collect origin airport long/lat
 function setOrigin(originAirportData) {
-    console.log("Origin");
-    // console.log(originAirportData.rows);
-    console.log("Name: " + originAirportData.rows[0].name);
-    console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
+    // console.log("Origin");
+    // // console.log(originAirportData.rows);
+    // console.log("Name: " + originAirportData.rows[0].name);
+    // console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
     originAirportCoordinates.name = originAirportData.rows[0].name;
     originAirportCoordinates.lat = parseFloat(originAirportData.rows[0].latitude);
     originAirportCoordinates.long = parseFloat(originAirportData.rows[0].longitude);
@@ -104,9 +103,9 @@ function setOrigin(originAirportData) {
 
 //Collect destination airport long/lat
 function setDest(destinationAirportData) {
-    console.log("Destination");
-    console.log("Name: " + destinationAirportData.rows[0].name);
-    console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
+    // console.log("Destination");
+    // console.log("Name: " + destinationAirportData.rows[0].name);
+    // console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
     destinationAirportCoordinates.name = destinationAirportData.rows[0].name;
     destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
     destinationAirportCoordinates.long = parseFloat(destinationAirportData.rows[0].longitude);
