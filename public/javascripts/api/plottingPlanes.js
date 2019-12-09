@@ -31,18 +31,24 @@ function fetchData() {
 function plotStates(map, markers) {
     fetchData().then(function (states) {
         states.forEach((state) => {
-            const lat = state[6],
-                lng = state[5],
-                icao24 = state[0];
+            if (state[2] == 'Ireland') {
+                const lat = state[6],
+                    lng = state[5],
+                    icao24 = state[0];
 
-            if (markers[icao24]) {
-                markers[icao24].setLatLng([lat, lng]);
-            } else {
-                markers[icao24] = L.marker([lat, lng]);
-                markers[icao24].addTo(map);
+                if (markers[icao24]) {
+                    markers[icao24].setLatLng([lat, lng]);
+                } else {
+                    markers[icao24] = L.marker([lat, lng], {icon: airportIcon});
+                    markers[icao24].addTo(map)
+                        .bindPopup('ICAO Code: ' + icao24 + ' <br>' +
+                            'Lat: ' + lat + ' <br>' +
+                            'Long: ' + lng + ' <br>');
+                }
             }
         });
         setTimeout(() => plotStates(map, markers), 3000);
+
     });
 }
 
@@ -59,7 +65,12 @@ function getCurrentTimeInUnix() {
     console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
 }
 
-
+const airportIcon = L.icon({
+    iconUrl: '/images/planeIconTest.png',
+    iconSize: [15, 15], // size of the icon
+    iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+    popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+});
 const icon = L.icon;
 var map = L.map(document.getElementById('Map')).setView([48.8583736, 2.2922926], 4);
 
