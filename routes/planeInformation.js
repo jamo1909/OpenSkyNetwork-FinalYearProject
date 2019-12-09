@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {Client} = require('pg');
-const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+// const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+const plane = require('../public/javascripts/getPlanes');
 const modelDb = require('../public/javascripts/db/aircraftModelQuery');
 
 
@@ -25,10 +26,9 @@ let thisPlane = {
 
 
 plane().then(result => {
-    console.log("Returning plane");
-    thisPlane.icao = result.icao;
+    // console.log("Returning plane");
+    thisPlane.icao = result[0][0];//.icao;
     aircraftDatabase(thisPlane.icao);
-    //TODO: thisPlane.modelIcao
 }).catch(err => {
     console.log(err);
 });
@@ -36,7 +36,7 @@ plane().then(result => {
 
 //Collect origin airport long/lat
 function setAircraftInfo(aircraftData) {
-    console.log("Name: " + aircraftData.rows[0].icao24);
+    // console.log("Name: " + aircraftData.rows[0].icao24);
     thisPlane.manufacture = aircraftData.rows[0].manufacture;
     thisPlane.model = aircraftData.rows[0].model;
     thisPlane.owner = aircraftData.rows[0].owner;
@@ -44,7 +44,7 @@ function setAircraftInfo(aircraftData) {
     console.log(thisPlane.model);
     if (thisPlane.manufacture == "Airbus" || thisPlane.manufacture == "Airbus Industrie") {
         codeConvertion((thisPlane.model).substr(0, 4));
-        codeConvertion((thisPlane.model).substr(0, 4));
+        console.log((thisPlane.model).substr(0, 4));
     } else {
         console.log((thisPlane.model).substr(0, 3));
         codeConvertion((thisPlane.model).substr(0, 3));
@@ -53,9 +53,14 @@ function setAircraftInfo(aircraftData) {
 }
 
 function aircraftIata(aircraftData) {
-    console.log("Name: " + aircraftData.rows[0].iata);
-    thisPlane.iata = aircraftData.rows[0].iata;
-    console.log(thisPlane);
+    if (aircraftData.rowCount == 0) {
+        console.log(thisPlane + " No IATA found");
+    } else {
+        console.log("Name: " + aircraftData.rows[0].iata);
+        thisPlane.iata = aircraftData.rows[0].iata;
+        console.log(thisPlane);
+    }
+
 }
 
 function aircraftDatabase(airportCode) {

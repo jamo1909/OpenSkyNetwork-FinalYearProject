@@ -1,8 +1,8 @@
 const {Client} = require('pg');
 const airport = require('./../public/javascripts/api/airportQuery');
 const dist = require('./../public/javascripts/calculations/greatCircleDistance');
-const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
-// const plane = require('../public/javascripts/getPlanes'); //Calls plane icao
+// const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+const plane = require('../public/javascripts/getPlanes'); //Calls plane icao
 
 const model = new Client({
     user: "postgres",
@@ -50,24 +50,24 @@ let distance = {
 };
 
 plane().then(result => {
+    // for(x in result){
+    //     for(var x=0; x <=1; x++){
     console.log("Returning plane");
-    thisPlane.icao = result.icao;
-    thisPlane.lat = result.lat;
-    thisPlane.long = result.long;
-    airport(result.icao).then(result => {
-        thisPlane.airport.origin = result.arrival;
-        thisPlane.airport.destination = result.destination;
+    // for (var x=0; x<1;x++) {
+    var x = 0;
+    thisPlane.icao = result[x][0];//.icao;
+    thisPlane.lat = result[x][5];//.lat;
+    thisPlane.long = result[x][6];//.long;
+    airport(thisPlane.icao).then(resultAirport => {
+        thisPlane.airport.origin = resultAirport.arrival;
+        thisPlane.airport.destination = resultAirport.destination;
         console.log("Origin: " + thisPlane.airport.origin);
         console.log("Destination: " + thisPlane.airport.destination);
         originAirportLocation(thisPlane.airport.origin);
         destinationAirportLocation(thisPlane.airport.destination);
         aircraftDatabase(thisPlane.icao);
-
-    }).then(
-        function () {
-            // aircraftDatabase(thisPlane.icao);
-        }
-    )
+    })
+    // }
 }).catch(err => {
     console.log(err);
 });
@@ -132,25 +132,29 @@ function setAircraftInfo(aircraftData) {
     thisPlane.model = aircraftData.rows[0].model;
     thisPlane.owner = aircraftData.rows[0].owner;
     thisPlane.modelIcao = aircraftData.rows[0].typecode;
-    console.log((thisPlane.model).substr(0, 4));
     if (thisPlane.manufacture == "Airbus" || thisPlane.manufacture == "Airbus Industrie") {
+        console.log((thisPlane.model).substr(0, 4));
         codeConvertion((thisPlane.model).substr(0, 4));
     } else {
+        console.log((thisPlane.model).substr(0, 3));
         codeConvertion((thisPlane.model).substr(0, 3));
-
     }
 
 }
 
 function aircraftIata(aircraftData) {
-    console.log("Name: " + aircraftData.rows[0].iata);
-    thisPlane.iata = aircraftData.rows[0].iata;
-    console.log(thisPlane);
-    //TODO: Change tempete
-    distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-    distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
-    distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-    fuelChartDatabase(thisPlane.iata, distance.originToDestination);
+    if (aircraftData.rowCount == 0) {
+        console.log(thisPlane.model + "Not in Database");
+    } else {
+        console.log("Name: " + aircraftData.rows[0].iata);
+        thisPlane.iata = aircraftData.rows[0].iata;
+        console.log(thisPlane);
+        //TODO: Change tempete
+        distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+        distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
+        distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+        fuelChartDatabase(thisPlane.iata, distance.originToDestination);
+    }
 }
 
 function aircraftDatabase(airportCode) {
