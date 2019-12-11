@@ -3,7 +3,7 @@ const router = express.Router();
 
 /* GET map page. */
 router.get('/', function (req, res, next) {
-    res.render('map', {
+    res.render('planeMap', {
         title: 'OpenSky Network Mapping',
     });
 

@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
             }
         };
         // console.log(geoJson);
-        res.render('index', {
+        res.render('airportMap', {
             title: "Express API", // Give a title to our page
             jsonData: results// Pass data to the View
         });

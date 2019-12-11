@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/', function (req, res, next) {
     res.render('index', {
         title: 'OpenSky Network Real Time Emissions',
-        name: 'James Murphy',
+        nameStudent: 'James Murphy',
         student_id: '16421512',
         uni: 'Maynooth University'
     });
