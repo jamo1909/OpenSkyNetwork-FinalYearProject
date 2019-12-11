@@ -16,25 +16,16 @@ function getCurrentTimeInUnix() {
     return unixTime;
 }
 
-function checkPlaneInformation(plane) {
-    if (plane.icao == null || plane.lat == null || plane.long == null) {
-        console.log("There is a null " + plane);
-    } else {
-        console.log("Plane information is correct");
-    }
-}
+//
+// function checkPlaneInformation(plane) {
+//     if (plane.icao == null || plane.lat == null || plane.long == null) {
+//         console.log("There is a null " + plane);
+//     } else {
+//         console.log("Plane information is correct");
+//     }
+// }
 
 module.exports = async function getPlane() {
-    console.log("Searching for plane");
-    let plane = {
-        icao: 0,
-        lat: 0,
-        long: 0,
-        airportOrigin: "",
-        airportDest: "",
-        distanceToOrigin: 0,
-        distanceToDestination: 0
-    };
     const unixTime = getCurrentTimeInUnix();
     const url = "https://opensky-network.org/api/states/all?begin=" + unixTime.hourBehind + "&end=" + unixTime.twoHoursBehind;
     const response = await fetch(url);

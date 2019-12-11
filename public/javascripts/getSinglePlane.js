@@ -41,7 +41,7 @@ module.exports = async function getPlane() {
     const response = await fetch(url);
     const data = await response.json();
     plane.icao = data.states[indexPlane][0];
-    console.log(plane.icao);
+    // console.log(plane.icao);
     plane.long = data.states[indexPlane][5];
     plane.lat = data.states[indexPlane][6];
     checkPlaneInformation(plane);

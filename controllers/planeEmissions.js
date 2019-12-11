@@ -53,26 +53,40 @@ plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
     // for (var x=0; x<1;x++) {
-    var x = 1;
+    var x = 0;
+    // wait(5000);
     thisPlane.icao = result[x][0];//.icao;
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;
     if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
         airport(thisPlane.icao).then(resultAirport => {
-            thisPlane.airport.origin = resultAirport.arrival;
-            thisPlane.airport.destination = resultAirport.destination;
-            console.log("Origin: " + thisPlane.airport.origin);
-            console.log("Destination: " + thisPlane.airport.destination);
-            originAirportLocation(thisPlane.airport.origin);
-            destinationAirportLocation(thisPlane.airport.destination);
-            aircraftDatabase(thisPlane.icao);
+            if (resultAirport.arrival == null || resultAirport.destination == null) {
+                console.log("The airports returned null");
+                console.log("Origin: " + resultAirport.arrival);
+                console.log("Destination: " + resultAirport.destination)
+            } else {
+                thisPlane.airport.origin = resultAirport.arrival;
+                thisPlane.airport.destination = resultAirport.destination;
+                console.log("Origin: " + thisPlane.airport.origin);
+                console.log("Destination: " + thisPlane.airport.destination);
+                originAirportLocation(thisPlane.airport.origin);
+                destinationAirportLocation(thisPlane.airport.destination);
+                aircraftDatabase(thisPlane.icao);
+            }
         })
     }
+    // }
 }).catch(err => {
     console.log(err);
 });
 
-
+function wait(ms) {
+    var start = new Date().getTime();
+    var end = start;
+    while (end < start + ms) {
+        end = new Date().getTime();
+    }
+}
 function checkAirportInformation(airports) {
     if (airports == null) {
         console.log("There is a null " + airports);
@@ -87,6 +101,7 @@ function checkAirportInformation(airports) {
 function checkPlaneinformation(plane, long, lat) {
     if (plane == null || long == null || lat == null) {
         console.log("This Plane info is incorrect");
+        console.log("Long: " + long);
         return false
     } else {
         return true
@@ -114,7 +129,7 @@ function destinationAirportLocation(airportCode) {
 //Collect origin airport long/lat
 function setOrigin(originAirportData) {
     console.log("Origin");
-    console.log("Name: " + originAirportData.rows[0].name);
+    console.log("Name: " + originAirportData.rows[0]);
     console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
     originAirportCoordinates.name = originAirportData.rows[0].name;
     originAirportCoordinates.lat = parseFloat(originAirportData.rows[0].latitude);
@@ -152,14 +167,14 @@ function setAircraftInfo(aircraftData) {
 
 function aircraftIata(aircraftData) {
     if (aircraftData.rowCount == 0) {
-        console.log(thisPlane.model + "Not in Database");
-        model.query("INSERT INTO Public.\"missingPlanes\"(planeName) values($1)", [thisPlane.model])
+        console.log(thisPlane.model + " Not in Database");
+        model.query("INSERT INTO Public.\"missingPlanes\"(planeName) values($1) ", [thisPlane.model])
+        // "INSERT INTO Public.\"missingPlanes\" (planeName) SELECT  t1.planeName FROM Public.\"missingPlanes\" t1 WHERE NOT EXISTS(SELECT planeName FROM Public.\"missingPlanes\" t2 WHERE t1.planeName = t2.planeName)"
             .catch(e => console.log(e))
     } else {
         console.log("Name: " + aircraftData.rows[0].iata);
         thisPlane.iata = aircraftData.rows[0].iata;
         console.log(thisPlane);
-        //TODO: Change tempete
         distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
         distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
         distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);

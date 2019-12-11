@@ -5,29 +5,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
     <link rel='stylesheet' href='/stylesheets/map.css'/>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+
 </head>
 <body>
 <% include templates/header.ejs %>
 <div id='Map'></div>
-
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
 <script>
-
-
     var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
-    var data = <%- JSON.stringify(jsonData) %>;
+    var data =<%- JSON.stringify(jsonData) %>;
 
-
-    // {
-    //     "type": "Feature",
-    //     "properties": {
-    //     "name": "Madang Airport",
-    //         "city": "Madang",
-    //         "country": "Papua New Guinea"
-    // },
-    //     "geometry": { "type": "Point", "coordinates": [ -5.207079887, 145.7890015 ] }
-    //
-    // }
     async function airQualityFetch(lat, long) {
         lat = Math.round(lat * 10) / 10;
         long = Math.round(long * 10) / 10;
@@ -74,6 +61,7 @@
     }
 
 </script>
+<!--<script rel="script" src='/javascripts/api/plottingPlanes.js'></script>-->
 </body>
 
 </html>

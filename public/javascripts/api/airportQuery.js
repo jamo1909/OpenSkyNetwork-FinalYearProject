@@ -29,16 +29,30 @@ module.exports = async function getAirports(planeIcao) {
             destination: ""
         };
     var unixTime = getCurrentTimeInUnix();
+    console.log(planeIcao);
     const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now);
+    console.log(airport_url);
     const response = await fetch(airport_url);
     const data = await response.json();
     // console.log(airport_url);
     // console.log("Airport: ");
     // console.log(data[0]);
     // console.log(data[0].estArrivalAirport);
-    airport.arrival = data[0].estArrivalAirport;
-    // console.log(data[0].estDepartureAirport);
-    airport.destination = data[0].estDepartureAirport;
+    if (data[0] == null) {
+        const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.hourBehind);
+        console.log(airport_url);
+        const response = await fetch(airport_url);
+        const data = await response.json();
+        airport.arrival = data[0].estArrivalAirport;
+        // console.log(data[0].estDepartureAirport);
+        airport.destination = data[0].estDepartureAirport;
+    } else {
+        console.log(data[0]);
+        airport.arrival = data[0].estArrivalAirport;
+        // console.log(data[0].estDepartureAirport);
+        airport.destination = data[0].estDepartureAirport;
+    }
+
     return airport;
 };
 

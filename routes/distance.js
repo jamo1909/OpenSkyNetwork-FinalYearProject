@@ -3,7 +3,8 @@ const router = express.Router();
 const {Client} = require('pg');
 const airport = require('./../public/javascripts/api/airportQuery');
 const dist = require('./../public/javascripts/calculations/greatCircleDistance');
-const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+// const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
+const plane = require('../public/javascripts/getPlanes');
 
 
 const model = new Client({
@@ -43,23 +44,29 @@ let distance = {
 };
 
 plane().then(result => {
-    thisPlane.icao = result.icao;
-    thisPlane.lat = result.lat;
-    thisPlane.long = result.long;
-    airport(result.icao).then(result => {
-        thisPlane.airport.origin = result.arrival;
-        thisPlane.airport.destination = result.destination;
-        checkAirportInformation(thisPlane.airport.origin);
-        checkAirportInformation(thisPlane.airport.destination);
-        console.log("Test: " + thisPlane.airport.origin);
-        console.log("Test: " + thisPlane.airport.destination);
-        originAirportLocation(thisPlane.airport.origin);
-        destinationAirportLocation(thisPlane.airport.destination);
-
-
-    }).catch(err => {
-        console.log(err);
-    });
+    // for(x in result){
+    //     for(var x=0; x <=1; x++){
+    // for (var x=0; x<1;x++) {
+    var x = 1;
+    thisPlane.icao = result[x][0];//.icao;
+    thisPlane.lat = result[x][5];//.lat;
+    thisPlane.long = result[x][6];//.long;
+    if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
+        airport(thisPlane.icao).then(resultAirport => {
+            if (resultAirport.arrival == null || resultAirport.destination == null) {
+                console.log("The airports returned null");
+                console.log("Origin: " + resultAirport.arrival);
+                console.log("Destination: " + resultAirport.destination)
+            } else {
+                thisPlane.airport.origin = resultAirport.arrival;
+                thisPlane.airport.destination = resultAirport.destination;
+                console.log("Origin: " + thisPlane.airport.origin);
+                console.log("Destination: " + thisPlane.airport.destination);
+                originAirportLocation(thisPlane.airport.origin);
+                destinationAirportLocation(thisPlane.airport.destination);
+            }
+        })
+    }
 }).catch(err => {
     console.log(err);
 });
@@ -71,6 +78,15 @@ function checkAirportInformation(airports) {
         // console.log("There is a null " + airports);
     } else {
         // console.log("Information is correct");
+    }
+}
+
+function checkPlaneinformation(plane, long, lat) {
+    if (plane == null || long == null || lat == null) {
+        console.log("This Plane info is incorrect");
+        return false
+    } else {
+        return true
     }
 }
 
@@ -104,7 +120,7 @@ function setOrigin(originAirportData) {
 //Collect destination airport long/lat
 function setDest(destinationAirportData) {
     // console.log("Destination");
-    // console.log("Name: " + destinationAirportData.rows[0].name);
+    console.log("TEST: " + destinationAirportData.rows[0]);
     // console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
     destinationAirportCoordinates.name = destinationAirportData.rows[0].name;
     destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);

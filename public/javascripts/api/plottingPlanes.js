@@ -34,7 +34,8 @@ function plotStates(map, markers) {
             if (state[2] == 'Ireland') {
                 const lat = state[6],
                     lng = state[5],
-                    icao24 = state[0];
+                    icao24 = state[0],
+                    velocity = state[9];
 
                 if (markers[icao24]) {
                     markers[icao24].setLatLng([lat, lng]);
@@ -43,7 +44,8 @@ function plotStates(map, markers) {
                     markers[icao24].addTo(map)
                         .bindPopup('ICAO Code: ' + icao24 + ' <br>' +
                             'Lat: ' + lat + ' <br>' +
-                            'Long: ' + lng + ' <br>');
+                            'Long: ' + lng + ' <br>' +
+                            'velocity: ' + velocity);
                 }
             }
         });
