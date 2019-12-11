@@ -265,7 +265,7 @@ exports.getPlaneEmissions = function (req, res, next) {
         planeOwner: thisPlane.owner,
         planeModelIcao: thisPlane.modelIcao,
         fuelUsed: thisPlane.fuelUsed,
-        fuelToUse: thisPlane.fuelToUse
+        fuelToUse: thisPlane.fuelToUse,
     });
     // insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
 
