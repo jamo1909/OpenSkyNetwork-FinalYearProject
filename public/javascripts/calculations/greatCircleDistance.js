@@ -14,6 +14,7 @@ module.exports = function distance(latOne, longOne, latTwo, longTwo) {
     let distance = Math.round(earthRadius * c);
     console.log("Distance in " + distance + " KM");
     console.log("Distance in " + distance * 0.62137 + " Miles");
+    console.log("Distance in " + distance * 1.852 + " Nautical-Miles");
     return icaoDistanceCorrectionFactor(distance);
 };
 

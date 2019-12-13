@@ -101,7 +101,6 @@ function checkAirportInformation(airports) {
 function checkPlaneinformation(plane, long, lat) {
     if (plane == null || long == null || lat == null) {
         console.log("This Plane info is incorrect");
-        console.log("Long: " + long);
         return false
     } else {
         return true
@@ -160,7 +159,8 @@ function setAircraftInfo(aircraftData) {
         codeConvertion((thisPlane.model).substr(0, 4));
     } else {
         console.log((thisPlane.model).substr(0, 3));
-        codeConvertion((thisPlane.model).substr(0, 3));
+        // codeConvertion((thisPlane.model).substr(0, 3)); //TEST
+        codeConvertion('737');
     }
 
 }
@@ -198,8 +198,8 @@ function fuelChartAssign(fuelUsed, distance) {
     const [dist, fuel] = Object.entries(fuelUsed.rows[0])[0];
     console.log("fuel used: " + fuel);
     console.log("distance: " + dist + "nm");
-    let total = fuel / (dist * 1.852);
-    console.log("fuel per km: " + total.toFixed(2)); //kg/km
+    let total = fuel / dist; //* 1.852);
+    console.log("fuel per nm: " + total.toFixed(2)); //kg/km
     thisPlane.fuelToUse = total.toFixed(2);
     thisPlane.fuelUsed = (total * distance).toFixed(2);
     if (infoCorrect == true) {
@@ -230,7 +230,7 @@ function fuelChartDatabase(code, distance) {
     console.log("CODE: " + code);
     let RoundedDistance = roundDistance(distance);
     model.query("SELECT \"" + RoundedDistance + "\" from Public.\"fuelChart\" where code = $1", [code])
-        .then(results => fuelChartAssign(results, distance))
+        .then(results => fuelChartAssign(results, RoundedDistance))
         .catch(e => console.log(e))
 }
 

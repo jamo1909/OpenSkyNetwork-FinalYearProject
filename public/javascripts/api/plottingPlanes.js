@@ -45,7 +45,7 @@ function plotStates(map, markers) {
                         .bindPopup('ICAO Code: ' + icao24 + ' <br>' +
                             'Lat: ' + lat + ' <br>' +
                             'Long: ' + lng + ' <br>' +
-                            'velocity: ' + velocity);
+                            'velocity: ' + velocity + 'm/s');
                 }
             }
         });

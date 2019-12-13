@@ -11,24 +11,13 @@ const model = new Client({
 model.connect();
 
 router.get('/', function (req, res, next) {
-    model.query("SELECT * from Public.\"airportDatabase\"")
+    // model.query("SELECT * from Public.\"airportDatabase\" where country like 'United Kingdom' OR country like 'Ireland'")
+    model.query("SELECT * from Public.\"airportDatabase\" where country like 'Ireland'")
         .then(results => setGeoJson(results.rows))
         .catch(e => console.log(e));
 
     function setGeoJson(results) {
         // console.log(results);
-        var geoJson = {
-            "type": "Feature",
-            "properties": {
-                "name": results[0].name,
-                "city": results[0].city,
-                "country": results[0].country
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [results[0].latitude, results[0].longitude]
-            }
-        };
         // console.log(geoJson);
         res.render('airportMap', {
             title: "Express API", // Give a title to our page
