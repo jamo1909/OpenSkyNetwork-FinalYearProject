@@ -5,13 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var planeMap = require('./routes/planeMap');
 var airportMap = require('./routes/airportMap');
-var data = require('./routes/data');
-var planeInformation = require('./routes/planeInformation');
-var distance = require('./routes/distance');
 var planeEmissions = require('./routes/planeEmissions');
+var data = require('./routes/data');
+var dataAnalysis = require('./routes/dataAnalysis');
+
+var distance = require('./routes/distance');
+var planeInformation = require('./routes/planeInformation');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -27,13 +29,16 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/data', data);
-app.use('/planeInformation', planeInformation);
-app.use('/distance', distance);
 app.use('/planeEmissions', planeEmissions);
 app.use('/planeMap', planeMap);
 app.use('/airportMap', airportMap);
+app.use('/dataAnalysis', dataAnalysis);
+
+app.use('/data', data);
+app.use('/users', usersRouter);
+app.use('/planeInformation', planeInformation);
+app.use('/distance', distance);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
