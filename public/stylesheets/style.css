@@ -10,8 +10,10 @@ body {
     background-attachment: fixed;
 }
 
-h1 {
-    color: pink;
+.Heading {
+    font-weight: bold;
+    padding-top: 0;
+    color: white;
 }
 
 a {
@@ -19,10 +21,24 @@ a {
 }
 
 .bodyDiv {
-    padding: 50px;
-
+    text-align: center;
+    width: 60%;
+    height: 100%;
+    padding-left: 20%;
+    padding-right: 20%;
 }
 
+.about {
+    height: 100%;
+    padding: 10%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.about p {
+    font-weight: bold;
+    color: white;
+}
 .myButton {
     background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
     background-color: #44c767;
