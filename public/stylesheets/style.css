@@ -14,6 +14,11 @@ body {
     font-weight: bold;
     padding-top: 0;
     color: white;
+    font-size: 50px;
+}
+
+.personalInfo {
+    font-size: 20px;
 }
 
 a {
@@ -30,7 +35,9 @@ a {
 
 .about {
     height: 100%;
-    padding: 10%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-top: 2%;
     background: rgba(0, 0, 0, 0.5);
     color: white;
 }
@@ -39,29 +46,40 @@ a {
     font-weight: bold;
     color: white;
 }
-.myButton {
-    background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
-    background-color: #44c767;
-    border-radius: 28px;
-    border: 1px solid #18ab29;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Arial;
-    font-size: 27px;
-    font-weight: bold;
-    padding: 21px 60px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #2f6627;
+
+.descriptionHeading {
+    text-align: left;
+    font-size: 20px;
+    text-decoration: underline;
 }
 
-.myButton:hover {
-    background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
-    background-color: #5cbf2a;
+.description {
+    font-size: 18px;
 }
 
-.myButton:active {
-    position: relative;
-    top: 1px;
-}
+/*.myButton {*/
+/*    background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);*/
+/*    background-color: #44c767;*/
+/*    border-radius: 28px;*/
+/*    border: 1px solid #18ab29;*/
+/*    display: inline-block;*/
+/*    cursor: pointer;*/
+/*    color: #ffffff;*/
+/*    font-family: Arial;*/
+/*    font-size: 27px;*/
+/*    font-weight: bold;*/
+/*    padding: 21px 60px;*/
+/*    text-decoration: none;*/
+/*    text-shadow: 0px 1px 0px #2f6627;*/
+/*}*/
+
+/*.myButton:hover {*/
+/*    background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);*/
+/*    background-color: #5cbf2a;*/
+/*}*/
+
+/*.myButton:active {*/
+/*    position: relative;*/
+/*    top: 1px;*/
+/*}*/
 
