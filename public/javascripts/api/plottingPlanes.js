@@ -28,15 +28,19 @@ function fetchData() {
         })
 }
 
+function fetchAirports() {
+
+}
+
 function plotStates(map, markers) {
     fetchData().then(function (states) {
         states.forEach((state) => {
+            var airport = getAirports(state[0]);
             if (state[2] == 'Ireland') {
                 const lat = state[6],
                     lng = state[5],
                     icao24 = state[0],
                     velocity = state[9];
-
                 if (markers[icao24]) {
                     markers[icao24].setLatLng([lat, lng]);
                 } else {
@@ -45,7 +49,9 @@ function plotStates(map, markers) {
                         .bindPopup('ICAO Code: ' + icao24 + ' <br>' +
                             'Lat: ' + lat + ' <br>' +
                             'Long: ' + lng + ' <br>' +
-                            'velocity: ' + velocity + 'm/s');
+                            'velocity: ' + velocity + 'm/s <br>' +
+                            'Origin: ' + airport.arrival + '<br>' +
+                            'Destination:' + airport.destination)
                 }
             }
         });
@@ -54,7 +60,33 @@ function plotStates(map, markers) {
     });
 }
 
+async function getAirports(planeIcao) {
+    let airport = {
+        arrival: "",
+        destination: ""
+    };
+    var unixTime = getCurrentTimeInUnix();
+    console.log(planeIcao);
+    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now);
+    console.log(airport_url);
+    const response = await fetch(airport_url);
+    const data = await response.json();
+    if (data[0] == null) {
+        const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.hourBehind);
+        console.log(airport_url);
+        const response = await fetch(airport_url);
+        const data = await response.json();
+        airport.arrival = data[0].estArrivalAirport;
+        // console.log(data[0].estDepartureAirport);
+        airport.destination = data[0].estDepartureAirport;
+    } else {
+        console.log(data[0]);
+        airport.arrival = data[0].estArrivalAirport;
+        airport.destination = data[0].estDepartureAirport;
+    }
 
+    return airport;
+}
 function getCurrentTimeInUnix() {
     let myDate = new Date();
     unixTime.now = myDate.getTime() / 1000.0;

@@ -25,14 +25,14 @@ let thisPlane = {
 };
 
 
-// plane().then(result => {
-//     // console.log("Returning plane");
-//     var x =0;
-//     thisPlane.icao = result[x][0];//.icao;
-//     aircraftDatabase(thisPlane.icao);
-// }).catch(err => {
-//     console.log(err);
-// });
+plane().then(result => {
+    // console.log("Returning plane");
+    var x = 0;
+    thisPlane.icao = result[x][0];//.icao;
+    aircraftDatabase(thisPlane.icao);
+}).catch(err => {
+    console.log(err);
+});
 
 
 //Collect origin airport long/lat

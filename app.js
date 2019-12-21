@@ -10,6 +10,8 @@ var airportMap = require('./routes/airportMap');
 var planeEmissions = require('./routes/planeEmissions');
 var data = require('./routes/data');
 var dataAnalysis = require('./routes/dataAnalysis');
+var documentation = require('./routes/documentation');
+
 
 var distance = require('./routes/distance');
 var planeInformation = require('./routes/planeInformation');
@@ -33,6 +35,9 @@ app.use('/planeEmissions', planeEmissions);
 app.use('/planeMap', planeMap);
 app.use('/airportMap', airportMap);
 app.use('/dataAnalysis', dataAnalysis);
+app.use('/documentation', documentation);
+
+
 
 app.use('/data', data);
 app.use('/users', usersRouter);

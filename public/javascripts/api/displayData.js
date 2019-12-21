@@ -1,5 +1,6 @@
 //Get json of planes in an area
-const api_url = 'https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226';
+const api_url = 'https://opensky-network.org/api/states/all?';
+// const api_url = 'https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226';
 $(document).ready(() => {
     $.get(api_url, ({states}, status) => {
         const $data = $("#data");

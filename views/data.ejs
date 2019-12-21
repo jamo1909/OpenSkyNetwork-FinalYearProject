@@ -3,12 +3,16 @@
 <head>
     <title>Data</title>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    <link rel='stylesheet' href='/stylesheets/data.css'/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script rel="script" src='/javascripts/api/displayData.js'></script>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
 </head>
 <body>
 <% include templates/header.ejs %>
-<table id="data">
+<div style="overflow-y:auto;">
+    <table id="data">
     <tr>
         <th>ICAO24</th>
         <th>CountryOrigin</th>
@@ -17,9 +21,12 @@
         <th>altitude</th>
         <th>velocity m/s</th>
     </tr>
-
 </table>
-<% include templates/footer.ejs %>
+</div>
 
+<% include templates/footer.ejs %>
+<script>
+
+</script>
 </body>
 </html>
