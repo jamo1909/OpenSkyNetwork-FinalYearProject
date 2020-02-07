@@ -52,9 +52,8 @@ let distance = {
 plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
-    // for (var x=0; x<1;x++) {
-    var x = 2;
-    // wait(5000);
+    //for (var x=0; x<3;x++) {
+    var x = 0;
     thisPlane.icao = result[x][0];//.icao;
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;
@@ -75,7 +74,7 @@ plane().then(result => {
             }
         })
     }
-    // }
+    //  }
 }).catch(err => {
     console.log(err);
 });
@@ -107,7 +106,7 @@ function checkPlaneinformation(plane, long, lat) {
     }
 }
 
-function originAirportLocation(airportCode) {
+async function originAirportLocation(airportCode) {
     if (checkAirportInformation(airportCode)) {
         model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
             .then(results => setOrigin(results))
@@ -117,12 +116,13 @@ function originAirportLocation(airportCode) {
 }
 
 //GET destination airport information from DB
-function destinationAirportLocation(airportCode) {
+async function destinationAirportLocation(airportCode) {
     if (checkAirportInformation(airportCode)) {
         model.query("SELECT * from Public.\"airportDatabase\" where icaocode = $1", [airportCode])
             .then(results => setDest(results))
             .catch(e => console.log(e))
     }
+
 }
 
 //Collect origin airport long/lat
