@@ -6,6 +6,9 @@
     <link rel='stylesheet' href='/stylesheets/map.css'/>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.css">
+    <link rel='stylesheet' href='/stylesheets/data.css'/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script rel="script" src='/javascripts/api/displayData.js'></script>
 
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js"></script>
@@ -53,12 +56,15 @@
         border-width: medium;
     }
 
+
 </style>
 <body onload="startTime()">
 <% include templates/header.ejs %>
 <div class="container">
-    <div style="margin-left:5px;">Total Planes: 000</div>
-    <div id="txt" style="margin-left:12px;"></div>
+    <div style="margin-left:12px;">Time:
+        <div id="txt" style="display: inline-block;"></div>
+    </div>
+    <div style="margin-left:5px;">Live Planes: <span id="numPlanes"></span></div>
     <div style="margin-left:12px;">Time:</div>
 </div>
 
@@ -84,6 +90,20 @@
     </div>
 </div>
 
+
+<!--<div style="overflow:auto; height: 200px; width:100%; border-style: solid; border-width: medium;">-->
+<!--    <table id="data" style="width:100%;">-->
+<!--        <tr style="width:100%;">-->
+<!--            <th>ICAO24</th>-->
+<!--            <th>CountryOrigin</th>-->
+<!--            <th>longitude</th>-->
+<!--            <th>latitude</th>-->
+<!--            <th>altitude</th>-->
+<!--            <th>velocity m/s</th>-->
+<!--        </tr>-->
+
+<!--    </table>-->
+<!--</div>-->
 <% include templates/footer.ejs %>
 <script>
     var temperatureIndexJSON = [{
@@ -282,7 +302,7 @@
         m = checkTime(m);
         s = checkTime(s);
         document.getElementById('txt').innerHTML =
-            h + ":" + m + ":" + s;
+            h + ":" + m;
         var t = setTimeout(startTime, 500);
     }
 
@@ -292,6 +312,17 @@
         }  // add zero in front of numbers < 10
         return i;
     }
+
+    //Number of planes
+    numberOfPlanes();
+
+    function numberOfPlanes() {
+        var x = document.getElementById("data").rows.length;
+        document.getElementById("numPlanes").innerHTML = x;
+        setTimeout(numberOfPlanes, 500);
+    }
+
+
 
 </script>
 </body>

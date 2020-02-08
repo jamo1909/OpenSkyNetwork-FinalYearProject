@@ -9,9 +9,22 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 
 </head>
+<style>
+    #myInput {
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 60%;
+        font-size: 16px;
+        padding: 12px 20px 12px 5px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+        margin-left: 20%;
+        margin-top: 50px;
+    }
+</style>
 <body>
 <% include templates/header.ejs %>
-<div style="overflow:auto; height: 400px">
+<div style="overflow:auto; height: 600px;">
     <table id="data">
     <tr>
         <th>ICAO24</th>
@@ -24,9 +37,32 @@
 </table>
 </div>
 
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
 <% include templates/footer.ejs %>
 <script>
-
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("data");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            tx = tr[i].getElementsByTagName("td")[1];
+            if (td || tx) {
+                txtValue = td.textContent || td.innerText;
+                txtValue1 = tx.textContent || tx.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 </script>
 </body>
 </html>
