@@ -17,23 +17,23 @@ fuelChartDatabase("320", '500');
 
 function fuelChartAssign(fuelUsed, distance) {
     const [dist, fuel] = Object.entries(fuelUsed.rows[0])[0];
-    console.log("fuel used: " + fuel);
-    console.log("distance: " + dist + "nm");
+    // console.log("fuel used: " + fuel);
+    // console.log("distance: " + dist + "nm");
     let total = fuel / (dist * 1.852);
-    console.log("fuel per km: " + total.toFixed(2)); //kg/km
+    // console.log("fuel per km: " + total.toFixed(2)); //kg/km
 
 }
 
 function roundDistance(currentDistanceKm) {
-    console.log("KM: " + currentDistanceKm);
+    // console.log("KM: " + currentDistanceKm);
     let currentDistanceNm = currentDistanceKm / 1.852;
-    console.log("NM: " + currentDistanceNm);
+    // console.log("NM: " + currentDistanceNm);
     let roundedDistance = 0;
     let array = [125, 250, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500];
     for (let i = 0; i < array.length; i++) {
         if (array[i] >= currentDistanceNm && i > 0) {
             roundedDistance = array[i];
-            console.log("Rounded Distance " + roundedDistance);
+            // console.log("Rounded Distance " + roundedDistance);
             break;
         } else if (125 > currentDistanceNm) {
             roundedDistance = 125;

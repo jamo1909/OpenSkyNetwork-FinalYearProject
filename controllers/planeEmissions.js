@@ -73,6 +73,9 @@ plane().then(result => {
                 aircraftDatabase(thisPlane.icao);
             }
         })
+    } else {
+        console.log("Plane info incorrect");
+        x
     }
     //  }
 }).catch(err => {
@@ -150,6 +153,8 @@ function setDest(destinationAirportData) {
 //Collect origin airport long/lat
 function setAircraftInfo(aircraftData) {
     console.log("Name: " + aircraftData.rows[0].icao24);
+    console.log("manufacture: " + aircraftData.rows[0].manufacture);
+    console.log("model: " + aircraftData.rows[0].model);
     thisPlane.manufacture = aircraftData.rows[0].manufacture;
     thisPlane.model = aircraftData.rows[0].model;
     thisPlane.owner = aircraftData.rows[0].owner;
@@ -158,16 +163,16 @@ function setAircraftInfo(aircraftData) {
         console.log((thisPlane.model).substr(0, 4));
         codeConvertion((thisPlane.model).substr(0, 4));
     } else {
-        console.log((thisPlane.model).substr(0, 3));
+        console.log(thisPlane.modelIcao);
         // codeConvertion((thisPlane.model).substr(0, 3)); //TEST
-        codeConvertion('737');
+        codeConvertion(thisPlane.modelIcao);
     }
 
 }
 
 function aircraftIata(aircraftData) {
     if (aircraftData.rowCount == 0) {
-        console.log(thisPlane.model + " Not in Database");
+        console.log(thisPlane.modelIcao + " Not in Database");
         model.query("INSERT INTO Public.\"missingPlanes\"(planeName) values($1) ", [thisPlane.model])
         // "INSERT INTO Public.\"missingPlanes\" (planeName) SELECT  t1.planeName FROM Public.\"missingPlanes\" t1 WHERE NOT EXISTS(SELECT planeName FROM Public.\"missingPlanes\" t2 WHERE t1.planeName = t2.planeName)"
             .catch(e => console.log(e))

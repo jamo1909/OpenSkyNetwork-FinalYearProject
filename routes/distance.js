@@ -83,7 +83,7 @@ function checkAirportInformation(airports) {
 
 function checkPlaneinformation(plane, long, lat) {
     if (plane == null || long == null || lat == null) {
-        console.log("This Plane info is incorrect");
+        // console.log("This Plane info is incorrect");
         return false
     } else {
         return true
@@ -120,7 +120,7 @@ function setOrigin(originAirportData) {
 //Collect destination airport long/lat
 function setDest(destinationAirportData) {
     // console.log("Destination");
-    console.log("TEST: " + destinationAirportData.rows[0]);
+    // console.log("TEST: " + destinationAirportData.rows[0]);
     // console.log("Latitude: " + destinationAirportData.rows[0].latitude + "\nLongitude: " + destinationAirportData.rows[0].longitude);
     destinationAirportCoordinates.name = destinationAirportData.rows[0].name;
     destinationAirportCoordinates.lat = parseFloat(destinationAirportData.rows[0].latitude);
