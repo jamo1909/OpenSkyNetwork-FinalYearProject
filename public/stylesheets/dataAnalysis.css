@@ -1,0 +1,46 @@
+body {
+    background-color: gainsboro;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+/*top 6 container -------------------------------------*/
+.container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.container > div {
+    font-size: 30px;
+    padding-top: 30px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 32.2%;
+    height: 60px;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px #ccc;
+    border-style: solid;
+    border-width: medium;
+}
+
+/*Charts css -------------------------------------*/
+.worldPopulationMultiStackedBar, .worldPopulationMultiBar, .averageDegreesLineChart {
+    height: 350px;
+    flex: 1 0 300px;
+}
+
+.dashboard-flex-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.dashboard-flex-container > div {
+    margin: 0.5em;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px #ccc;
+}
+
+

@@ -5,6 +5,7 @@
     <title>Map</title>
     <link rel='stylesheet' href='/stylesheets/map.css'/>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    <link rel='stylesheet' href='/stylesheets/dataAnalysis.css'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.css">
     <link rel='stylesheet' href='/stylesheets/data.css'/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -13,61 +14,22 @@
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.js"></script>
-<style>
-
-    body {
-        background-color: #eeeeee;
-        margin: 0;
-    }
-
-    .worldPopulationMultiStackedBar, .worldPopulationMultiBar, .averageDegreesLineChart {
-        height: 350px;
-        flex: 1 0 300px;
-    }
-
-    .dashboard-flex-container {
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-
-    .dashboard-flex-container > div {
-        margin: 0.5em;
-        background-color: #fff;
-        box-shadow: 1px 1px 1px #ccc;
-    }
-
-    .container {
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-
-    .container > div {
-        font-size: 30px;
-        padding-top: 30px;
-        text-align: center;
-        margin-top: 5px;
-        width: 32.2%;
-        height: 60px;
-        background-color: #fff;
-        box-shadow: 1px 1px 1px #ccc;
-        border-style: solid;
-        border-width: medium;
-    }
-
-
-</style>
 <body onload="startTime()">
 <% include templates/header.ejs %>
+
+<h2 align="center">Data Analysis</h2>
 <div class="container">
     <div style="margin-left:12px;">Time:
         <div id="txt" style="display: inline-block;"></div>
     </div>
-    <div style="margin-left:5px;">Live Planes: <span id="numPlanes"></span></div>
-    <div style="margin-left:12px;">Time:</div>
+    <div style="margin-left:5px;">Live Planes: <span id="numPlanes">000</span></div>
+    <div style="margin-left:12px;">Total Airlines: 000</div>
 </div>
-
+<div class="container">
+    <div style="margin-left:12px;">Total Aircraft models: 000</div>
+    <div style="margin-left:5px;">Live Planes: 0000<span id="numPlanes"></span></div>
+    <div style="margin-left:12px;">Total Fuel: 000</div>
+</div>
 <div class="dashboard-flex-container">
     <div
             id="averageDegreesLineChart"
