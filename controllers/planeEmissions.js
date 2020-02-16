@@ -53,10 +53,14 @@ plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
     //for (var x=0; x<3;x++) {
-    var x = 0;
+    var x = 101;
     thisPlane.icao = result[x][0];//.icao;
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;
+
+    // thisPlane.icao = "4ca987";//.icao;
+    // thisPlane.lat = "-81.1239";//.lat;
+    // thisPlane.long = "28.7161";//.long;
     if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
         airport(thisPlane.icao).then(resultAirport => {
             if (resultAirport.arrival == null || resultAirport.destination == null) {
@@ -75,7 +79,6 @@ plane().then(result => {
         })
     } else {
         console.log("Plane info incorrect");
-        x
     }
     //  }
 }).catch(err => {
@@ -131,7 +134,7 @@ async function destinationAirportLocation(airportCode) {
 //Collect origin airport long/lat
 function setOrigin(originAirportData) {
     console.log("Origin");
-    console.log("Name: " + originAirportData.rows[0]);
+    console.log("Name: " + originAirportData.rows[0].name);
     console.log("Latitude: " + originAirportData.rows[0].latitude + "\nLongitude: " + originAirportData.rows[0].longitude);
     originAirportCoordinates.name = originAirportData.rows[0].name;
     originAirportCoordinates.lat = parseFloat(originAirportData.rows[0].latitude);
@@ -200,6 +203,7 @@ function codeConvertion(airportCode) {
 }
 
 function fuelChartAssign(fuelUsed, distance) {
+
     const [dist, fuel] = Object.entries(fuelUsed.rows[0])[0];
     console.log("fuel used: " + fuel);
     console.log("distance: " + dist + "nm");

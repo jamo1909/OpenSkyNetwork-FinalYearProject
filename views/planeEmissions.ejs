@@ -4,35 +4,244 @@
     <title>Search Aviation</title>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
     <link rel='stylesheet' href='/stylesheets/search.css'/>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--    <script src='../public/javascripts/api/generatePlanePicture.js' type="text/javascript"></script>-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+    <link href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='/stylesheets/map.css'/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
 </head>
+<style>
+    body {
+        font: 15px "Lucida Grande", Helvetica, Arial, sans-serif;
+        color: black;
+    }
+
+    .split {
+        height: 100%;
+        width: 70%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 0px;
+    }
+
+    .splitOne {
+        height: 100%;
+        width: 30%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .left {
+        margin: 45px 0 0 0;
+        left: 0;
+        padding: 0;
+        background-color: white;
+    }
+
+    .right {
+        margin: 45px 0 100px 0;
+        right: 0;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .centered img {
+        width: 150px;
+        border-radius: 50%;
+    }
+
+    .search span {
+        font-weight: bold;
+    }
+
+    .tab {
+        padding-left: 20px;
+    }
+</style>
+
 <body>
 <% include templates/header.ejs %>
-<div class="search">
-    <p>Plane Icao: <%= planeIcao %></p>
-    <p>Plane lat: <%= planeLat %></p>
-    <p>Plane long: <%= planeLong %></p>
-    <p>Origin Airport: <%= originAirportName %></p>
-    <p>Latitude: <%= originAirportLat %></p>
-    <p>Longitude: <%= originAirportLong %></p>
-    <p>Destination Airport: <%= destinationAirportName %></p>
-    <p>Latitude: <%= destinationAirportLat %></p>
-    <p>Longitude: <%= destinationAirportLong %></p>
-    <p>Distance Between Airports: <%= distanceOriginToDestination %></p>
-    <p>Distance Between plane to Destination: <%= distancePlaneToDestination %></p>
-    <p>Distance Between plane to Origin: <%= distancePlaneToOrigin %></p>
 
-    <p>planeIata: <%= planeIata %></p>
-    <p>planeManufacture: <%= planeManufacture %></p>
-    <p>planeModel: <%= planeModel %></p>
-    <p>planeOwner: <%= planeOwner %></p>
-    <p>planeModelIcao: <%= planeModelIcao %></p>
-    <p>fuel used: <%= fuelUsed %> total from airport to airport</p>
-    <p>Fuel per Km: <%= fuelToUse %>kg/km</p>
-
+<div class="splitOne left">
+    <div id="planeTitle" style="text-align: center; font-weight: bold; font-size: 20px;"><%= planeManufacture %> <span
+                id="airplaneModel"><%= planeModel %></span></div>
+    <div class="planePicture"
+         style="width: 100%; height: 30%; position: relative; border-style: solid; border-width: 2px;"></div>
+    <div class="search" style="overflow:auto; border-style: solid; border-width: 2px;">
+        <p><span>Airline: </span><span><%= planeOwner %></span></p>
+        <p><span>Callsign: </span><span><%= planeIcao %></span></p>
+        <p><span class="tab">Latitude: </span><span id="planeLat"><%= planeLat %></span></p>
+        <p><span class="tab">Longitude: </span><span id="planeLong"><%= planeLong %></span></p>
+        <p><span>Origin: </span><span><%= originAirportName %></span></p>
+        <p><span class="tab">Latitude: </span><span id="originLat"><%= originAirportLat %></span></p>
+        <p><span class="tab">Longitude: </span><span id="originLong"><%= originAirportLong %></span></p>
+        <p><span>Destination: </span><span><%= destinationAirportName %></span></p>
+        <p><span class="tab">Latitude: </span><span id="destinationLat"><%= destinationAirportLat %></span></p>
+        <p><span class="tab">Longitude: </span><span id="destinationLong"><%= destinationAirportLong %></span></p>
+        <p><span>Distance Between Airports: </span><span><%= distanceOriginToDestination %></span></p>
+        <p><span>Distance Between plane to Destination: </span><span><%= distancePlaneToDestination %></span></p>
+        <p><span>Distance Between plane to Origin: </span><span><%= distancePlaneToOrigin %></span></p>
+        <!--            <p>planeIata: <%= planeIata %></p>-->
+        <!--            <p class="manufacture">planeManufacture: <%= planeManufacture %></p>-->
+        <!--            <p class="model">planeModel: <%= planeModel %></p>-->
+        <!--            <p>planeModelIcao: <%= planeModelIcao %></p>-->
+        <p><span>fuel used: </span><span><%= fuelUsed %> total from airport to airport</span></p>
+        <p><span>Fuel per Km: </span><span><%= fuelToUse %>kg/km</span></p>
+    </div>
 
 </div>
+
+<div class="split right">
+    <div id='Map'></div>
 </div>
-<% include templates/footer.ejs %>
+<!--<% include templates/footer.ejs %>-->
 </body>
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+<script src="https://www.google.com/jsapi"></script>
+<script>
+    var keyword = document.getElementById("planeTitle").textContent;
+
+    if (keyword == '') {
+
+    }
+    $(document).ready(function () {
+
+        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+            {
+                tags: keyword,
+                tagmode: "any",
+                format: "json"
+            },
+            function (data) {
+                var rnd = Math.floor(Math.random() * data.items.length);
+                var image_src = data.items[0]['media']['m'].replace("_m", "_b");
+                console.log("image_src");
+                $('.planePicture').css('background-image', "url('" + image_src + "')");
+                $('.planePicture').css('background-repeat', "no-repeat");
+                $('.planePicture').css('background-size', "100% 100%");
+            });
+
+    });
+
+    // google.load('search', '1');
+    // google.setOnLoadCallback(OnLoad);
+    // var search;
+    // var keyword  = document.getElementById("planeTitle").textContent;;
+    // function OnLoad()
+    // {
+    //     search = new google.search.ImageSearch();
+    //     search.setSearchCompleteCallback(this, searchComplete, null);
+    //     search.execute(keyword);
+    // }
+    // function searchComplete()
+    // {
+    //     if (search.results && search.results.length > 0)
+    //     {
+    //         //you will probably use jQuery and something like: $('body').css('background-image', "url('" + search.results[rnd]['url'] + "')");
+    //         // document.body.style.backgroundImage = "url('" + search.results[0]['url'] + "')";
+    //         document.getElementsByClassName("planePicture").style.backgroundImage = "url('" + search.results[0]['url'] + "')";
+    //     }
+    // }
+
+
+    // ---------------------------------------------------------
+    var trip = L.layerGroup();
+    var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
+    var plane = {
+        lat: document.getElementById("planeLat").textContent,
+        long: document.getElementById("planeLong").textContent
+    };
+    var originAirport = {
+        lat: document.getElementById("originLat").textContent,
+        long: document.getElementById("originLong").textContent
+    };
+    var destinationAirport = {
+        lat: document.getElementById("destinationLat").textContent,
+        long: document.getElementById("destinationLong").textContent
+    };
+
+
+    var x;
+    const icon = L.icon;
+    var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+    var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', attribution: mbAttr}),
+        streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', attribution: mbAttr});
+
+    var map = L.map('Map', {
+        center: [53, -6.2603],
+        zoom: 6,
+        layers: [streets, trip]
+    });
+    const planeIcon = L.icon({
+        iconUrl: '/images/planeIconTest.png',
+        iconSize: [25, 25], // size of the icon
+        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+    });
+
+    const airportIcon = L.icon({
+        iconUrl: '/images/airport.png',
+        iconSize: [25, 25], // size of the icon
+        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+    });
+
+
+    L.marker([originAirport.lat, originAirport.long], {icon: airportIcon}).addTo(trip);
+    L.marker([destinationAirport.lat, destinationAirport.long], {icon: airportIcon}).addTo(trip);
+    L.marker([plane.long, plane.lat], {icon: planeIcon}).addTo(trip);
+
+    var arrayOfMarkers = [[originAirport.lat, originAirport.long], [destinationAirport.lat, destinationAirport.long], [plane.long, plane.lat]];
+    var bounds = new L.LatLngBounds(arrayOfMarkers);
+    map.fitBounds(bounds);
+
+    var pointA = new L.LatLng(originAirport.lat, originAirport.long);
+    var pointB = new L.LatLng(plane.long, plane.lat, plane.lat);
+    var pointC = new L.LatLng(destinationAirport.lat, destinationAirport.long);
+    var pointList = [pointA, pointB, pointC];
+
+    var firstpolyline = new L.Polyline(pointList, {
+        color: 'red',
+        weight: 3,
+        opacity: 0.5,
+        smoothFactor: 1
+    });
+    firstpolyline.addTo(map);
+
+    var baseLayers = {
+        "Streets": streets,
+        "Grayscale": grayscale
+
+    };
+
+    var overlays = {
+        "Trip": trip
+    };
+
+    L.control.layers(baseLayers, overlays).addTo(map);
+
+
+</script>
+
 </html>

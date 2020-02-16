@@ -42,14 +42,30 @@ module.exports = async function getAirports(planeIcao) {
     //     index = index + 1;
     // }
     let index = -1;
-    do {
-        index++;
-        console.log(data[index].estArrivalAirport);
-        console.log(data[index].estDepartureAirport);
-        console.log(index);
-        airport.arrival = data[index].estArrivalAirport;
-        airport.destination = data[index].estDepartureAirport;
-    } while ((data[index].estArrivalAirport == null) || (data[index].estDepartureAirport == null));
+    let dataSize = Object.keys(data).length;
+
+    if (dataSize == 1) {
+        airport.arrival = "EIDW";
+        airport.destination = "EDDF";
+    } else {
+        do {
+            var test = index + 1;
+            console.log("dataSize : " + dataSize);
+            console.log("index : " + index);
+            console.log("test : " + test);
+            index++;
+            if ((test === dataSize) || data === null) { //average flight distance airlines.net 1113km
+                airport.arrival = "EIDW";
+                airport.destination = "EDDF";
+            } else {
+                // console.log(data[index].estArrivalAirport);
+                // console.log(data[index].estDepartureAirport);
+                // console.log(index);
+                airport.arrival = data[index].estArrivalAirport;
+                airport.destination = data[index].estDepartureAirport;
+            }
+        } while ((data[index].estArrivalAirport == null) || (data[index].estDepartureAirport == null));
+    }
     // if (data[0].estArrivalAirport == null || data[0].estDepartureAirport == null) {
     //     // const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.hourBehind);
     //     // console.log(airport_url);

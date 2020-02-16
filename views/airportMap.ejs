@@ -15,6 +15,12 @@
 
 
 </head>
+<style>
+    .leaflet-popup-content-wrapper {
+        background-color: #000;
+        color: white;
+    }
+</style>
 <body>
 <% include templates/header.ejs %>
 <div id='Map'></div>
@@ -126,6 +132,7 @@
                 airQuality: quality.data.aqi,
                 airStatus: quality.status
             };
+            // getAirQualityColour(parseInt(airQualityData.airQuality));
 
             L.marker([data[x].latitude, data[x].longitude], {icon: airportIcon}).addTo(airports)
                 .bindPopup('Name: ' + data[x].name + ' <br>' +
@@ -139,6 +146,31 @@
         }
     }
 
+    // function getAirQualityColour(airQuality){
+    //     if(airQuality > 0 && airQuality < 25){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
+    //     }else if(airQuality > 25 && airQuality < 50){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'mediumseagreen'
+    //     }else if(airQuality > 50 && airQuality < 75){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'ForestGreen'
+    //     }else if(airQuality > 75 && airQuality < 100){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'ForestGreen'
+    //     }else if(airQuality > 100 && airQuality < 125){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
+    //     }else if(airQuality > 125 && airQuality < 150){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
+    //     }else if(airQuality > 150 && airQuality < 175){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
+    //     }else if(airQuality > 175 && airQuality < 200){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
+    //     }else if(airQuality > 200 && airQuality < 300){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
+    //     }else if(airQuality > 300 && airQuality < 400){
+    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
+    //     }else {
+    //
+    //     };
+    // }
 
     var baseLayers = {
         "Streets": streets,
