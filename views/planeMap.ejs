@@ -65,7 +65,8 @@
                                 'Long: ' + lng + ' <br>' +
                                 'velocity: ' + velocity + 'm/s <br>' +
                                 'Origin: ' + airport.arrival + '<br>' +
-                                'Destination:' + airport.destination)
+                                'Destination:' + airport.destination + ' <br> ' +
+                                '<button onclick="Emissions()">Emissions</button>')
                     }
                 }
             });
@@ -102,20 +103,20 @@
         console.log(airport_url);
         const response = await fetch(airport_url);
         const data = await response.json();
-        if (data[0] == null) {
-            const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.hourBehind);
-            console.log(airport_url);
-            const response = await fetch(airport_url);
-            const data = await response.json();
-            airport.arrival = data[0].estArrivalAirport;
+        if (data[0].estArrivalAirport == null || data[0].estDepartureAirport == null) {
+            // const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.hourBehind);
+            // console.log(airport_url);
+            // const response = await fetch(airport_url);
+            // const data = await response.json();
+            airport.arrival = data[1].estArrivalAirport;
             // console.log(data[0].estDepartureAirport);
-            airport.destination = data[0].estDepartureAirport;
+            airport.destination = data[1].estDepartureAirport;
         } else {
             console.log(data[0]);
             airport.arrival = data[0].estArrivalAirport;
             airport.destination = data[0].estDepartureAirport;
         }
-
+        console.log("TEST: " + airport);
         return airport;
     }
 
