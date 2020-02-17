@@ -5,7 +5,7 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <style>
@@ -16,8 +16,58 @@
 <div class="bodyDiv">
     <div class="about">
         <h1 class="Heading"><%= title %></h1>
+
+        <div class="planePicture"
+             style="width: 100%; height: 31%; position: relative; border-style: solid; border-width: 2px;"></div>
     </div>
 </div>
 <% include templates/footer.ejs %>
+<script>
+    var API_KEY = '15296087-cbd41a05f8c372ea3ac846dcc';
+    var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent('Dublin city') + "&image_type=photo&pretty=true";
+    // $.getJSON(URL, function(data){
+    //     if (parseInt(data.totalHits) > 0) {
+    //         $.each(data.hits, function (i, hit) {
+    //             console.log(hit.largeImageURL);
+    //             console.log("image_src");
+    //             $('.planePicture').css('background-image', "url('" + hit.largeImageURL + "')");
+    //             $('.planePicture').css('background-repeat', "no-repeat");
+    //             $('.planePicture').css('background-size', "100% 100%");
+    //         });
+    //     }else {
+    //         console.log('No hits');
+    //
+    //             $('.planePicture').css('background-image', "url('https://cdn.pixabay.com/photo/2016/04/24/22/30/monitor-1350918_1280.png')");
+    //             $('.planePicture').css('background-repeat', "no-repeat");
+    //             $('.planePicture').css('background-size', "100% 100%");
+    //     }
+    // });
+
+    $.getJSON("https://www.googleapis.com/customsearch/v1?key=AIzaSyAayYlOmYkQ2jI9CPMdjglcGUNEFqzq0ps&cx=017576662512468239146&q=flowers&searchType=image&fileType=jpg&imgSize=xlarge&alt=json",
+        function (data) {
+            $.each(data.items, function (i, item) {
+                $("body").append("<img src=" + item.link + ">");
+            });
+        });
+
+    // var keyword = airports[index].name;
+    // $(document).ready(function () {
+    //     $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+    //         {
+    //             tags: keyword,
+    //             tagmode: "any",
+    //             format: "json"
+    //         },
+    //         function (data) {
+    //             var rnd = Math.floor(Math.random() * data.items.length);
+    //             var image_src = data.items[0]['media']['m'].replace("_m", "_b");
+    //             console.log("image_src");
+    //             $('.planePicture').css('background-image', "url('" + image_src + "')");
+    //             $('.planePicture').css('background-repeat', "no-repeat");
+    //             $('.planePicture').css('background-size', "100% 100%");
+    //         });
+    // });
+
+</script>
 </body>
 </html>

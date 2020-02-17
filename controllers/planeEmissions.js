@@ -53,7 +53,7 @@ plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
     //for (var x=0; x<3;x++) {
-    var x = 0;
+    var x = 1;
     thisPlane.icao = result[x][0];//.icao;
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;
@@ -184,8 +184,8 @@ function aircraftIata(aircraftData) {
         thisPlane.iata = aircraftData.rows[0].iata;
         console.log(thisPlane);
         distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-        distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
-        distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+        distance.planeToOrigin = dist(thisPlane.long, thisPlane.lat, originAirportCoordinates.lat, originAirportCoordinates.long);
+        distance.planeToDestination = dist(thisPlane.long, thisPlane.lat, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
         fuelChartDatabase(thisPlane.iata, distance.originToDestination);
     }
 }

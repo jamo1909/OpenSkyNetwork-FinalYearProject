@@ -183,7 +183,7 @@
     var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
     var airports =<%- JSON.stringify(jsonData) %>;
 
-    var val = "Barrow Walney Island Airport";
+    var val = "London Heathrow Airport";
     var index = airports.findIndex(function (item, i) {
         return item.name === val
     });
@@ -260,22 +260,33 @@
     }
     //-------------------------------------------
     var keyword = airports[index].name;
-    $(document).ready(function () {
-        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-            {
-                tags: keyword,
-                tagmode: "any",
-                format: "json"
-            },
-            function (data) {
-                var rnd = Math.floor(Math.random() * data.items.length);
-                var image_src = data.items[0]['media']['m'].replace("_m", "_b");
+    var API_KEY = '15296087-cbd41a05f8c372ea3ac846dcc';
+    var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(keyword) + "&image_type=photo&pretty=true";
+    $.getJSON(URL, function (data) {
+        if (parseInt(data.totalHits) > 0) {
+            $.each(data.hits, function (i, hit) {
                 console.log("image_src");
-                $('.planePicture').css('background-image', "url('" + image_src + "')");
+                $('.planePicture').css('background-image', "url('" + hit.largeImageURL + "')");
                 $('.planePicture').css('background-repeat', "no-repeat");
                 $('.planePicture').css('background-size', "100% 100%");
             });
+        } else {
+            console.log(airports[index].city);
+            var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].city + " city") + "&image_type=photo&pretty=true";
+            $.getJSON(URL, function (data) {
+                if (parseInt(data.totalHits) > 0) {
+                    $.each(data.hits, function (i, hit) {
+                        console.log(hit.largeImageURL);
+                        console.log("image_src");
+                        $('.planePicture').css('background-image', "url('" + hit.largeImageURL + "')");
+                        $('.planePicture').css('background-repeat', "no-repeat");
+                        $('.planePicture').css('background-size', "100% 100%");
+                    });
+                }
+            });
+        }
     });
+
 
 
     // ---------------------------------------------------------
