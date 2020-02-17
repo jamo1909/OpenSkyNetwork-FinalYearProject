@@ -27,7 +27,8 @@ function getCurrentTimeInUnix() {
 
 module.exports = async function getPlane() {
     const unixTime = getCurrentTimeInUnix();
-    const url = "https://opensky-network.org/api/states/all?begin=" + unixTime.hourBehind + "&end=" + unixTime.twoHoursBehind;
+    const url = "https://opensky-network.org/api/states/all?begin=" + unixTime.twoHoursBehind + "&end=" + unixTime.now;
+    console.log(url);
     const response = await fetch(url);
     const data = await response.json();
     var planes = data.states;

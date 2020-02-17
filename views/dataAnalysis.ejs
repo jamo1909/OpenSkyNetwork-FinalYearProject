@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='/stylesheets/data.css'/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script rel="script" src='/javascripts/api/displayData.js'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js"></script>
@@ -19,17 +20,22 @@
 
 <h2 align="center">Data Analysis</h2>
 <div class="container">
-    <div style="margin-left:12px;">Time:
+    <div style="margin-left:12px;"><span><i class="material-icons">access_alarm</i></span>Time:
         <div id="txt" style="display: inline-block;"></div>
     </div>
-    <div style="margin-left:5px;">Live Planes: <span id="numPlanes">000</span></div>
-    <div style="margin-left:12px;">Total Airlines: 000</div>
+    <div style="margin-left:5px;"><span><i class="material-icons">flight_takeoff</i></span>Live Planes: <span
+                id="numPlanes">000</span></div>
+    <div style="margin-left:12px;"><span><i class="material-icons">card_travel</i></span>Total Airlines: 000</div>
 </div>
 <div class="container">
-    <div style="margin-left:12px;">Total Aircraft models: 000</div>
-    <div style="margin-left:5px;">Live Planes: 0000<span id="numPlanes"></span></div>
-    <div style="margin-left:12px;">Total Fuel: 000</div>
+    <div style="margin-left:12px;"><span><i class="material-icons">airplanemode_active</i></span>Total Aircraft models:
+        000
+    </div>
+    <div style="margin-left:5px;"><span><i class="material-icons">network_check</i></span>Avg fuel Consumption:
+        0000<span id="numPlanes"></span></div>
+    <div style="margin-left:12px;"><span><i class="material-icons">local_gas_station</i></span>Total Fuel: 000</div>
 </div>
+
 <div class="dashboard-flex-container">
     <div
             id="averageDegreesLineChart"

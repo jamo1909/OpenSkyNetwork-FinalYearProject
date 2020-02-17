@@ -34,8 +34,8 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));
 
 
-app.use('/', start);
-app.use('/index', indexRouter);
+app.use('/start', start);
+app.use('/', indexRouter);
 app.use('/planeEmissions', planeEmissions);
 app.use('/planeMap', planeMap);
 app.use('/airportMap', airportMap);
