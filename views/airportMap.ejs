@@ -116,35 +116,18 @@
         iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
         popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
     });
-    airQualityFetch(data);
 
-    async function airQualityFetch(data) {
-        for (var x = 0; x < 1800; x++) {
-            let lat = data[x].latitude;
-            let long = data[x].longitude;
-            lat = Math.round(lat * 10) / 10;
-            long = Math.round(long * 10) / 10;
-            const url = "https://api.waqi.info/feed/geo:" + lat + ";" + long + "/?token=" + token + "";
-            console.log(url);
-            const response = await fetch(url);
-            const quality = await response.json();
-            let airQualityData = {
-                airQuality: quality.data.aqi,
-                airStatus: quality.status
-            };
-            // getAirQualityColour(parseInt(airQualityData.airQuality));
-
-            L.marker([data[x].latitude, data[x].longitude], {icon: airportIcon}).addTo(airports)
-                .bindPopup('Name: ' + data[x].name + ' <br>' +
-                    'City: ' + data[x].city + ' <br> ' +
-                    'Country: ' + data[x].country + ' <br> ' +
-                    'Lat: ' + data[x].latitude + ' <br> ' +
-                    'Long: ' + data[x].longitude + ' <br> ' +
-                    'altitude: ' + data[x].altitude + 'm <br>' +
-                    'Air Quality: ' + airQualityData.airQuality + ' AQI<br> ' +
-                    'Air Status: ' + airQualityData.airStatus)
-        }
+    for (x in data) {
+        L.marker([data[x].latitude, data[x].longitude], {icon: airportIcon}).addTo(airports)
+            .bindPopup('Name: ' + data[x].name + ' <br>' +
+                'City: ' + data[x].city + ' <br> ' +
+                'Country: ' + data[x].country + ' <br> ' +
+                'Lat: ' + data[x].latitude + ' <br> ' +
+                'Long: ' + data[x].longitude + ' <br> ' +
+                'altitude: ' + data[x].altitude + 'm <br>' +
+                '<button onclick="Emissions()">Emissions</button>')
     }
+
 
     // function getAirQualityColour(airQuality){
     //     if(airQuality > 0 && airQuality < 25){

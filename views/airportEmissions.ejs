@@ -85,7 +85,8 @@
     td, th {
         border: 1px solid black;
         text-align: left;
-        padding: 12px;
+        padding: 11px;
+        text-align: center;
     }
 
     tr:nth-child(even) {
@@ -97,9 +98,9 @@
 <% include templates/header.ejs %>
 
 <div class="splitOne left">
-    <div id="planeTitle" style="text-align: center; font-weight: bold; font-size: 20px;"></div>
+    <div id="planeTitle" style="text-align: center; font-weight: bold; font-size: 20px; padding: 12px"></div>
     <div class="planePicture"
-         style="width: 100%; height: 30%; position: relative; border-style: solid; border-width: 2px;"></div>
+         style="width: 100%; height: 31%; position: relative; border-style: solid; border-width: 2px;"></div>
     <div class="search" style="overflow:auto; border-style: solid; border-width: 2px;">
         <!--        <p><span>Name: </span><span id="name"><%- jsonData[0].name %></span></p>-->
         <!--        <p><span>City: </span><span><%- jsonData[0].city %></span></p>-->
@@ -135,12 +136,12 @@
                 <td></td>
             </tr>
             <tr>
-                <td>Air Status:</td>
+                <td>Air Quality :</td>
                 <td></td>
             </tr>
             <tr>
-                <td>Air Quality :</td>
-                <td></td>
+                <td>Air Status:</td>
+                <td id="aqiColour"></td>
             </tr>
             <tr>
                 <td>Nitrogen Dioxide(NO2):</td>
@@ -163,8 +164,8 @@
                 <td></td>
             </tr>
             <tr>
-                <td>Sulfur dioxide(SO2):</td>
-                <td></td>
+                <td>Link:</td>
+                <td><a id="airQualityLink">Aqicn Link</a></td>
             </tr>
         </table>
 
@@ -179,9 +180,10 @@
 </body>
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
 <script>
+    var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
     var airports =<%- JSON.stringify(jsonData) %>;
 
-    var val = "Belfast International Airport";
+    var val = "Barrow Walney Island Airport";
     var index = airports.findIndex(function (item, i) {
         return item.name === val
     });
@@ -205,8 +207,59 @@
     cell2.innerHTML = airports[index].altitude;
 
 
+    airQualityFetch(airports[index].latitude, airports[index].longitude);
+
+    async function airQualityFetch(lat, long) {
+        lat = Math.round(lat * 10) / 10;
+        long = Math.round(long * 10) / 10;
+        const url = "https://api.waqi.info/feed/geo:" + lat + ";" + long + "/?token=" + token + "";
+        console.log(url);
+        const response = await fetch(url);
+        const quality = await response.json();
+        // var cell2 = table.rows[6].cells[1];
+        // cell2.innerHTML = quality.status ;
+        var cell2 = table.rows[6].cells[1];
+        cell2.innerHTML = quality.data.aqi + " AQI";
+        getAirQualityColour(quality.data.aqi);
+        var cell2 = table.rows[8].cells[1];
+        cell2.innerHTML = quality.data.iaqi.no2.v;
+        var cell2 = table.rows[9].cells[1];
+        cell2.innerHTML = quality.data.iaqi.o3.v;
+        var cell2 = table.rows[10].cells[1];
+        cell2.innerHTML = quality.data.iaqi.pm10.v;
+        var cell2 = table.rows[11].cells[1];
+        cell2.innerHTML = quality.data.iaqi.pm25.v;
+        var cell2 = table.rows[12].cells[1];
+        cell2.innerHTML = quality.data.iaqi.so2.v;
+        var a = document.getElementById('airQualityLink'); //or grab it by tagname etc
+        a.href = quality.data.city.url;
+        // var cell2 = table.rows[13].cells[1];
+        // cell2.innerHTML = quality.data.city.url;
+    }
+
+    function getAirQualityColour(airQuality) {
+        if (airQuality >= 0 && airQuality < 50) {
+            document.getElementById("aqiColour").innerHTML = "Good";
+            document.getElementById("aqiColour").style.backgroundColor = '#2E8B57'
+        } else if (airQuality >= 50 && airQuality <= 100) {
+            document.getElementById("aqiColour").innerHTML = "Moderate";
+            document.getElementById("aqiColour").style.backgroundColor = '#FFD700'
+        } else if (airQuality > 100 && airQuality <= 150) {
+            document.getElementById("aqiColour").innerHTML = "Unhealthy for Sensitive Group";
+            document.getElementById("aqiColour").style.backgroundColor = '#FF8C00'
+        } else if (airQuality > 150 && airQuality <= 200) {
+            document.getElementById("aqiColour").innerHTML = "Unhealthy";
+            document.getElementById("aqiColour").style.backgroundColor = '#FF0000'
+        } else if (airQuality > 200 && airQuality <= 300) {
+            document.getElementById("aqiColour").innerHTML = "Very Unhealthy";
+            document.getElementById("aqiColour").style.backgroundColor = '#8A2BE2'
+        } else if (airQuality > 300) {
+            document.getElementById("aqiColour").innerHTML = "Hazardous";
+            document.getElementById("aqiColour").style.backgroundColor = '#8B0000'
+        }
+    }
     //-------------------------------------------
-    var keyword = airports[0].name;
+    var keyword = airports[index].name;
     $(document).ready(function () {
         $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
             {
@@ -230,8 +283,8 @@
     var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
 
     var originAirport = {
-        lat: airports[0].latitude,
-        long: airports[0].longitude
+        lat: airports[index].latitude,
+        long: airports[index].longitude
     };
 
     var x;
