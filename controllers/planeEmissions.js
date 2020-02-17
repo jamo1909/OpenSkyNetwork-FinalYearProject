@@ -53,7 +53,7 @@ plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
     //for (var x=0; x<3;x++) {
-    var x = 101;
+    var x = 0;
     thisPlane.icao = result[x][0];//.icao;
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;

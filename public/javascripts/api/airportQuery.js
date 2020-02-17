@@ -50,9 +50,9 @@ module.exports = async function getAirports(planeIcao) {
     } else {
         do {
             var test = index + 1;
-            console.log("dataSize : " + dataSize);
-            console.log("index : " + index);
-            console.log("test : " + test);
+            // console.log("dataSize : " + dataSize);
+            // console.log("index : " + index);
+            // console.log("test : " + test);
             index++;
             if ((test === dataSize) || data === null) { //average flight distance airlines.net 1113km
                 airport.arrival = "EIDW";
