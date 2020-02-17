@@ -78,7 +78,6 @@
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
-        width: 100%;
         margin: 0;
     }
 
@@ -96,32 +95,103 @@
 <body>
 <% include templates/header.ejs %>
 
+<!--<div class="splitOne left">-->
+<!--    <div id="planeTitle" style="text-align: center; font-weight: bold; font-size: 20px;"><%= planeManufacture %> <span-->
+<!--                id="airplaneModel"><%= planeModel %></span></div>-->
+<!--    <div class="planePicture"-->
+<!--         style="width: 100%; height: 30%; position: relative; border-style: solid; border-width: 2px;"></div>-->
+<!--    <div class="search" style="overflow:auto; border-style: solid; border-width: 2px;">-->
+<!--        &lt;!&ndash;        <p><span>Airline: </span><span><%= planeOwner %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span>Callsign: </span><span><%= planeIcao %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span class="tab">Latitude: </span><span id="planeLat"><%= planeLat %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span class="tab">Longitude: </span><span id="planeLong"><%= planeLong %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span>Origin: </span><span><%= originAirportName %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span class="tab">Latitude: </span><span id="originLat"><%= originAirportLat %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span class="tab">Longitude: </span><span id="originLong"><%= originAirportLong %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span>Destination: </span><span><%= destinationAirportName %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span class="tab">Latitude: </span><span id="destinationLat"><%= destinationAirportLat %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span class="tab">Longitude: </span><span id="destinationLong"><%= destinationAirportLong %></span></p>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;        <p><span>Distance Between Airports: </span><span><%= distanceOriginToDestination %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span>Distance Between plane to Destination: </span><span><%= distancePlaneToDestination %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span>Distance Between plane to Origin: </span><span><%= distancePlaneToOrigin %></span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        &lt;!&ndash;            <p>planeIata: <%= planeIata %></p>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;        &lt;!&ndash;            <p class="manufacture">planeManufacture: <%= planeManufacture %></p>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;        &lt;!&ndash;            <p class="model">planeModel: <%= planeModel %></p>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;        &lt;!&ndash;            <p>planeModelIcao: <%= planeModelIcao %></p>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span>fuel used: </span><span><%= fuelUsed %> total from airport to airport</span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <p><span>Fuel per Km: </span><span><%= fuelToUse %>kg/km</span></p>&ndash;&gt;-->
+<!--        <table id="myTable">-->
+<!--            <tr>-->
+<!--                <td>Airline:</td>-->
+<!--                <td><%= planeOwner %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Callsign:</td>-->
+<!--                <td><%= planeIcao %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Latitude:</td>-->
+<!--                <td><%= planeLat %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Longitude:</td>-->
+<!--                <td><%= planeLong %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Origin:</td>-->
+<!--                <td><%= originAirportName %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Latitude:</td>-->
+<!--                <td><%= originAirportLat %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Longitude:</td>-->
+<!--                <td><%= originAirportLong %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Destination:</td>-->
+<!--                <td><%= destinationAirportName %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Latitude:</td>-->
+<!--                <td><%= destinationAirportLat %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Longitude:</td>-->
+<!--                <td><%= destinationAirportLong %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Distance Between Airports:</td>-->
+<!--                <td><%= distanceOriginToDestination %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Distance Between plane to Destination:</td>-->
+<!--                <td><%= distancePlaneToDestination %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Distance Between plane to Origin:</td>-->
+<!--                <td><%= distancePlaneToOrigin %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>fuel used:</td>-->
+<!--                <td><%= fuelUsed %></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Fuel per Km:</td>-->
+<!--                <td><%= fuelToUse %>kg/km</td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </div>-->
+
+<!--</div>-->
 <div class="splitOne left">
     <div id="planeTitle" style="text-align: center; font-weight: bold; font-size: 20px;"><%= planeManufacture %> <span
                 id="airplaneModel"><%= planeModel %></span></div>
     <div class="planePicture"
          style="width: 100%; height: 30%; position: relative; border-style: solid; border-width: 2px;"></div>
     <div class="search" style="overflow:auto; border-style: solid; border-width: 2px;">
-        <!--        <p><span>Airline: </span><span><%= planeOwner %></span></p>-->
-        <!--        <p><span>Callsign: </span><span><%= planeIcao %></span></p>-->
-        <!--        <p><span class="tab">Latitude: </span><span id="planeLat"><%= planeLat %></span></p>-->
-        <!--        <p><span class="tab">Longitude: </span><span id="planeLong"><%= planeLong %></span></p>-->
-        <!--        <p><span>Origin: </span><span><%= originAirportName %></span></p>-->
-        <!--        <p><span class="tab">Latitude: </span><span id="originLat"><%= originAirportLat %></span></p>-->
-        <!--        <p><span class="tab">Longitude: </span><span id="originLong"><%= originAirportLong %></span></p>-->
-        <!--        <p><span>Destination: </span><span><%= destinationAirportName %></span></p>-->
-        <!--        <p><span class="tab">Latitude: </span><span id="destinationLat"><%= destinationAirportLat %></span></p>-->
-        <!--        <p><span class="tab">Longitude: </span><span id="destinationLong"><%= destinationAirportLong %></span></p>-->
-
-        <!--        <p><span>Distance Between Airports: </span><span><%= distanceOriginToDestination %></span></p>-->
-        <!--        <p><span>Distance Between plane to Destination: </span><span><%= distancePlaneToDestination %></span></p>-->
-        <!--        <p><span>Distance Between plane to Origin: </span><span><%= distancePlaneToOrigin %></span></p>-->
-        <!--        &lt;!&ndash;            <p>planeIata: <%= planeIata %></p>&ndash;&gt;-->
-        <!--        &lt;!&ndash;            <p class="manufacture">planeManufacture: <%= planeManufacture %></p>&ndash;&gt;-->
-        <!--        &lt;!&ndash;            <p class="model">planeModel: <%= planeModel %></p>&ndash;&gt;-->
-        <!--        &lt;!&ndash;            <p>planeModelIcao: <%= planeModelIcao %></p>&ndash;&gt;-->
-        <!--        <p><span>fuel used: </span><span><%= fuelUsed %> total from airport to airport</span></p>-->
-        <!--        <p><span>Fuel per Km: </span><span><%= fuelToUse %>kg/km</span></p>-->
         <table id="myTable">
             <tr>
                 <td>Airline:</td>
@@ -133,11 +203,11 @@
             </tr>
             <tr>
                 <td>Latitude:</td>
-                <td><%= planeLat %></td>
+                <td id="planeLat"><%= planeLat %></td>
             </tr>
             <tr>
                 <td>Longitude:</td>
-                <td><%= planeLong %></td>
+                <td id="planeLong"><%= planeLong %></td>
             </tr>
             <tr>
                 <td>Origin:</td>
@@ -145,11 +215,11 @@
             </tr>
             <tr>
                 <td>Latitude:</td>
-                <td><%= originAirportLat %></td>
+                <td id="originLat"><%= originAirportLat %></td>
             </tr>
             <tr>
                 <td>Longitude:</td>
-                <td><%= originAirportLong %></td>
+                <td id="originLong"><%= originAirportLong %></td>
             </tr>
             <tr>
                 <td>Destination:</td>
@@ -157,11 +227,11 @@
             </tr>
             <tr>
                 <td>Latitude:</td>
-                <td><%= destinationAirportLat %></td>
+                <td id="destinationLat"><%= destinationAirportLat %></td>
             </tr>
             <tr>
                 <td>Longitude:</td>
-                <td><%= destinationAirportLong %></td>
+                <td id="destinationLong"><%= destinationAirportLong %></td>
             </tr>
             <tr>
                 <td>Distance Between Airports:</td>
