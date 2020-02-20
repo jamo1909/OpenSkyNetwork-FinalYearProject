@@ -113,7 +113,7 @@
             </tr>
             <tr>
                 <td class="tab">Callsign:</td>
-                <td><%= planeIcao %></td>
+                <td id="planeName"><%= planeIcao %></td>
             </tr>
             <tr>
                 <td class="tab">Latitude:</td>
@@ -125,7 +125,7 @@
             </tr>
             <tr>
                 <td style="font-weight: bold;">Origin Airport:</td>
-                <td><%= originAirportName %></td>
+                <td id="originName"><%= originAirportName %></td>
             </tr>
             <tr>
                 <td class="tab">Latitude:</td>
@@ -137,7 +137,7 @@
             </tr>
             <tr>
                 <td style="font-weight: bold;">Destination Airport:</td>
-                <td><%= destinationAirportName %></td>
+                <td id="destinationName"><%= destinationAirportName %></td>
             </tr>
             <tr>
                 <td class="tab">Latitude:</td>
@@ -228,14 +228,17 @@
     var trip = L.layerGroup();
     var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
     var plane = {
+        name: document.getElementById("planeName").textContent,
         lat: document.getElementById("planeLat").textContent,
         long: document.getElementById("planeLong").textContent
     };
     var originAirport = {
+        name: document.getElementById("originName").textContent,
         lat: document.getElementById("originLat").textContent,
         long: document.getElementById("originLong").textContent
     };
     var destinationAirport = {
+        name: document.getElementById("destinationName").textContent,
         lat: document.getElementById("destinationLat").textContent,
         long: document.getElementById("destinationLong").textContent
     };
@@ -271,16 +274,16 @@
     });
 
 
-    L.marker([originAirport.lat, originAirport.long], {icon: airportIcon}).addTo(trip);
-    L.marker([destinationAirport.lat, destinationAirport.long], {icon: airportIcon}).addTo(trip);
-    L.marker([plane.long, plane.lat], {icon: planeIcon}).addTo(trip);
+    L.marker([originAirport.lat, originAirport.long], {icon: airportIcon}).bindPopup(originAirport.name).addTo(trip);
+    L.marker([destinationAirport.lat, destinationAirport.long], {icon: airportIcon}).bindPopup(destinationAirport.name).addTo(trip);
+    L.marker([plane.long, plane.lat], {icon: planeIcon}).bindPopup(plane.name).addTo(trip);
 
     var arrayOfMarkers = [[originAirport.lat, originAirport.long], [destinationAirport.lat, destinationAirport.long], [plane.long, plane.lat]];
     var bounds = new L.LatLngBounds(arrayOfMarkers);
     map.fitBounds(bounds);
 
     var pointA = new L.LatLng(originAirport.lat, originAirport.long);
-    var pointB = new L.LatLng(plane.long, plane.lat, plane.lat);
+    var pointB = new L.LatLng(plane.long, plane.lat);
     var pointC = new L.LatLng(destinationAirport.lat, destinationAirport.long);
     var pointList = [pointA, pointB, pointC];
 
