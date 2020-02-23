@@ -11,7 +11,7 @@ const model = new Client({
 model.connect();
 
 router.get('/', function (req, res, next) {
-    model.query("SELECT * from Public.\"airportDatabase\" where country like 'United Kingdom' OR country like 'Ireland'")
+    model.query("SELECT * from Public.\"airportDatabase\" where country like 'United Kingdom' OR country like 'Ireland' OR country like 'France'OR country like 'Germany' OR country like 'Spain'")
     // model.query("SELECT * from Public.\"airportDatabase\" where country like 'Ireland'")
         .then(results => setGeoJson(results.rows))
         .catch(e => console.log(e));
