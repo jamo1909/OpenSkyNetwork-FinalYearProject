@@ -1,7 +1,9 @@
+
 body {
-    background-color: gainsboro;
+    background-color: #2b3141; /*gainsboro*/
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     margin: 0;
+    overflow: auto;
 }
 
 /*top 6 container -------------------------------------*/
@@ -16,31 +18,63 @@ body {
     padding-top: 30px;
     text-align: center;
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     width: 32.2%;
     height: 60px;
-    background-color: #fff;
+    /*background-color: #fff;*/
     box-shadow: 1px 1px 1px #ccc;
     border-style: solid;
     border-width: medium;
+    background-color: #171c2b;
+    color: white;
 }
 
-/*Charts css -------------------------------------*/
-.worldPopulationMultiStackedBar, .worldPopulationMultiBar, .averageDegreesLineChart {
-    height: 350px;
-    flex: 1 0 300px;
-}
-
-.dashboard-flex-container {
+#wrapper {
     display: flex;
+    /*border: 1px solid black;*/
+}
+
+#pieChartOne, #pieChartTwo, #pieChartThree {
+    /*border: 1px solid black;*/
+    margin: 0px 5% 0px 5%;
+}
+
+#barChartOne, #barChartTwo, #barChartThree {
+    /*border: 1px solid black;*/
+    margin: 0px 5% 0px 5%;
+
+}
+
+#barChartFour, #barChartFive {
+    margin: 0px 5% 20px 5%;
+}
+
+#timeLineChart, #timeLineChartTwo {
+    margin: 0px 5% 20px 5%;
+}
+
+.borderDiv {
+    border-style: solid;
+    border-width: medium;
+    margin-bottom: 20px;
+}
+
+.statsHeading {
+    color: white;
+    top: 0;
+    margin-left: 20px;
     width: 100%;
-    flex-wrap: wrap;
+    font-size: 30px;
 }
 
-.dashboard-flex-container > div {
-    margin: 0.5em;
-    background-color: #fff;
-    box-shadow: 1px 1px 1px #ccc;
+#myInput {
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 60%;
+    font-size: 16px;
+    padding: 12px 20px 12px 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    margin-left: 20%;
+    margin-top: 10px;
 }
-
-
