@@ -66,8 +66,10 @@
         <%= modelCount %>
     </div>
     <div style="margin-left:5px;"><span><i class="material-icons">network_check</i></span>Avg fuel Consumption:
-        0000<span id="numPlanes"></span></div>
-    <div style="margin-left:12px;"><span><i class="material-icons">local_gas_station</i></span>Total Fuel: 000</div>
+        <%- JSON.stringify(avgFuelConsumption[0].avg) %><span id="numPlanes"></span></div>
+    <div style="margin-left:12px;"><span><i class="material-icons">local_gas_station</i></span>Total
+        Fuel: <%- JSON.stringify(totalFuelConsumption[0].sum) %>
+    </div>
 </div>
 
 <div class="borderDiv">
@@ -145,6 +147,15 @@
 <script>
     var modelNumbers = <%- JSON.stringify(modelSql) %>;
     console.log(modelNumbers);
+    var countryFuelUsed = <%- JSON.stringify(countryFuelUsed) %>;
+    var countryPlanesCount = <%- JSON.stringify(countryPlanesCount) %>;
+    var airlineFuelUsed = <%- JSON.stringify(airlineFuelUsed) %>;
+    var airlinePlanesCount = <%- JSON.stringify(airlinePlanesCount) %>;
+    var modelFuelUsed = <%- JSON.stringify(modelFuelUsed) %>;
+    var modelPanesCount = <%- JSON.stringify(modelPanesCount) %>;
+    var originAirportCount = <%- JSON.stringify(originAirportCount) %>;
+    var destinationAirportCount = <%- JSON.stringify(destinationAirportCount) %>;
+    var fuelOverTime = <%- JSON.stringify(fuelOverTime) %>;
 
     var chart = new CanvasJS.Chart("pieChartOne", {
         animationEnabled: true,
@@ -160,13 +171,7 @@
             indexLabel: "{label} {y}",
             labelFontColor: "white",
             indexLabelFontColor: "white",
-            dataPoints: [
-                {y: 79.45, label: "Google"},
-                {y: 7.31, label: "Bing"},
-                {y: 7.06, label: "Baidu"},
-                {y: 4.91, label: "Yahoo"},
-                {y: 1.26, label: "Others"}
-            ]
+            dataPoints: airlinePlanesCount
         }]
     });
     chart.render();
@@ -195,15 +200,7 @@
             name: "companies",
             axisYType: "secondary",
             color: "#014D65",
-            dataPoints: [
-                {y: 3, label: "Sweden"},
-                {y: 7, label: "Taiwan"},
-                {y: 5, label: "Russia"},
-                {y: 9, label: "Spain"},
-                {y: 7, label: "Brazil"},
-                {y: 7, label: "India"},
-                {y: 9, label: "Italy"},
-            ]
+            dataPoints: airlineFuelUsed,
         }]
     });
     chart.render();
@@ -221,13 +218,7 @@
             yValueFormatString: "##0.00\"%\"",
             indexLabel: "{label} {y}",
             indexLabelFontColor: "white",
-            dataPoints: [
-                {y: 79.45, label: "Google"},
-                {y: 7.31, label: "Bing"},
-                {y: 7.06, label: "Baidu"},
-                {y: 4.91, label: "Yahoo"},
-                {y: 1.26, label: "Others"}
-            ]
+            dataPoints: modelPanesCount
         }]
     });
     chart.render();
@@ -254,13 +245,7 @@
             name: "companies",
             axisYType: "secondary",
             color: "#014D65",
-            dataPoints: [
-                {y: 79.45, label: "Google"},
-                {y: 7.31, label: "Bing"},
-                {y: 7.06, label: "Baidu"},
-                {y: 4.91, label: "Yahoo"},
-                {y: 1.26, label: "Others"}
-            ]
+            dataPoints: modelFuelUsed
         }]
     });
     chart.render();
@@ -279,13 +264,7 @@
             yValueFormatString: "##0.00\"%\"",
             indexLabel: "{label} {y}",
             indexLabelFontColor: "white",
-            dataPoints: [
-                {y: 79.45, label: "Google"},
-                {y: 7.31, label: "Bing"},
-                {y: 7.06, label: "Baidu"},
-                {y: 4.91, label: "Yahoo"},
-                {y: 1.26, label: "Others"}
-            ]
+            dataPoints: countryPlanesCount,
         }]
     });
     chart.render();
@@ -312,18 +291,7 @@
             name: "companies",
             axisYType: "secondary",
             color: "#014D65",
-            dataPoints: [
-                {y: 3, label: "Sweden"},
-                {y: 7, label: "Taiwan"},
-                {y: 5, label: "Russia"},
-                {y: 9, label: "Spain"},
-                {y: 7, label: "Brazil"},
-                {y: 7, label: "India"},
-                {y: 9, label: "Italy"},
-                {y: 8, label: "Australia"},
-                {y: 11, label: "Canada"},
-
-            ]
+            dataPoints: countryFuelUsed
         }]
     });
     chart.render();
@@ -351,7 +319,7 @@
             name: "companies",
             axisYType: "secondary",
             color: "#014D65",
-            dataPoints: [
+            dataPoints: [ //destinationAirportCount
                 {y: 3, label: "Sweden"},
                 {y: 7, label: "Taiwan"},
                 {y: 5, label: "Russia"},
@@ -361,7 +329,6 @@
                 {y: 9, label: "Italy"},
                 {y: 8, label: "Australia"},
                 {y: 11, label: "Canada"},
-
             ]
         }]
     });
@@ -390,18 +357,7 @@
             name: "companies",
             axisYType: "secondary",
             color: "#014D65",
-            dataPoints: [
-                {y: 3, label: "Sweden"},
-                {y: 7, label: "Taiwan"},
-                {y: 5, label: "Russia"},
-                {y: 9, label: "Spain"},
-                {y: 7, label: "Brazil"},
-                {y: 7, label: "India"},
-                {y: 9, label: "Italy"},
-                {y: 8, label: "Australia"},
-                {y: 11, label: "Canada"},
-
-            ]
+            dataPoints: originAirportCount
         }]
     });
     chart.render();
@@ -462,19 +418,8 @@
             data: [
                 {
                     type: "area",
-                    dataPoints: [//array
-                        {x: new Date(2012, 01, 1), y: 26},
-                        {x: new Date(2012, 01, 3), y: 38},
-                        {x: new Date(2012, 01, 5), y: 43},
-                        {x: new Date(2012, 01, 7), y: 29},
-                        {x: new Date(2012, 01, 11), y: 41},
-                        {x: new Date(2012, 01, 13), y: 54},
-                        {x: new Date(2012, 01, 20), y: 66},
-                        {x: new Date(2012, 01, 21), y: 60},
-                        {x: new Date(2012, 01, 25), y: 53},
-                        {x: new Date(2012, 01, 27), y: 60}
-
-                    ]
+                    xValueType: "date",
+                    dataPoints: fuelOverTime
                 }
             ]
         });
