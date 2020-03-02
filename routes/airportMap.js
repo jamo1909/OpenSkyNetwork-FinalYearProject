@@ -24,9 +24,9 @@ router.get('/', function (req, res, next) {
             jsonData: results// Pass data to the View
         });
     }
-
-
 });
+
+
 
 
 module.exports = router;
