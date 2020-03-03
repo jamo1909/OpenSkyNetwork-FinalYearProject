@@ -27,6 +27,8 @@ let destinationAirportCoordinates = {
 };
 let thisPlane = {
     icao: "",
+    callsign: "",
+    orignCountry: "",
     lat: 0,
     long: 0,
     airport: {
@@ -53,8 +55,12 @@ plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
     //for (var x=0; x<3;x++) {
-    var x = 1;
+    var x = 7;
+    // console.log(result);
     thisPlane.icao = result[x][0];//.icao;
+    thisPlane.callsign = result[x][1];
+    thisPlane.orignCountry = result[x][2];
+    thisPlane.time = result[x][3];
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;
 
@@ -203,7 +209,6 @@ function codeConvertion(airportCode) {
 }
 
 function fuelChartAssign(fuelUsed, distance) {
-
     const [dist, fuel] = Object.entries(fuelUsed.rows[0])[0];
     console.log("fuel used: " + fuel);
     console.log("distance: " + dist + "nm");
@@ -212,7 +217,7 @@ function fuelChartAssign(fuelUsed, distance) {
     thisPlane.fuelToUse = total.toFixed(2);
     thisPlane.fuelUsed = (total * distance).toFixed(2);
     if (infoCorrect == true) {
-        insertEmissions(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
+        insertEmissions(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed, thisPlane.callsign, thisPlane.orignCountry)
 
     }
 }
@@ -243,8 +248,8 @@ function fuelChartDatabase(code, distance) {
         .catch(e => console.log(e))
 }
 
-function insertEmissions(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue) {
-    model.query("INSERT INTO Public.\"dataAnalysis\"(icao, originAirport, destinationAirport, owner, manufacture, model, fuelPerKm, fuelUsed) values($1,$2,$3,$4,$5,$6,$7,$8)", [icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue])
+function insertEmissions(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue, callsign, originCountry) {
+    model.query("INSERT INTO Public.\"dataAnalysisTest\"(icao, callsign,originAirport, destinationAirport, airline, manufacture, model,origincountry, fuelPerKm, fuelUsed,emissions) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)", [icaoValue, callsign, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, originCountry, fuelPerKmValue, fuelUsedValue, null])
         .catch(e => console.log(e))
 }
 
