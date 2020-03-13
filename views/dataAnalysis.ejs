@@ -65,8 +65,9 @@
     <div style="margin-left:12px;"><span><i class="material-icons">airplanemode_active</i></span>Total Aircraft models:
         <%= modelCount %>
     </div>
-    <div style="margin-left:5px;"><span><i class="material-icons">network_check</i></span>Avg fuel Consumption:<span
-                id="avgFuelNum"></span><span id="numPlanes"></span></div>
+    <div style="margin-left:5px;"><span><i class="material-icons">network_check</i></span>Avg fuel: <span
+                id="avgFuelNum"></span>kg/km
+    </div>
     <div style="margin-left:12px;"><span><i class="material-icons">local_gas_station</i></span>Total
         Fuel: <%- JSON.stringify(totalFuelConsumption[0].sum) %>
     </div>
@@ -146,7 +147,7 @@
 <!--<% include templates/footer.ejs %>-->
 <script>
     var span = document.getElementById("avgFuelNum");
-    span.textContent = (<%- JSON.stringify(avgFuelConsumption[0].avg) %>).toFixed(0);
+    span.textContent = (<%- JSON.stringify(avgFuelConsumption[0].avg) %>).toFixed(2);
 
 
     var modelNumbers = <%- JSON.stringify(modelSql) %>;

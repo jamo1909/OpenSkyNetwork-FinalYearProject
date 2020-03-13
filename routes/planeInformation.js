@@ -47,7 +47,7 @@ function setAircraftInfo(aircraftData) {
         codeConvertion((thisPlane.model).substr(0, 4));
         // console.log((thisPlane.model).substr(0, 4));
     } else {
-        // console.log((thisPlane.model).substr(0, 3));
+        console.log((thisPlane.model));
         codeConvertion((thisPlane.model).substr(0, 3));
     }
 

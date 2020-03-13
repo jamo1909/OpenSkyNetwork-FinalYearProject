@@ -54,21 +54,23 @@ let distance = {
 plane().then(result => {
     // for(x in result){
     //     for(var x=0; x <=1; x++){
-    //for (var x=0; x<3;x++) {
-    var x = 7;
-    // console.log(result);
+    for (var x = 0; x < 2; x++) {
+        //  var x = 0;
+        console.log("Iteration: " + x);
     thisPlane.icao = result[x][0];//.icao;
     thisPlane.callsign = result[x][1];
     thisPlane.orignCountry = result[x][2];
     thisPlane.time = result[x][3];
     thisPlane.lat = result[x][5];//.lat;
     thisPlane.long = result[x][6];//.long;
-
+        console.log("live plane: " + x);
     // thisPlane.icao = "4ca987";//.icao;
     // thisPlane.lat = "-81.1239";//.lat;
     // thisPlane.long = "28.7161";//.long;
     if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
+        console.log("checking plane: " + x);
         airport(thisPlane.icao).then(resultAirport => {
+            console.log(": " + x);
             if (resultAirport.arrival == null || resultAirport.destination == null) {
                 console.log("The airports returned null");
                 console.log("Origin: " + resultAirport.arrival);
@@ -86,7 +88,7 @@ plane().then(result => {
     } else {
         console.log("Plane info incorrect");
     }
-    //  }
+    }
 }).catch(err => {
     console.log(err);
 });
@@ -209,6 +211,7 @@ function codeConvertion(airportCode) {
 }
 
 function fuelChartAssign(fuelUsed, distance) {
+    // console.log(Object.entries(fuelUsed.rows[0])[0]);
     const [dist, fuel] = Object.entries(fuelUsed.rows[0])[0];
     console.log("fuel used: " + fuel);
     console.log("distance: " + dist + "nm");
@@ -218,7 +221,6 @@ function fuelChartAssign(fuelUsed, distance) {
     thisPlane.fuelUsed = (total * distance).toFixed(2);
     if (infoCorrect == true) {
         insertEmissions(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed, thisPlane.callsign, thisPlane.orignCountry)
-
     }
 }
 
@@ -244,7 +246,10 @@ function fuelChartDatabase(code, distance) {
     console.log("CODE: " + code);
     let RoundedDistance = roundDistance(distance);
     model.query("SELECT \"" + RoundedDistance + "\" from Public.\"fuelChart\" where code = $1", [code])
-        .then(results => fuelChartAssign(results, RoundedDistance))
+        .then(function (results) {
+            // console.log(results)
+            fuelChartAssign(results, RoundedDistance);
+        })
         .catch(e => console.log(e))
 }
 
@@ -284,5 +289,4 @@ exports.getPlaneEmissions = function (req, res, next) {
     // insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
 
 };
-
 

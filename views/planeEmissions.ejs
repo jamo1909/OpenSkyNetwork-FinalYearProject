@@ -180,6 +180,7 @@
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
 <script src="https://www.google.com/jsapi"></script>
 <script>
+
     var keyword = document.getElementById("planeTitle").textContent;
     console.log(keyword);
     if (keyword === " ") {
@@ -225,12 +226,13 @@
 
 
     // ---------------------------------------------------------
+
     var trip = L.layerGroup();
     var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
     var plane = {
         name: document.getElementById("planeName").textContent,
-        lat: document.getElementById("planeLat").textContent,
-        long: document.getElementById("planeLong").textContent
+        lat: document.getElementById("planeLong").textContent,
+        long: document.getElementById("planeLat").textContent
     };
     var originAirport = {
         name: document.getElementById("originName").textContent,

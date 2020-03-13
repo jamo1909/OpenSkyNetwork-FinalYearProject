@@ -133,6 +133,11 @@
         margin-left: 50px;
     }
 
+    .nameButton {
+        background-color: black;
+        color: white;
+    }
+
 </style>
 <body>
 <% include templates/header.ejs %>
@@ -314,13 +319,12 @@
     for (x in data) {
         L.marker([data[x].latitude, data[x].longitude], {icon: airportIcon}).addTo(airports)
             .bindPopup(
-                ' <textarea readonly=readonly name="name" id="name">Name: ' + data[x].name + '</textarea><br>' +
+                'Name: <button class="nameButton" value="' + data[x].name + '" onclick="openNav(this.value)">' + data[x].name + '</button><br>' +
                 'City: ' + data[x].city + ' <br> ' +
                 'Country: ' + data[x].country + ' <br> ' +
                 'Lat: ' + data[x].latitude + ' <br> ' +
                 'Long: ' + data[x].longitude + ' <br> ' +
-                'altitude: ' + data[x].altitude + '<br>' +
-                '<button value="' + data[x].name + '" onclick="openNav(this.value)">' + data[x].name + '</button>')
+                'altitude: ' + data[x].altitude + '<br>')
     }
 
     // <form method="post" action="/contact" novalidate>

@@ -62,7 +62,7 @@
                     } else {
                         markers[icao24] = L.marker([lat, lng], {icon: airportIcon});
                         markers[icao24].addTo(airplanes)
-                            .bindPopup('<form action="/test" method="post">' +
+                            .bindPopup('<form action="/planeEmissions" method="post">' +
                                 'ICAO Code: <input type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
                                 'Lat: <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
                                 'Long: <input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +

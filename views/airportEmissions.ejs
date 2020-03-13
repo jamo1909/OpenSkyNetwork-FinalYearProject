@@ -85,12 +85,21 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+
+    .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
 </style>
 
 <body>
 <% include templates/header.ejs %>
 
-<div class="splitOne left">
+<div class="splitOne left" id="mySidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div id="planeTitle" style="text-align: center; font-weight: bold; font-size: 20px; padding: 12px"></div>
     <div class="planePicture"
          style="width: 100%; height: 31%; position: relative; border-style: solid; border-width: 2px;"></div>
@@ -166,8 +175,9 @@
     </div>
 </div>
 
-<div class="split right">
+<div class="split right" id="mapDiv">
     <div id='Map'></div>
+    <button onclick="openNav()">Close</button>
 </div>
 <!--<% include templates/footer.ejs %>-->
 </body>
@@ -328,6 +338,25 @@
     };
 
     L.control.layers(baseLayers, overlays).addTo(map);
+    //-------------------------------------------------------------
+    //
+    //     function openNav() {
+    //         document.getElementById("mySidenav").style.width = "250px";
+    //     }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("mapDiv").style.width = "100%";
+        document.getElementById("Map").style.width = "100%";
+        map._onResize();
+
+    }
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "30%";
+        document.getElementById("mapDiv").style.width = "70%";
+        map._onResize();
+    }
 
 
 </script>

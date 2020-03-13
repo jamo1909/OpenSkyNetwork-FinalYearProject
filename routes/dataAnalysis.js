@@ -41,13 +41,13 @@ model.query("SELECT AVG(fuelperkm) From Public.\"dataAnalysisTest\" ")
 
 //Airline
 //select owner, count(owner) From Public."dataAnalysis" GROUP BY owner ORDER BY count(owner) DESC
-model.query("SELECT count(airline), airline From Public.\"dataAnalysisTest\" GROUP BY airline ORDER BY count(airline) DESC limit 7")
+model.query("SELECT count(airline), airline From Public.\"dataAnalysisTest\" GROUP BY airline ORDER BY count(airline) DESC ")
     .then(function (airline) {
         airlineCount = airline.rowCount;
     }).catch(e => console.log(e));
 
 //select model, count(model) From Public."dataAnalysis" GROUP BY model ORDER BY count(model) DESC
-model.query("SELECT count(model) AS y, model AS label From Public.\"dataAnalysisTest\" GROUP BY model ORDER BY count(model) DESC LIMIT 5")
+model.query("SELECT count(model) AS y, model AS label From Public.\"dataAnalysisTest\" GROUP BY model ORDER BY count(model) DESC")
     .then(function (results) {
         // console.log(results.rowCount)
         modelCount = results.rowCount;
