@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
+
+
 
 var start = require('./routes/start');
 var indexRouter = require('./routes/index');
@@ -13,6 +16,8 @@ var data = require('./routes/data');
 var dataAnalysis = require('./routes/dataAnalysis');
 var documentation = require('./routes/documentation');
 var airportEmissions = require('./routes/airportEmissions');
+var test = require('./routes/test');
+
 
 
 //TODO: Get rid when finished
@@ -21,7 +26,8 @@ var planeInformation = require('./routes/planeInformation');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -42,6 +48,8 @@ app.use('/airportMap', airportMap);
 app.use('/dataAnalysis', dataAnalysis);
 app.use('/documentation', documentation);
 app.use('/airportEmissions', airportEmissions);
+app.use('/test', test);
+
 
 //TODO: Get rid when finished
 app.use('/data', data);
@@ -65,5 +73,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

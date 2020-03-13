@@ -27,6 +27,8 @@
         hourBehind: 0,
         twoHoursBehind: 0
     };
+    var offSiteX = -0.00001532;
+    var offSiteY = 0.00005708;
 
     function fetchData() {
         getCurrentTimeInUnix();
@@ -60,13 +62,14 @@
                     } else {
                         markers[icao24] = L.marker([lat, lng], {icon: airportIcon});
                         markers[icao24].addTo(airplanes)
-                            .bindPopup('ICAO Code: ' + icao24 + ' <br>' +
-                                'Lat: ' + lat + ' <br>' +
-                                'Long: ' + lng + ' <br>' +
+                            .bindPopup('<form action="/test" method="post">' +
+                                'ICAO Code: <input type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
+                                'Lat: <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
+                                'Long: <input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
                                 'velocity: ' + velocity + 'm/s <br>' +
                                 'Origin: ' + airport.arrival + '<br>' +
                                 'Destination:' + airport.destination + ' <br> ' +
-                                '<button onclick="Emissions()">Emissions</button>')
+                                ' <button >Emissions</button></form>')
                     }
                 }
             });
@@ -136,7 +139,9 @@
         iconUrl: '/images/planeIconTest.png',
         iconSize: [15, 15], // size of the icon
         iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+        popupAnchor: [0, 0], // point from which the popup should open relative to the iconAnchor
+        focus: false,
+        iconRotation: 270
     });
     const icon = L.icon;
     var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
