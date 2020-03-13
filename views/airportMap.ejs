@@ -221,8 +221,9 @@
 
 <div class="split right" id="mapDiv">
     <div id='Map'></div>
-    <button onclick="openNav()">Close</button>
 </div>
+<% include templates/footer.ejs %>
+
 <!--<div class="footer" style="display: block;">-->
 <!--    <h2 class="footerTitle" style="display: block;">Real Time Aviation Emissions</h2>-->
 <!--    &lt;!&ndash;    <div style="text-align: right; margin-bottom: 2%; display: block;">&ndash;&gt;-->
@@ -302,6 +303,24 @@
     var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', attribution: mbAttr}),
         streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', attribution: mbAttr});
 
+    var additional_attrib = 'created by '
+        + '<a href="http://www.cityplanner.it" target ="_blank">'
+        + 'CityPlanner'
+        + '</a><br>';
+
+    var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicGpob29rZXIiLCJhIjoiUllwRXNldyJ9.-wSBKOCm_XUxGiM1yWLxPQ',
+        {
+            attribution: additional_attrib
+                + 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
+                + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+                + '<br>Imagery © <a href="https://mapbox.com">Mapbox</a>',
+            // USE YOUR MAPBOX TOKEN !!!
+            id: 'pjhooker.lad5pfap'
+        });
+
+
+
+
     var map = L.map('Map', {
         center: [53, -6.2603],
         zoom: 6,
@@ -362,8 +381,9 @@
     // }
 
     var baseLayers = {
-        "Streets": streets,
-        "Grayscale": grayscale
+        "Basic": streets,
+        "Grayscale": grayscale,
+        "Satellite": basemap,
 
     };
 

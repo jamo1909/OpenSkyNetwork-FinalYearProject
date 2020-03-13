@@ -264,7 +264,7 @@
     //-------------------------------------------
     var keyword = airports[index].name;
     var API_KEY = '15296087-cbd41a05f8c372ea3ac846dcc';
-    var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(keyword) + "&image_type=photo&pretty=true";
+    var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].city) + "&image_type=photo&pretty=true";
     $.getJSON(URL, function (data) {
         if (parseInt(data.totalHits) > 0) {
             $.each(data.hits, function (i, hit) {
@@ -275,7 +275,7 @@
             });
         } else {
             console.log(airports[index].city);
-            var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].city + " city") + "&image_type=photo&pretty=true";
+            var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].country) + "&image_type=photo&pretty=true";
             $.getJSON(URL, function (data) {
                 if (parseInt(data.totalHits) > 0) {
                     $.each(data.hits, function (i, hit) {
@@ -308,8 +308,12 @@
         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
+    var osm = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"),
+        mqi = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png", {subdomains: ['otile1', 'otile2', 'otile3', 'otile4']});
+
     var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', attribution: mbAttr}),
         streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', attribution: mbAttr});
+
 
     var map = L.map('Map', {
         center: [originAirport.lat, originAirport.long],
@@ -329,8 +333,9 @@
 
     var baseLayers = {
         "Streets": streets,
-        "Grayscale": grayscale
-
+        "Grayscale": grayscale,
+        "OpenStreetMap": osm,
+        "MapQuestImagery": mqi
     };
 
     var overlays = {

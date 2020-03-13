@@ -256,13 +256,29 @@
     var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', attribution: mbAttr}),
         streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', attribution: mbAttr});
 
+    var additional_attrib = 'created by '
+        + '<a href="http://www.cityplanner.it" target ="_blank">'
+        + 'CityPlanner'
+        + '</a><br>';
+
+    var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicGpob29rZXIiLCJhIjoiUllwRXNldyJ9.-wSBKOCm_XUxGiM1yWLxPQ',
+        {
+            attribution: additional_attrib
+                + 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
+                + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+                + '<br>Imagery © <a href="https://mapbox.com">Mapbox</a>',
+            // USE YOUR MAPBOX TOKEN !!!
+            id: 'pjhooker.lad5pfap'
+        });
+
+
     var map = L.map('Map', {
         center: [53, -6.2603],
         zoom: 6,
         layers: [streets, trip]
     });
     const planeIcon = L.icon({
-        iconUrl: '/images/planeIconTest.png',
+        iconUrl: '/images/plane.png',
         iconSize: [25, 25], // size of the icon
         iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
         popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
@@ -299,7 +315,8 @@
 
     var baseLayers = {
         "Streets": streets,
-        "Grayscale": grayscale
+        "Grayscale": grayscale,
+        "Satellite": basemap
 
     };
     var overlays = {
