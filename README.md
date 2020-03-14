@@ -15,3 +15,14 @@ PDF Documentation: https://www.icao.int/environmental-protection/CarbonOffset/Do
 ## Images
 ![Index page](/public/images/usageImages/index.png)
 
+![Airport map](/public/images/usageImages/airportMap.png)
+
+![Airport map window](/public/images/usageImages/airportMapWindow.png)
+
+![Plane map](/public/images/usageImages/planeMap.png)
+
+![Plane map window](/public/images/usageImages/planeMapWindow.png)
+
+![Data Analysis One](/public/images/usageImages/dataAnalysisOne.png)
+
+![Data Analysis Two](/public/images/usageImages/dataAnalysisTwo.png)
