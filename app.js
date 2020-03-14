@@ -6,24 +6,18 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 
-
 var start = require('./routes/start');
 var indexRouter = require('./routes/index');
 var planeMap = require('./routes/planeMap');
 var airportMap = require('./routes/airportMap');
 var planeEmissions = require('./routes/planeEmissions');
-var data = require('./routes/data');
 var dataAnalysis = require('./routes/dataAnalysis');
 var documentation = require('./routes/documentation');
 var airportEmissions = require('./routes/airportEmissions');
-var test = require('./routes/test');
-
-
 
 //TODO: Get rid when finished
-var distance = require('./routes/distance');
-var planeInformation = require('./routes/planeInformation');
-var usersRouter = require('./routes/users');
+var data = require('./routes/data');
+
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -48,14 +42,10 @@ app.use('/airportMap', airportMap);
 app.use('/dataAnalysis', dataAnalysis);
 app.use('/documentation', documentation);
 app.use('/airportEmissions', airportEmissions);
-app.use('/test', test);
 
 
 //TODO: Get rid when finished
 app.use('/data', data);
-app.use('/users', usersRouter);
-app.use('/planeInformation', planeInformation);
-app.use('/distance', distance);
 
 
 // catch 404 and forward to error handler

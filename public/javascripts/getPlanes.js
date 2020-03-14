@@ -8,11 +8,16 @@ function getCurrentTimeInUnix() {
         twoHoursBehind: 0
     };
     let myDate = new Date();
+    myDate.setDate(myDate.getDate() - 1);
     unixTime.now = myDate.getTime() / 1000.0;
+    console.log(unixTime.now);
     myDate.setHours(myDate.getHours() - 1);
     unixTime.hourBehind = myDate.getTime() / 1000.0;
+    console.log(unixTime.hourBehind);
     myDate.setHours(myDate.getHours() - 2);
     unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
+    console.log(unixTime.twoHoursBehind);
+
     return unixTime;
 }
 

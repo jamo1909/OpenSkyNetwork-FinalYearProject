@@ -255,7 +255,7 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
     const airportIcon = L.icon({
-        iconUrl: '/images/airport.png',
+        iconUrl: '/images/airportIcon.png',
         iconSize: [15, 15], // size of the icon
         iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
         popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
@@ -339,7 +339,7 @@
 
 
     const airportIcon = L.icon({
-        iconUrl: '/images/airport.png',
+        iconUrl: '/images/airportIcon.png',
         iconSize: [15, 15], // size of the icon
         iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
         popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
@@ -453,7 +453,7 @@
 
         var keyword = airports[index].name;
         var API_KEY = '15296087-cbd41a05f8c372ea3ac846dcc';
-        var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(keyword) + "&image_type=photo&pretty=true";
+        var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].city) + "&image_type=photo&pretty=true";
         $.getJSON(URL, function (data) {
             if (parseInt(data.totalHits) > 0) {
                 $.each(data.hits, function (i, hit) {
@@ -464,7 +464,7 @@
                 });
             } else {
                 console.log(airports[index].city);
-                var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].city + " city") + "&image_type=photo&pretty=true";
+                var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].country) + "&image_type=photo&pretty=true";
                 $.getJSON(URL, function (data) {
                     if (parseInt(data.totalHits) > 0) {
                         $.each(data.hits, function (i, hit) {

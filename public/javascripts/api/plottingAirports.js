@@ -133,6 +133,7 @@ async function getAirports(planeIcao) {
 
 function getCurrentTimeInUnix() {
     let myDate = new Date();
+    myDate.setDate(myDate.getDate() - 1);
     unixTime.now = myDate.getTime() / 1000.0;
     // console.log("UnixTime.now: " + unixTime.now);
     myDate.setHours(myDate.getHours() - 1);

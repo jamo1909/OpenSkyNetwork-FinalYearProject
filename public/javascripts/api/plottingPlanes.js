@@ -89,14 +89,15 @@ async function getAirports(planeIcao) {
 }
 function getCurrentTimeInUnix() {
     let myDate = new Date();
+    myDate.setDate(myDate.getDate() - 1);
     unixTime.now = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.now: " + unixTime.now);
+    console.log(unixTime.now);
     myDate.setHours(myDate.getHours() - 1);
     unixTime.hourBehind = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
+    console.log(unixTime.hourBehind);
     myDate.setHours(myDate.getHours() - 2);
     unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
+    console.log(unixTime.twoHoursBehind);
 }
 
 const airportIcon = L.icon({
