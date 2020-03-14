@@ -122,11 +122,20 @@
     }
 
     tr:nth-child(even) {
-        background-color: #dddddd;
+        /*background-color: #dddddd;*/
+        background-color: #2b3141;
+        color: white;
+    }
+
+    tr:nth-child(odd) {
+        /*background-color: #dddddd;*/
+        background-color: #171c2b;
+        color: white;
     }
 
     .closebtn {
         position: absolute;
+        color: white;
         top: 0;
         right: 25px;
         font-size: 36px;
@@ -144,7 +153,8 @@
 
 <div class="splitOne left" id="mySidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <div id="planeTitle" style="text-align: center; font-weight: bold; font-size: 20px; padding: 12px"></div>
+    <div id="planeTitle"
+         style="text-align: center; font-weight: bold; font-size: 20px; padding: 12px; background-color: #2b3141; color: white;"></div>
     <div class="planePicture"
          style="width: 100%; height: 31%; position: relative; border-style: solid; border-width: 2px;"></div>
     <div class="search" style="overflow:auto; border-style: solid; border-width: 2px;">
@@ -211,7 +221,7 @@
             </tr>
             <tr>
                 <td>Link:</td>
-                <td><a id="airQualityLink">Aqicn Link</a></td>
+                <td><a id="airQualityLink" style="color: white;">Aqicn Link</a></td>
             </tr>
         </table>
 
@@ -222,7 +232,7 @@
 <div class="split right" id="mapDiv">
     <div id='Map'></div>
 </div>
-<% include templates/footer.ejs %>
+<!--<% include templates/footer.ejs %>-->
 
 <!--<div class="footer" style="display: block;">-->
 <!--    <h2 class="footerTitle" style="display: block;">Real Time Aviation Emissions</h2>-->

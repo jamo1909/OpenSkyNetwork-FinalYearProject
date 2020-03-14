@@ -6,7 +6,8 @@ body {
 .topnav {
     position: relative;
     overflow: hidden;
-    background-color: #333;
+    /*background-color: #333;*/
+    background-color: #171c2b;
     width: 100%;
     padding-bottom: 0;
     margin: 0;
@@ -33,7 +34,7 @@ body {
 
 .footer {
     overflow: hidden;
-    background-color: black;
+    background-color: #171c2b;
     z-index: 1000;
     position: absolute;
     bottom: 0px;
