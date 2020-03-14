@@ -12,3 +12,6 @@ https://www.icao.int/environmental-protection/CarbonOffset/Pages/default.aspx
 
 PDF Documentation: https://www.icao.int/environmental-protection/CarbonOffset/Documents/Methodology%20ICAO%20Carbon%20Calculator_v10-2017.pdf
 
+## Images
+![Index page](/public/images/usageImages/index.png)
+
