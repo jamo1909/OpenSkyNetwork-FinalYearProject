@@ -8,7 +8,14 @@
     <!--   Created CSS files-->
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
     <link rel='stylesheet' href='/stylesheets/map.css'/>
+    <link rel='stylesheet' href='/stylesheets/planeMap.css'/>
 </head>
+<style>
+    .leaflet-popup-content-wrapper { /*colour of leaflet.js popup*/
+        background-color: #000;
+        color: white;
+    }
+</style>
 <body>
 <% include templates/header.ejs %>
 <div id='Map'></div>
