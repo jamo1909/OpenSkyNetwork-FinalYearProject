@@ -6,14 +6,12 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 
-var start = require('./routes/start');
 var indexRouter = require('./routes/index');
 var planeMap = require('./routes/planeMap');
 var airportMap = require('./routes/airportMap');
 var planeEmissions = require('./routes/planeEmissions');
 var dataAnalysis = require('./routes/dataAnalysis');
 var documentation = require('./routes/documentation');
-var airportEmissions = require('./routes/airportEmissions');
 
 //TODO: Get rid when finished
 var data = require('./routes/data');
@@ -33,15 +31,12 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(__dirname + "/public"));
 
-
-app.use('/start', start);
 app.use('/', indexRouter);
 app.use('/planeEmissions', planeEmissions);
 app.use('/planeMap', planeMap);
 app.use('/airportMap', airportMap);
 app.use('/dataAnalysis', dataAnalysis);
 app.use('/documentation', documentation);
-app.use('/airportEmissions', airportEmissions);
 
 
 //TODO: Get rid when finished
