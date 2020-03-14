@@ -2,142 +2,31 @@
 <html>
 <head>
     <title>Search Aviation</title>
-    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
-    <link rel='stylesheet' href='/stylesheets/search.css'/>
+    <!-- Imported libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
     <link href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-            crossorigin=""></script>
+    <!--   Created CSS files-->
+    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    <link rel='stylesheet' href='/stylesheets/planeEmissions.css'/>
 </head>
-<style>
-    body {
-        font: 15px "Lucida Grande", Helvetica, Arial, sans-serif;
-        color: black;
-    }
-
-    .split {
-        height: 100%;
-        width: 65%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        overflow-x: hidden;
-        padding-top: 0px;
-    }
-
-    .splitOne {
-        height: 100%;
-        width: 35%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        overflow-x: hidden;
-        padding-top: 20px;
-    }
-
-    .left {
-        margin: 45px 0 0 0;
-        left: 0;
-        padding: 0;
-        background-color: white;
-    }
-
-    .right {
-        margin: 45px 0 100px 0;
-        right: 0;
-    }
-
-    .centered {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    }
-
-    .centered img {
-        width: 150px;
-        border-radius: 50%;
-    }
-
-    .search span {
-        font-weight: bold;
-    }
-
-    .tab {
-        padding-left: 20px;
-    }
-
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        margin: 0;
-        width: 100%;
-        height: 600px;
-    }
-
-    td, th {
-        border: 1px solid black;
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        /*background-color: #dddddd;*/
-        background-color: #2b3141;
-        color: white;
-    }
-
-    tr:nth-child(odd) {
-        /*background-color: #dddddd;*/
-        background-color: #171c2b;
-        color: white;
-    }
-
-    #planeTitle {
-        padding: 8px;
-    }
-
-    #Map {
-        width: 100%;
-        height: 90%;
-    }
-
-    .closebtn {
-        position: absolute;
-        color: white;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-    }
-
-</style>
-
 <body>
-<% include templates/header.ejs %>
-<!--navbar imported using ejs -->
+<% include templates/header.ejs %><!--navbar imported using ejs -->
 <div class="splitOne left">
     <a href="/planeMap" class="closebtn">&times;</a>
-    <div id="planeTitle"
-         style="text-align: center; font-weight: bold; font-size: 20px; background-color: #2b3141; color: white">
-        <% if (planeManufacture.length < 1) { %>
+    <div id="planeTitle">
+        <% if (planeManufacture.length < 1 || planeManufacture.length === null) { %>
             Null
         <% }else{ %>
             <%= planeManufacture %>
         <% } %>
         <span id="airplaneModel"><%= planeModel %></span></div>
-    <div class="planePicture"
-         style="width: 100%; height: 25%; position: relative; border-style: solid; border-width: 2px; margin-top: 0px;"></div>
-    <div class="search" style="overflow:auto; border-style: solid; border-width: 2px;">
+    <div class="planePicture"></div>
+    <div class="search">
         <table id="myTable">
             <tr>
-                <td style="font-weight: bold;">Airline:</td>
+                <td class="bold">Airline:</td>
                 <td>
                     <% if (planeOwner.length < 1 || planeOwner == null ) { %>
                         Null
@@ -159,7 +48,7 @@
                 <td id="planeLong"><%= planeLong %></td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Origin Airport:</td>
+                <td class="bold">Origin Airport:</td>
                 <td id="originName">
                     <% if (originAirportName.length < 1) { %>
                         Null
@@ -177,7 +66,7 @@
                 <td id="originLong"><%= originAirportLong %></td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Destination Airport:</td>
+                <td class="bold">Destination Airport:</td>
                 <td id="destinationName">
                     <% if (destinationAirportName.length < 1) { %>
                         Null
@@ -221,139 +110,13 @@
 
 <div class="split right">
     <div id='Map'></div>
-    <div style="height: auto; width: 100%; text-align: center; font-size: 30px;border: 2px solid black; padding: 5px; background-color: #2b3141; color: white;">
+    <div class="emissionDiv">
         Emission: <span>000</span> C02
     </div>
 </div>
-<!--<% include templates/footer.ejs %>-->
 </body>
-<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
-<script src="https://www.google.com/jsapi"></script>
-<script>
-
-    var keyword = document.getElementById("planeTitle").textContent;
-    console.log(keyword);
-    if (keyword === " ") {
-        keyword = "404 error";
-    }
-    console.log(keyword);
-    $(document).ready(function () {
-        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-            {
-                tags: keyword,
-                tagmode: "any",
-                format: "json"
-            },
-            function (data) {
-                var image_src = data.items[0]['media']['m'].replace("_m", "_b");
-                console.log("image_src");
-                $('.planePicture').css('background-image', "url('" + image_src + "')");
-                $('.planePicture').css('background-repeat', "no-repeat");
-                $('.planePicture').css('background-size', "100% 100%");
-            });
-
-    });
-
-    // ---------------------------------------------------------
-
-    var trip = L.layerGroup();
-    var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
-    var plane = {
-        name: document.getElementById("planeName").textContent,
-        lat: document.getElementById("planeLong").textContent,
-        long: document.getElementById("planeLat").textContent
-    };
-    var originAirport = {
-        name: document.getElementById("originName").textContent,
-        lat: document.getElementById("originLat").textContent,
-        long: document.getElementById("originLong").textContent
-    };
-    var destinationAirport = {
-        name: document.getElementById("destinationName").textContent,
-        lat: document.getElementById("destinationLat").textContent,
-        long: document.getElementById("destinationLong").textContent
-    };
-
-
-    var x;
-    const icon = L.icon;
-    var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
-
-    var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', attribution: mbAttr}),
-        streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', attribution: mbAttr});
-
-    var additional_attrib = 'created by '
-        + '<a href="http://www.cityplanner.it" target ="_blank">'
-        + 'CityPlanner'
-        + '</a><br>';
-
-    var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicGpob29rZXIiLCJhIjoiUllwRXNldyJ9.-wSBKOCm_XUxGiM1yWLxPQ',
-        {
-            attribution: additional_attrib
-                + 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
-                + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-                + '<br>Imagery © <a href="https://mapbox.com">Mapbox</a>',
-            // USE YOUR MAPBOX TOKEN !!!
-            id: 'pjhooker.lad5pfap'
-        });
-
-
-    var map = L.map('Map', {
-        center: [53, -6.2603],
-        zoom: 6,
-        layers: [streets, trip]
-    });
-    const planeIcon = L.icon({
-        iconUrl: '/images/planeIcon.png',
-        iconSize: [25, 25], // size of the icon
-        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-    });
-
-    const airportIcon = L.icon({
-        iconUrl: '/images/airportIcon.png',
-        iconSize: [25, 25], // size of the icon
-        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-    });
-
-
-    L.marker([originAirport.lat, originAirport.long], {icon: airportIcon}).bindPopup(originAirport.name).addTo(trip);
-    L.marker([destinationAirport.lat, destinationAirport.long], {icon: airportIcon}).bindPopup(destinationAirport.name).addTo(trip);
-    L.marker([plane.long, plane.lat], {icon: planeIcon}).bindPopup(plane.name).addTo(trip);
-
-    var arrayOfMarkers = [[originAirport.lat, originAirport.long], [destinationAirport.lat, destinationAirport.long], [plane.long, plane.lat]];
-    var bounds = new L.LatLngBounds(arrayOfMarkers);
-    map.fitBounds(bounds);
-
-    var pointA = new L.LatLng(originAirport.lat, originAirport.long);
-    var pointB = new L.LatLng(plane.long, plane.lat);
-    var pointC = new L.LatLng(destinationAirport.lat, destinationAirport.long);
-    var pointList = [pointA, pointB, pointC];
-
-    var firstpolyline = new L.Polyline(pointList, {
-        color: 'red',
-        weight: 3,
-        opacity: 0.5,
-        smoothFactor: 1
-    });
-    firstpolyline.addTo(map);
-
-    var baseLayers = {
-        "Streets": streets,
-        "Grayscale": grayscale,
-        "Satellite": basemap
-
-    };
-    var overlays = {
-        "Trip": trip
-    };
-    L.control.layers(baseLayers, overlays).addTo(map);
-
-
-</script>
-
+<!--    Created Javascript files-->
+<script type="text/javascript" src="/javascripts/planeEmissions/imageApi.js"></script>
+<script type="text/javascript" src="/javascripts/planeEmissions/planeEmissionsMap.js"></script>
+<!--JamesMurphy-16421512-->
 </html>
