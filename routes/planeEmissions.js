@@ -55,14 +55,8 @@ let distance = {
 
 router.post('/', function (req, res) {
     thisPlane.icao = req.body.icaocode;
-    thisPlane.callsign = 'TEST';
-    thisPlane.orignCountry = 'TEST';
-    thisPlane.time = 'TEST';
     thisPlane.lat = req.body.lat;//.lat;
     thisPlane.long = req.body.long;//.long;
-    // thisPlane.icao = "4ca987";//.icao;
-    // thisPlane.lat = "-81.1239";//.lat;
-    // thisPlane.long = "28.7161";//.long;
     if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
         airport(thisPlane.icao).then(resultAirport => {
             if (resultAirport.arrival == null || resultAirport.destination == null) {
@@ -258,10 +252,6 @@ function fuelChartDatabase(code, distance) {
         .catch(e => console.log(e))
 }
 
-function insertEmissions(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue, callsign, originCountry) {
-    model.query("INSERT INTO Public.\"dataAnalysisTest\"(icao, callsign,originAirport, destinationAirport, airline, manufacture, model,origincountry, fuelPerKm, fuelUsed,emissions) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)", [icaoValue, callsign, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, originCountry, fuelPerKmValue, fuelUsedValue, null])
-        .catch(e => console.log(e))
-}
 
 
 

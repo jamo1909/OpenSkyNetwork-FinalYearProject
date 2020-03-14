@@ -1,171 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Map</title>
-    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    <!-- Comment:
+         This page is a map of all the worlds airports plotted on a leaflet.js map. When the page loads
+         a map is presented with airport icons. When the icon is select a popup opens with the airports name,
+         location and emissions button. Once the emission button is selected, a side table will open with the
+         current air quality of that current airport.
+     -->
+    <title>Airport Map</title>
+    <!-- Imported libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
-    <link rel='stylesheet' href='/stylesheets/map.css'/>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
-    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico"/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-            crossorigin=""></script>
-
-
+    <!-- JQuery - used for search image-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/> <!-- leaflet.js-->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script> <!-- leaflet.js-->
+    <!--   Created CSS files-->
+    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/> <!-- CSS for header and footer-->
+    <link rel='stylesheet' href='/stylesheets/airportMap.css'/> <!-- CSS for tags on page-->
+    <link rel='stylesheet' href='/stylesheets/map.css'/> <!-- CSS for leaflet.js map-->
 </head>
 <style>
-    .leaflet-popup-content-wrapper {
+    .leaflet-popup-content-wrapper { /*colour of leaflet.js popup*/
         background-color: #000;
         color: white;
     }
-
-    /*textarea {*/
-    /*    border: none;*/
-    /*    display: inline;*/
-    /*    font-family: inherit;*/
-    /*    font-size: inherit;*/
-    /*    padding: 0;*/
-    /*    height: auto;*/
-    /*    color: white;*/
-    /*    background-color: black;*/
-
-    /*}*/
-    textarea {
-        background: 0;
-        border: 0;
-        width: 100%;
-        overflow: visible;
-        outline: 0;
-        height: auto;
-        color: white;
-        background-color: black;
-    }
-
-    /*textarea {*/
-    /*    background: 0;*/
-    /*    border: 0;*/
-    /*    width: 100%;*/
-    /*    overflow: visible;*/
-    /*    outline: 0;*/
-    /*    height: auto;*/
-    /*}*/
-
-    body {
-        font: 15px "Lucida Grande", Helvetica, Arial, sans-serif;
-        color: black;
-    }
-
-    .split {
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        overflow-x: hidden;
-        padding-top: 0px;
-    }
-
-    .splitOne {
-        height: 100%;
-        width: 0%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        overflow-x: hidden;
-        padding-top: 20px;
-    }
-
-    .left {
-        margin: 45px 0 0 0;
-        left: 0;
-        padding: 0;
-        background-color: white;
-    }
-
-    .right {
-        margin: 45px 0 100px 0;
-        right: 0;
-    }
-
-
-    .centered img {
-        width: 150px;
-        border-radius: 50%;
-    }
-
-    .search span {
-        font-weight: bold;
-    }
-
-    .tab {
-        padding-left: 20px;
-    }
-
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-        margin: 0;
-    }
-
-    td, th {
-        border: 1px solid black;
-        text-align: left;
-        padding: 11px;
-        text-align: center;
-    }
-
-    tr:nth-child(even) {
-        /*background-color: #dddddd;*/
-        background-color: #2b3141;
-        color: white;
-    }
-
-    tr:nth-child(odd) {
-        /*background-color: #dddddd;*/
-        background-color: #171c2b;
-        color: white;
-    }
-
-    .closebtn {
-        position: absolute;
-        color: white;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-    }
-
-    .nameButton {
-        background-color: black;
-        color: white;
-    }
-
 </style>
 <body>
 <% include templates/header.ejs %>
-
-<div class="splitOne left" id="mySidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <div id="planeTitle"
-         style="text-align: center; font-weight: bold; font-size: 20px; padding: 12px; background-color: #2b3141; color: white;"></div>
-    <div class="planePicture"
-         style="width: 100%; height: 31%; position: relative; border-style: solid; border-width: 2px;"></div>
-    <div class="search" style="overflow:auto; border-style: solid; border-width: 2px;">
-        <!--        <p><span>Name: </span><span id="name"><%- jsonData[0].name %></span></p>-->
-        <!--        <p><span>City: </span><span><%- jsonData[0].city %></span></p>-->
-        <!--        <p><span>Country: </span><span><%- jsonData[0].country %></span></p>-->
-        <!--        <p><span>Latitude: </span><span><%- jsonData[0].latitude %></span></p>-->
-        <!--        <p><span>Longitude: </span><span><%- jsonData[0].longitude %></span></p>-->
-        <!--        <p><span>Altitude: </span><span><%- jsonData[0].altitude %></span></p>-->
-        <!--        <p><span>Air quality: </span><span>Dublin Airport</span></p>-->
-        <!--        <p><span>Air Status: </span><span>Dublin Airport</span></p>-->
+<!-- Imported Navbar from templates-->
+<div class="splitOne left" id="mySidenav"> <!-- Left sided table (Closed on load)-->
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> <!-- close table button-->
+    <div id="planeTitle"></div>
+    <div class="planePicture"></div>
+    <div class="search">
         <table id="myTable">
             <tr>
                 <td>Name:</td>
@@ -221,341 +87,22 @@
             </tr>
             <tr>
                 <td>Link:</td>
-                <td><a id="airQualityLink" style="color: white;">Aqicn Link</a></td>
+                <td><a id="airQualityLink">Aqicn Link</a></td>
             </tr>
         </table>
-
-
     </div>
 </div>
-
-<div class="split right" id="mapDiv">
-    <div id='Map'></div>
+<div class="split right" id="mapDiv"> <!-- Map div (full page on load) -->
+    <div id='Map'></div> <!-- leaflet.js Map-->
 </div>
-<!--<% include templates/footer.ejs %>-->
-
-<!--<div class="footer" style="display: block;">-->
-<!--    <h2 class="footerTitle" style="display: block;">Real Time Aviation Emissions</h2>-->
-<!--    &lt;!&ndash;    <div style="text-align: right; margin-bottom: 2%; display: block;">&ndash;&gt;-->
-<!--    &lt;!&ndash;        <input class="search" type="text">&ndash;&gt;-->
-<!--    &lt;!&ndash;        <input type="submit" id="submit" value="Submit"/>&ndash;&gt;-->
-<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
-<!--</div>-->
-<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
 <script>
-    /*   var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
-       var data =<%- JSON.stringify(jsonData) %>;
-
-
-    var x;
-    const icon = L.icon;
-    var map = L.map(document.getElementById('Map')).setView([53, -6.2603], 6);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
-    const airportIcon = L.icon({
-        iconUrl: '/images/airportIcon.png',
-        iconSize: [15, 15], // size of the icon
-        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-    });
-    airQualityFetch(data);
-
-    async function airQualityFetch(data) {
-        for (var x = 0; x < 1800; x++) {
-            let lat = data[x].latitude;
-            let long = data[x].longitude;
-            lat = Math.round(lat * 10) / 10;
-            long = Math.round(long * 10) / 10;
-            const url = "https://api.waqi.info/feed/geo:" + lat + ";" + long + "/?token=" + token + "";
-            console.log(url);
-            const response = await fetch(url);
-            const quality = await response.json();
-            let airQualityData = {
-                airQuality: quality.data.aqi,
-                airStatus: quality.status
-            };
-
-            L.marker([data[x].latitude, data[x].longitude], {icon: airportIcon}).addTo(map)
-                .bindPopup('Name: ' + data[x].name + ' <br>' +
-                    'City: ' + data[x].city + ' <br> ' +
-                    'Country: ' + data[x].country + ' <br> ' +
-                    'Lat: ' + data[x].latitude + ' <br> ' +
-                    'Long: ' + data[x].longitude + ' <br> ' +
-                    'altitude: ' + data[x].altitude + 'm <br>' +
-                    'Air Quality: ' + airQualityData.airQuality + ' AQI<br> ' +
-                    'Air Status: ' + airQualityData.airStatus)
-        }
-
-
-        // return airQualityData;
-    }
-*/
-    //
-    // L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(cities),
-    //     L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(cities),
-    //     L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(cities),
-    //     L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(cities);
-
-    var airports = L.layerGroup();
-    var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
-    var data =<%- JSON.stringify(jsonData) %>;
-
-
-    var x;
-    const icon = L.icon;
-    var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
-
-    var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', attribution: mbAttr}),
-        streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', attribution: mbAttr});
-
-    var additional_attrib = 'created by '
-        + '<a href="http://www.cityplanner.it" target ="_blank">'
-        + 'CityPlanner'
-        + '</a><br>';
-
-    var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicGpob29rZXIiLCJhIjoiUllwRXNldyJ9.-wSBKOCm_XUxGiM1yWLxPQ',
-        {
-            attribution: additional_attrib
-                + 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
-                + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-                + '<br>Imagery © <a href="https://mapbox.com">Mapbox</a>',
-            // USE YOUR MAPBOX TOKEN !!!
-            id: 'pjhooker.lad5pfap'
-        });
-
-
-
-
-    var map = L.map('Map', {
-        center: [53, -6.2603],
-        zoom: 6,
-        layers: [streets, airports]
-    });
-
-
-    const airportIcon = L.icon({
-        iconUrl: '/images/airportIcon.png',
-        iconSize: [15, 15], // size of the icon
-        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-    });
-
-    for (x in data) {
-        L.marker([data[x].latitude, data[x].longitude], {icon: airportIcon}).addTo(airports)
-            .bindPopup(
-                'Name: <button class="nameButton" value="' + data[x].name + '" onclick="openNav(this.value)">' + data[x].name + '</button><br>' +
-                'City: ' + data[x].city + ' <br> ' +
-                'Country: ' + data[x].country + ' <br> ' +
-                'Lat: ' + data[x].latitude + ' <br> ' +
-                'Long: ' + data[x].longitude + ' <br> ' +
-                'altitude: ' + data[x].altitude + '<br>')
-    }
-
-    // <form method="post" action="/contact" novalidate>
-    // <div class="form-field">
-    //     <label for="message">Message</label>
-    //     <textarea class="input" id="message" name="message" rows="4" autofocus></textarea>
-    // </div>
-    //     <button class="btn" type="submit">Send</button>
-    //     </form>
-
-    // function getAirQualityColour(airQuality){
-    //     if(airQuality > 0 && airQuality < 25){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
-    //     }else if(airQuality > 25 && airQuality < 50){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'mediumseagreen'
-    //     }else if(airQuality > 50 && airQuality < 75){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'ForestGreen'
-    //     }else if(airQuality > 75 && airQuality < 100){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'ForestGreen'
-    //     }else if(airQuality > 100 && airQuality < 125){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
-    //     }else if(airQuality > 125 && airQuality < 150){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
-    //     }else if(airQuality > 150 && airQuality < 175){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
-    //     }else if(airQuality > 175 && airQuality < 200){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
-    //     }else if(airQuality > 200 && airQuality < 300){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
-    //     }else if(airQuality > 300 && airQuality < 400){
-    //         document.getElementsByClassName("leaflet-popup-content-wrapper").style.backgroundColor = 'red'
-    //     }else {
-    //
-    //     };
-    // }
-
-    var baseLayers = {
-        "Basic": streets,
-        "Grayscale": grayscale,
-        "Satellite": basemap,
-
-    };
-
-    var overlays = {
-        "Airports": airports
-    };
-
-    L.control.layers(baseLayers, overlays).addTo(map);
-
-    // for(x in data) {
-    // for (var x = 0; x < 1800; x++) {
-    // var airQualityData = airQualityFetch(data[x].latitude, data[x].longitude)
-    // L.marker([data[x].latitude, data[x].longitude], {icon: airportIcon}).addTo(map)
-    //     .bindPopup('Name: ' + data[x].name + ' <br>' +
-    //         'City: ' + data[x].city + ' <br> ' +
-    //         'Country: ' + data[x].country + ' <br> ' +
-    //         'Lat: ' + data[x].latitude + ' <br> ' +
-    //         'Long: ' + data[x].longitude + ' <br> ' +
-    //         'altitude: ' + data[x].altitude + 'm <br>' +
-    //         'Air Quality: ' + airQualityData.airQuality + ' <br> ' +
-    //         'Air Status: ' + airQualityData.airStatus)
-
-    // }
-
-    var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78";
-    var airports = data;
-
-    function openNav(airportName) {
-        document.getElementById("mySidenav").style.width = "30%";
-        document.getElementById("mapDiv").style.width = "70%";
-        map._onResize();
-
-        var val = airportName;
-        var index = airports.findIndex(function (item, i) {
-            return item.name === val
-        });
-        console.log("index: " + index);
-
-        var paragraph = document.getElementById("planeTitle");
-        paragraph.textContent = airports[index].name;
-
-        var table = document.getElementById("myTable");
-        var cell2 = table.rows[0].cells[1];
-        cell2.innerHTML = airports[index].name;
-        var cell2 = table.rows[1].cells[1];
-        cell2.innerHTML = airports[index].city;
-        var cell2 = table.rows[2].cells[1];
-        cell2.innerHTML = airports[index].country;
-        var cell2 = table.rows[3].cells[1];
-        cell2.innerHTML = airports[index].latitude;
-        var cell2 = table.rows[4].cells[1];
-        cell2.innerHTML = airports[index].longitude;
-        var cell2 = table.rows[5].cells[1];
-        cell2.innerHTML = airports[index].altitude;
-        airQualityFetch(airports[index].latitude, airports[index].longitude);
-
-
-        var keyword = airports[index].name;
-        var API_KEY = '15296087-cbd41a05f8c372ea3ac846dcc';
-        var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].city) + "&image_type=photo&pretty=true";
-        $.getJSON(URL, function (data) {
-            if (parseInt(data.totalHits) > 0) {
-                $.each(data.hits, function (i, hit) {
-                    console.log("image_src");
-                    $('.planePicture').css('background-image', "url('" + hit.largeImageURL + "')");
-                    $('.planePicture').css('background-repeat', "no-repeat");
-                    $('.planePicture').css('background-size', "100% 100%");
-                });
-            } else {
-                console.log(airports[index].city);
-                var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(airports[index].country) + "&image_type=photo&pretty=true";
-                $.getJSON(URL, function (data) {
-                    if (parseInt(data.totalHits) > 0) {
-                        $.each(data.hits, function (i, hit) {
-                            console.log(hit.largeImageURL);
-                            console.log("image_src");
-                            $('.planePicture').css('background-image', "url('" + hit.largeImageURL + "')");
-                            $('.planePicture').css('background-repeat', "no-repeat");
-                            $('.planePicture').css('background-size', "100% 100%");
-                        });
-                    }
-                });
-            }
-        });
-
-    }
-
-    async function airQualityFetch(lat, long) {
-        lat = Math.round(lat * 10) / 10;
-        long = Math.round(long * 10) / 10;
-        const url = "https://api.waqi.info/feed/geo:" + lat + ";" + long + "/?token=" + token + "";
-        console.log(url);
-        const response = await fetch(url);
-        const quality = await response.json();
-        var table = document.getElementById("myTable");
-        // var cell2 = table.rows[6].cells[1];
-        // cell2.innerHTML = quality.status ;
-        var cell2 = table.rows[6].cells[1];
-        cell2.innerHTML = quality.data.aqi + " AQI";
-        getAirQualityColour(quality.data.aqi);
-        var cell2 = table.rows[8].cells[1];
-        cell2.innerHTML = quality.data.iaqi.no2.v;
-        var cell2 = table.rows[9].cells[1];
-        cell2.innerHTML = quality.data.iaqi.o3.v;
-        var cell2 = table.rows[10].cells[1];
-        cell2.innerHTML = quality.data.iaqi.pm10.v;
-        var cell2 = table.rows[11].cells[1];
-        cell2.innerHTML = quality.data.iaqi.pm25.v;
-        var cell2 = table.rows[12].cells[1];
-        cell2.innerHTML = quality.data.iaqi.so2.v;
-        var a = document.getElementById('airQualityLink'); //or grab it by tagname etc
-        a.href = quality.data.city.url;
-        // var cell2 = table.rows[13].cells[1];
-        // cell2.innerHTML = quality.data.city.url;
-    }
-
-    function getAirQualityColour(airQuality) {
-        if (airQuality >= 0 && airQuality < 50) {
-            document.getElementById("aqiColour").innerHTML = "Good";
-            document.getElementById("aqiColour").style.backgroundColor = '#2E8B57'
-        } else if (airQuality >= 50 && airQuality <= 100) {
-            document.getElementById("aqiColour").innerHTML = "Moderate";
-            document.getElementById("aqiColour").style.backgroundColor = '#FFD700'
-        } else if (airQuality > 100 && airQuality <= 150) {
-            document.getElementById("aqiColour").innerHTML = "Unhealthy for Sensitive Group";
-            document.getElementById("aqiColour").style.backgroundColor = '#FF8C00'
-        } else if (airQuality > 150 && airQuality <= 200) {
-            document.getElementById("aqiColour").innerHTML = "Unhealthy";
-            document.getElementById("aqiColour").style.backgroundColor = '#FF0000'
-        } else if (airQuality > 200 && airQuality <= 300) {
-            document.getElementById("aqiColour").innerHTML = "Very Unhealthy";
-            document.getElementById("aqiColour").style.backgroundColor = '#8A2BE2'
-        } else if (airQuality > 300) {
-            document.getElementById("aqiColour").innerHTML = "Hazardous";
-            document.getElementById("aqiColour").style.backgroundColor = '#8B0000'
-        }
-    }
-
-    //-------------------------------------------
-
-
-    //-------------------------------------------------------------
-    //
-    //     function openNav() {
-    //         document.getElementById("mySidenav").style.width = "250px";
-    //     }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("mapDiv").style.width = "100%";
-        document.getElementById("Map").style.width = "100%";
-        map._onResize();
-
-    }
-
-
-    function myFunction(test) {
-        console.log("WORKING");
-        console.log(test);
-    }
-
+    var airportsData =<%- JSON.stringify(jsonData) %>; //Database for all airport locations
 </script>
+<!--    Created Javascript files-->
+<script type="text/javascript" src="/javascripts/airportEmissionMap.js"></script>
+<!--plotting airports on leaflet.js Map-->
+<script type="text/javascript" src="/javascripts/airportEmissionsCalculation.js"></script>
+<!-- Getting air quality and image for airport-->
 </body>
-
+<!--JamesMurphy-16421512-->
 </html>
