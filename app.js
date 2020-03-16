@@ -12,7 +12,6 @@ var airportMap = require('./routes/airportMap');
 var planeEmissions = require('./routes/planeEmissions');
 var dataAnalysis = require('./routes/dataAnalysis');
 var documentation = require('./routes/documentation');
-//TODO: Get rid when finished
 var data = require('./routes/data');
 
 

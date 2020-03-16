@@ -25,6 +25,7 @@ var originAirportCount;
 var destinationAirportCount;
 var fuelOverTime;
 
+//FUEL USAGE
 //SELECT SUM(fuelused)FROM Public."dataAnalysisTest"
 model.query("SELECT SUM(fuelused) From Public.\"dataAnalysisTest\" ")
     .then(function (fuel) {
@@ -56,7 +57,7 @@ model.query("SELECT count(model) AS y, model AS label From Public.\"dataAnalysis
     }).catch(e => console.log(e));
 
 //SELECT SUM(fuelused) as y, origincountry as label FROM Public.”dataAnalysisTest” GROUP BY origincountry
-model.query("SELECT SUM(fuelused) AS y, origincountry AS label From Public.\"dataAnalysisTest\" GROUP BY origincountry")
+model.query("SELECT SUM(fuelused) AS y, origincountry AS label From Public.\"dataAnalysisTest\" GROUP BY origincountry LIMIT 10")
     .then(function (countryFuel) {
         // console.log(countryFuel.rows)
         countryFuelUsed = countryFuel.rows;
@@ -64,34 +65,37 @@ model.query("SELECT SUM(fuelused) AS y, origincountry AS label From Public.\"dat
 
 
 //SELECT count(*) AS y, origincountry AS label FROM Public."dataAnalysisTest" GROUP BY origincountry
-model.query("SELECT count(*) AS y, origincountry AS label From Public.\"dataAnalysisTest\" GROUP BY origincountry")
+model.query("SELECT count(*) AS y, origincountry AS label From Public.\"dataAnalysisTest\" GROUP BY origincountry LIMIT 10")
     .then(function (countryPlanes) {
         // console.log(countryPlanes.rows)
         countryPlanesCount = countryPlanes.rows;
     }).catch(e => console.log(e));
 
 //SELECT SUM(fuelused) AS y, airline AS label FROM Public."dataAnalysisTest" GROUP BY airline
-model.query("SELECT SUM(fuelused) AS y, airline AS label From Public.\"dataAnalysisTest\" GROUP BY airline")
+model.query("SELECT SUM(fuelused) AS y, airline AS label From Public.\"dataAnalysisTest\" GROUP BY airline LIMIT 10")
     .then(function (airlinePlanes) {
         // console.log(airlinePlanes.rows)
         airlineFuelUsed = airlinePlanes.rows;
     }).catch(e => console.log(e));
 
+//COUNTRY
 //SELECT count(*) AS y, airline AS label FROM Public."dataAnalysisTest" GROUP BY airline
-model.query("SELECT count(*) AS y, airline AS label From Public.\"dataAnalysisTest\" GROUP BY airline")
+model.query("SELECT count(*) AS y, airline AS label From Public.\"dataAnalysisTest\" GROUP BY airline LIMIT 10")
     .then(function (airlinePlanes) {
         // console.log(airlinePlanes.rows)
         airlinePlanesCount = airlinePlanes.rows;
     }).catch(e => console.log(e));
-
 //SELECT SUM(fuelused) AS y, model AS label FROM Public."dataAnalysisTest" GROUP BY model
-model.query("SELECT SUM(fuelused) AS y, model AS label From Public.\"dataAnalysisTest\" GROUP BY model")
+model.query("SELECT SUM(fuelused) AS y, model AS label From Public.\"dataAnalysisTest\" GROUP BY model LIMIT 10")
     .then(function (aircraftModels) {
         // console.log(aircraftModels.rows)
         modelFuelUsed = aircraftModels.rows;
     }).catch(e => console.log(e));
+
+
+//GRAPHS
 //SELECT count(*) AS y, model AS label FROM Public."dataAnalysisTest" GROUP BY model
-model.query("SELECT count(*) AS y, model AS label From Public.\"dataAnalysisTest\" GROUP BY model")
+model.query("SELECT count(*) AS y, model AS label From Public.\"dataAnalysisTest\" GROUP BY model LIMIT 10")
     .then(function (aircraftModels) {
         // console.log(aircraftModels.rows)
         modelPanesCount = aircraftModels.rows;
