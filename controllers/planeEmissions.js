@@ -2,7 +2,7 @@ const {Client} = require('pg');
 const airport = require('./../public/javascripts/api/airportQuery');
 const dist = require('./../public/javascripts/calculations/greatCircleDistance');
 // const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
-const plane = require('../public/javascripts/getPlanes'); //Calls plane icao
+const plane = require('../public/javascripts/getSinglePlane'); //Calls plane icao
 
 const model = new Client({
     user: "postgres",
@@ -51,55 +51,56 @@ let distance = {
     planeToDestination: 0
 };
 
-plane().then(result => {
-    // for(x in result){
-    //     for(var x=0; x <=1; x++){
-    for (var x = 0; x < 2; x++) {
-        //  var x = 0;
-        console.log("Iteration: " + x);
-    thisPlane.icao = result[x][0];//.icao;
-    thisPlane.callsign = result[x][1];
-    thisPlane.orignCountry = result[x][2];
-    thisPlane.time = result[x][3];
-    thisPlane.lat = result[x][5];//.lat;
-    thisPlane.long = result[x][6];//.long;
-        console.log("live plane: " + x);
-    // thisPlane.icao = "4ca987";//.icao;
-    // thisPlane.lat = "-81.1239";//.lat;
-    // thisPlane.long = "28.7161";//.long;
-    if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
-        console.log("checking plane: " + x);
-        airport(thisPlane.icao).then(resultAirport => {
-            console.log(": " + x);
-            if (resultAirport.arrival == null || resultAirport.destination == null) {
-                console.log("The airports returned null");
-                console.log("Origin: " + resultAirport.arrival);
-                console.log("Destination: " + resultAirport.destination)
-            } else {
-                thisPlane.airport.origin = resultAirport.arrival;
-                thisPlane.airport.destination = resultAirport.destination;
-                console.log("Origin: " + thisPlane.airport.origin);
-                console.log("Destination: " + thisPlane.airport.destination);
-                originAirportLocation(thisPlane.airport.origin);
-                destinationAirportLocation(thisPlane.airport.destination);
-                aircraftDatabase(thisPlane.icao);
-            }
-        })
-    } else {
-        console.log("Plane info incorrect");
-    }
-    }
-}).catch(err => {
-    console.log(err);
-});
+// for (let i=0; i<20; i++) {
 
-function wait(ms) {
-    var start = new Date().getTime();
-    var end = start;
-    while (end < start + ms) {
-        end = new Date().getTime();
-    }
-}
+
+(function myLoop(indexPlane) {
+    setTimeout(function () {
+        plane().then(result => {
+            console.log("Test " + result);
+            // let indexPlane = 0
+            thisPlane.icao = result.states[indexPlane][0];
+            thisPlane.callsign = result.states[indexPlane][1];
+            thisPlane.originCountry = result.states[indexPlane][2];
+            thisPlane.long = result.states[indexPlane][5];
+            thisPlane.lat = result.states[indexPlane][6];
+
+            // thisPlane.icao = result.icao;
+            // thisPlane.callsign = result.callsign;
+            // thisPlane.originCountry = result.originCountry;
+            // thisPlane.lat = result.lat;//.lat;
+            // thisPlane.long = result.long;//.long;
+            if (checkPlaneinformation(thisPlane.icao, thisPlane.long, thisPlane.lat)) {
+                airport(thisPlane.icao).then(resultAirport => {
+                    if (resultAirport.arrival == null || resultAirport.destination == null) {
+                        console.log("The airports returned null");
+                        console.log("Origin: " + resultAirport.arrival);
+                        console.log("Destination: " + resultAirport.destination)
+                    } else {
+                        thisPlane.airport.origin = resultAirport.arrival;
+                        thisPlane.airport.destination = resultAirport.destination;
+                        console.log("Origin: " + thisPlane.airport.origin);
+                        console.log("Destination: " + thisPlane.airport.destination);
+                        originAirportLocation(thisPlane.airport.origin);
+                        destinationAirportLocation(thisPlane.airport.destination);
+                        aircraftDatabase(thisPlane.icao);
+                    }
+                })
+            } else {
+                console.log("Plane info incorrect");
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+
+
+        if (--indexPlane) myLoop(indexPlane);      //  decrement i and call myLoop again if i > 0
+    }, 3000)
+})(1);
+
+
+
+
 function checkAirportInformation(airports) {
     if (airports == null) {
         console.log("There is a null " + airports);
@@ -175,7 +176,6 @@ function setAircraftInfo(aircraftData) {
         codeConvertion((thisPlane.model).substr(0, 4));
     } else {
         console.log(thisPlane.modelIcao);
-        // codeConvertion((thisPlane.model).substr(0, 3)); //TEST
         codeConvertion(thisPlane.modelIcao);
     }
 
@@ -220,7 +220,7 @@ function fuelChartAssign(fuelUsed, distance) {
     thisPlane.fuelToUse = total.toFixed(2);
     thisPlane.fuelUsed = (total * distance).toFixed(2);
     if (infoCorrect == true) {
-        insertEmissions(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed, thisPlane.callsign, thisPlane.orignCountry)
+        insertEmissions(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed, thisPlane.callsign, thisPlane.originCountry)
     }
 }
 
@@ -258,35 +258,35 @@ function insertEmissions(icaoValue, originAirportValue, destinationAirportValue,
         .catch(e => console.log(e))
 }
 
-exports.getPlaneEmissions = function (req, res, next) {
-    console.log("PLANE: ");
-    console.log(thisPlane);
-    // distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-    // distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
-    // distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
-    // fuelChartDatabase(thisPlane.iata, distance.originToDestination);
-    res.render('planeEmissions', {
-        planeIcao: thisPlane.icao,
-        planeLat: thisPlane.lat,
-        planeLong: thisPlane.long,
-        originAirportName: originAirportCoordinates.name,
-        originAirportLat: originAirportCoordinates.lat,
-        originAirportLong: originAirportCoordinates.long,
-        destinationAirportName: destinationAirportCoordinates.name,
-        destinationAirportLat: destinationAirportCoordinates.lat,
-        destinationAirportLong: destinationAirportCoordinates.long,
-        distanceOriginToDestination: distance.originToDestination,
-        distancePlaneToDestination: distance.planeToDestination,
-        distancePlaneToOrigin: distance.planeToOrigin,
-        planeIata: thisPlane.iata,
-        planeManufacture: thisPlane.manufacture,
-        planeModel: thisPlane.model,
-        planeOwner: thisPlane.owner,
-        planeModelIcao: thisPlane.modelIcao,
-        fuelUsed: thisPlane.fuelUsed,
-        fuelToUse: thisPlane.fuelToUse,
-    });
-    // insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
-
-};
+// exports.getPlaneEmissions = function (req, res, next) {
+//     console.log("PLANE: ");
+//     console.log(thisPlane);
+//     // distance.originToDestination = dist(originAirportCoordinates.lat, originAirportCoordinates.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+//     // distance.planeToOrigin = dist(thisPlane.lat, thisPlane.long, originAirportCoordinates.lat, originAirportCoordinates.long);
+//     // distance.planeToDestination = dist(thisPlane.lat, thisPlane.long, destinationAirportCoordinates.lat, destinationAirportCoordinates.long);
+//     // fuelChartDatabase(thisPlane.iata, distance.originToDestination);
+//     res.render('planeEmissions', {
+//         planeIcao: thisPlane.icao,
+//         planeLat: thisPlane.lat,
+//         planeLong: thisPlane.long,
+//         originAirportName: originAirportCoordinates.name,
+//         originAirportLat: originAirportCoordinates.lat,
+//         originAirportLong: originAirportCoordinates.long,
+//         destinationAirportName: destinationAirportCoordinates.name,
+//         destinationAirportLat: destinationAirportCoordinates.lat,
+//         destinationAirportLong: destinationAirportCoordinates.long,
+//         distanceOriginToDestination: distance.originToDestination,
+//         distancePlaneToDestination: distance.planeToDestination,
+//         distancePlaneToOrigin: distance.planeToOrigin,
+//         planeIata: thisPlane.iata,
+//         planeManufacture: thisPlane.manufacture,
+//         planeModel: thisPlane.model,
+//         planeOwner: thisPlane.owner,
+//         planeModelIcao: thisPlane.modelIcao,
+//         fuelUsed: thisPlane.fuelUsed,
+//         fuelToUse: thisPlane.fuelToUse,
+//     });
+//     // insert(thisPlane.icao, originAirportCoordinates.name, destinationAirportCoordinates.name, thisPlane.owner, thisPlane.manufacture, thisPlane.model, thisPlane.fuelToUse, thisPlane.fuelUsed)
+//
+// };
 
