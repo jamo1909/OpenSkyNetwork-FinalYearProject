@@ -1,4 +1,6 @@
 var airplanes = L.layerGroup();
+var demo = L.layerGroup();
+
 var bool = false;
 const unixTime = {
     now: 0,
@@ -16,7 +18,7 @@ function fetchData() {
         })
         .then((res) => {
             return res.states.filter((state) => {
-                return (state[2] === 'Ireland')
+                return (state[2])
                     && (state[5]) && (state[6]);
             });
         })
@@ -29,24 +31,37 @@ function plotStates(map, markers) {
     fetchData().then(function (states) {
         states.forEach((state) => {
             var airport = getAirports(state[0]);
-            if (state[2] == 'Ireland') {
+
                 const lat = state[6],
                     lng = state[5],
                     icao24 = state[0],
-                    velocity = state[9];
+                    velocity = state[9],
+                    country = state[2];
+
                 if (markers[icao24]) {
                     markers[icao24].setLatLng([lat, lng]);
                 } else {
                     markers[icao24] = L.marker([lat, lng], {icon: airportIcon});
-                    markers[icao24].addTo(airplanes)
-                        .bindPopup('<form action="/planeEmissions" method="post">' +
-                            'ICAO Code: <input type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
-                            'Lat: <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
-                            'Long: <input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
-                            'velocity: ' + velocity + 'm/s <br>' +
-                            ' <button >Emissions</button></form>')
+                    if (country == 'Ireland') {
+                        markers[icao24].addTo(airplanes)
+                            .bindPopup('<form action="/planeEmissions" method="post">' +
+                                'ICAO Code: <input type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
+                                'Lat: <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
+                                'Long: <input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
+                                'velocity: ' + velocity + 'm/s <br>' +
+                                'Country: ' + country + ' <br> <br>' +
+                                ' <button >Emissions</button></form>')
+                    } else {
+                        markers[icao24].addTo(demo)
+                            .bindPopup('<form action="/planeEmissions" method="post">' +
+                                'ICAO Code: <input type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
+                                'Lat: <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
+                                'Long: <input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
+                                'velocity: ' + velocity + 'm/s <br>' +
+                                ' <button >Emissions</button></form>')
+                    }
                 }
-            }
+
         });
 
 
@@ -58,9 +73,9 @@ function plotStates(map, markers) {
             };
 
             var overlays = {
-                "Airplanes": airplanes
+                "Airplanes": airplanes,
+                "Demo All Planes": demo,
             };
-
             L.control.layers(baseLayers, overlays).addTo(map);
             bool = true;
             setTimeout(() => plotStates(map, markers), 3000);
