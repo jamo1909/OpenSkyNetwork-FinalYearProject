@@ -35,12 +35,12 @@ const airportIcon = L.icon({
 for (let x in airportsData) {
     L.marker([airportsData[x].latitude, airportsData[x].longitude], {icon: airportIcon}).addTo(airports)
         .bindPopup(
-            'Name: <button class="nameButton" value="' + airportsData[x].name + '" onclick="openNav(this.value)">' + airportsData[x].name + '</button><br>' +
-            'City: ' + airportsData[x].city + ' <br> ' +
-            'Country: ' + airportsData[x].country + ' <br> ' +
-            'Lat: ' + airportsData[x].latitude + ' <br> ' +
-            'Long: ' + airportsData[x].longitude + ' <br> ' +
-            'altitude: ' + airportsData[x].altitude + '<br>')
+            '<button class="nameButton" value="' + airportsData[x].name + '" onclick="openNav(this.value)">' + airportsData[x].name + '</button><br>' +
+            '<label>City:</label>' + " " + airportsData[x].city + ' <br> ' +
+            '<label>Country:</label>' + " " + airportsData[x].country + ' <br> ' +
+            '<label>Latitude:</label>' + " " + airportsData[x].latitude + ' <br> ' +
+            '<label>Longitude:</label>' + " " + airportsData[x].longitude + ' <br> ' +
+            '<label>altitude:</label>' + " " + airportsData[x].altitude + "m" + '<br>')
 }
 var baseLayers = {
     "Basic": streets,

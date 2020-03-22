@@ -134,3 +134,7 @@ tr:nth-child(odd) {
     background-color: #2b3141;
     color: white;
 }
+
+.engine {
+    font-size: 15px;
+}
