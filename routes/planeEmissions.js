@@ -41,6 +41,7 @@ let thisPlane = {
     iata: "",
     manufacture: "",
     model: "",
+    engine: "",
     owner: "",
     modelIcao: "",
     fuelUsed: 0,
@@ -92,6 +93,7 @@ router.post('/', function (req, res) {
         planeIata: thisPlane.iata,
         planeManufacture: thisPlane.manufacture,
         planeModel: thisPlane.model,
+        planeEngine: thisPlane.engine,
         planeOwner: thisPlane.owner,
         planeModelIcao: thisPlane.modelIcao,
         fuelUsed: thisPlane.fuelUsed,
@@ -167,8 +169,10 @@ function setAircraftInfo(aircraftData) {
     console.log("Name: " + aircraftData.rows[0].icao24);
     console.log("manufacture: " + aircraftData.rows[0].manufacture);
     console.log("model: " + aircraftData.rows[0].model);
+    console.log("Engine: " + aircraftData.rows[0].engine);
     thisPlane.manufacture = aircraftData.rows[0].manufacture;
     thisPlane.model = aircraftData.rows[0].model;
+    thisPlane.engine = aircraftData.rows[0].engine;
     thisPlane.owner = aircraftData.rows[0].owner;
     thisPlane.modelIcao = aircraftData.rows[0].typecode;
     if (thisPlane.manufacture == "Airbus" || thisPlane.manufacture == "Airbus Industrie") {

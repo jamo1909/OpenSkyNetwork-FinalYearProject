@@ -26,6 +26,16 @@
     <div class="search">
         <table id="myTable">
             <tr>
+                <td>Engine:</td>
+                <td>
+                    <% if (planeEngine == null ) { %>
+                        Null
+                    <% }else{ %>
+                        <%= planeEngine %>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
                 <td class="bold">Airline:</td>
                 <td>
                     <% if (planeOwner.length < 1 || planeOwner == null ) { %>
@@ -90,10 +100,6 @@
             <tr>
                 <td>Distance Between plane to Destination:</td>
                 <td><%= distancePlaneToDestination %></td>
-            </tr>
-            <tr>
-                <td>Distance Between plane to Origin:</td>
-                <td><%= distancePlaneToOrigin %></td>
             </tr>
             <tr>
                 <td>fuel used:</td>
