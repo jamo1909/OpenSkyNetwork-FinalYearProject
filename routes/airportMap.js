@@ -12,18 +12,13 @@ model.connect();
 
 router.get('/', function (req, res, next) {
     model.query("SELECT * from Public.\"airportDatabase\" where country like 'United Kingdom' OR country like 'Ireland' OR country like 'France'OR country like 'Germany' OR country like 'Spain'")
-    // model.query("SELECT * from Public.\"airportDatabase\" where country like 'Ireland'")
-        .then(results => setGeoJson(results.rows))
+        .then(function (airports) {
+            res.render('airportMap', {
+                title: "Express API", // Give a title to our page
+                jsonData: airports.rows // Pass data to the View
+            });
+        })
         .catch(e => console.log(e));
-
-    function setGeoJson(results) {
-        // console.log(results);
-        // console.log(geoJson);
-        res.render('airportMap', {
-            title: "Express API", // Give a title to our page
-            jsonData: results// Pass data to the View
-        });
-    }
 });
 
 
