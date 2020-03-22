@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= title %></title>
+    <title><%= title %></title> <!-- Import title from routing file-->
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    //Import CSS file for header and footer
     <link rel='stylesheet' href='/stylesheets/index.css'/>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    //Import CSS files for index page
 </head>
 <body>
 <% include templates/header.ejs %>
+<!-- Header from views/templates/header.ejs-->
 <div class="bodyDiv">
     <div class="about">
-        <h1 class="Heading"><%= title %></h1>
+        <h1 class="Heading"><%= title %></h1> <!-- Import title from routing file-->
         <div class="info">
             <div class="personalInfo">
-                <p>Author: <%= nameStudent %></p>
-                <p>Student ID: <%= student_id %></p>
-                <p>University: <%= uni %></p>
+                <p>Author: <%= nameStudent %></p> <!-- Import name from routing file-->
+                <p>Student ID: <%= student_id %></p> <!-- Import Student id from routing file-->
+                <p>University: <%= uni %></p> <!-- Import university name from routing file-->
                 <p>Course: Computer Science and Software Engineering - mh602</p>
-                <p>GitHub: <a href="https://github.com/jamo1909/OpenSkyNetwork-FinalYearProject"><u>Source Code</u></a></p>
+                <p>GitHub: <a href="https://github.com/jamo1909/OpenSkyNetwork-FinalYearProject"><u>Source Code</u></a>
+                </p><!-- Make link for GitHub-->
                 <p>Gitlab: <a href="https://gitlab.cs.nuim.ie/u180351/OpenSkyNetwork-FinalYearProject"><u>Source
-                            Code</u></a></p>
-            </div>
-            <p class="description">
-            <p class="descriptionHeading">Description: </p>
+                            Code</u></a></p> <!-- Make link to GitLab-->
+            </div> <!-- personalInfor-->
+            <p class="description"> <!-- Descriptions -->
+            <p class="descriptionHeading">Description: </p> <!-- Heading-->
             The OpenSky Network API lets you retrieve live airspace information in the form of state vectors
                 as JSON objects giving a summary of mainly position, velocity, and identity at a certain point in time.
                 The Api is available as a Rest, python or Java implementation. This project will use the API to build a
                 customised version for Irish airport tracking, in particular, the arrival and departure times of
-                flights. An interface displaying the data will be a key aspect of the project.</p>
-            <p class="description">
-            <p class="descriptionHeading">Project: </p>
+            flights. An interface displaying the data will be a key aspect of the project.
+            </p><!-- description-->
+            <p class="description"> <!--Description -->
+            <p class="descriptionHeading">Project: </p> <!-- Heading-->
                 I decided that I would involve a problem that we are currently facing that involves aviation. I began to
                 do research to current media about problem we currently facing in the aviation. A major topic in
                 aviation at the moment is the Emissions and carbon footprint being created from aircraft and Airports. I
@@ -38,11 +42,12 @@
                 cross-platform web app using OpenSky Network API to calculate the emissions and carbon footprint of
                 aircraft and airports in real time. The project will also involve using data analytics on the real time
                 data that I have collected.
-            </p>
-        </div>
-    </div>
-</div>
+            </p><!-- description-->
+        </div><!-- info-->
+    </div> <!-- about-->
+</div><!-- bodyDiv-->
 <% include templates/footer.ejs %>
+<!-- Footere from views/templates/footer.ejs-->
 </body>
 <!--JamesMurphy-16421512-->
 </html>
