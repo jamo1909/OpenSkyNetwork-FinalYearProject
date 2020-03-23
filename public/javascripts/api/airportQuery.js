@@ -4,12 +4,12 @@
 
 const fetch = require("node-fetch");
 
-function getCurrentTimeInUnix() {
+function getCurrentTimeInUnix() { //function to get UNIX time for API call
     const unixTime = {
         now: 0,
         hourBehind: 0,
         twoHoursBehind: 0
-    };
+    }; //UNIX time variable
     let myDate = new Date();
     unixTime.now = myDate.getTime() / 1000.0;
     // console.log("UnixTime.now: " + unixTime.now);
@@ -22,27 +22,20 @@ function getCurrentTimeInUnix() {
     return unixTime;
 }
 
-module.exports = async function getAirports(planeIcao) {
+module.exports = async function getAirports(planeIcao) { //Get origin and destination airports for plane using ICAO
     let airport = {
             arrival: "",
             destination: ""
-        };
-    var unixTime = getCurrentTimeInUnix();
+    }; //airport variable
+    var unixTime = getCurrentTimeInUnix(); //Get current UNIX time
     console.log(planeIcao);
-    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now);
+    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now); //Airport API call to OpenSky Network
     console.log(airport_url);
-    const response = await fetch(airport_url);
-    const data = await response.json();
+    const response = await fetch(airport_url); //Make call to API
+    const data = await response.json(); //variable to store API in JSON
 
-    // while(data[index].estArrivalAirport == null || data[index].estDepartureAirport == null){
-    //     console.log(data[index].estArrivalAirport);
-    //     console.log(data[index].estDepartureAirport);
-    //     airport.arrival = data[index].estArrivalAirport;
-    //     airport.destination = data[index].estDepartureAirport;
-    //     index = index + 1;
-    // }
     let index = -1;
-    let dataSize = Object.keys(data).length;
+    let dataSize = Object.keys(data).length; //Size of JSON file
 
     if (dataSize == 1) {
         airport.arrival = "EIDW";
@@ -50,17 +43,11 @@ module.exports = async function getAirports(planeIcao) {
     } else {
         do {
             var test = index + 1;
-            // console.log("dataSize : " + dataSize);
-            // console.log("index : " + index);
-            // console.log("test : " + test);
             index++;
             if ((test === dataSize) || data === null) { //average flight distance airlines.net 1113km
                 airport.arrival = "EIDW";
                 airport.destination = "EDDF";
             } else {
-                // console.log(data[index].estArrivalAirport);
-                // console.log(data[index].estDepartureAirport);
-                // console.log(index);
                 airport.arrival = data[index].estArrivalAirport;
                 airport.destination = data[index].estDepartureAirport;
             }

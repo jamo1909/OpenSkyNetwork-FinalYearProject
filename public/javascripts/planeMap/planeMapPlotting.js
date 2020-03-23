@@ -30,8 +30,6 @@ function fetchData() {
 function plotStates(map, markers) {
     fetchData().then(function (states) {
         states.forEach((state) => {
-            var airport = getAirports(state[0]);
-
                 const lat = state[6],
                     lng = state[5],
                     icao24 = state[0],
@@ -45,25 +43,24 @@ function plotStates(map, markers) {
                     if (country == 'Ireland') {
                         markers[icao24].addTo(airplanes)
                             .bindPopup('<form action="/planeEmissions" method="post">' +
-                                'ICAO Code: <input type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
-                                'Lat: <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
-                                'Long: <input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
-                                'velocity: ' + velocity + 'm/s <br>' +
-                                'Country: ' + country + ' <br> <br>' +
-                                ' <button >Emissions</button></form>')
+                                '<input class="centerText" type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
+                                '<label>Latitude: </label><input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
+                                '<label>Longitude: </label><input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
+                                '<label>velocity: </label>' + velocity + 'm/s <br>' +
+                                '<label>Country: </label>' + country + ' <br> <br>' +
+                                '<div class="wrapper"><button >Emissions</button></div></form>')
                     } else {
                         markers[icao24].addTo(demo)
-                            .bindPopup('<form action="/planeEmissions" method="post">' +
-                                'ICAO Code: <input type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
-                                'Lat: <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
-                                'Long: <input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
-                                'velocity: ' + velocity + 'm/s <br>' +
+                            .bindPopup('<form action="/planeEmissions" method="post"><style>label{font-weight: bold; font-variant: small-caps; text-decoration: underline;}</style>' +
+                                '<label>ICAO Code:</label> <input class="centerText" type="text" id="name" name="icaocode" value="' + icao24 + '" readonly><br>' +
+                                '<label>Lat: </label> <input type="text" id="name" name="lat" value="' + lat + '" readonly><br>' +
+                                '<label>Long: </label><input type="text" id="name" name="long" value="' + lng + '" readonly><br>' +
+                                '<label>velocity: </label>' + velocity + 'm/s <br>' +
                                 ' <button >Emissions</button></form>')
                     }
                 }
 
         });
-
 
         if (bool == false) {
             var baseLayers = {
@@ -84,28 +81,6 @@ function plotStates(map, markers) {
         }
     });
 
-}
-
-async function getAirports(planeIcao) {
-    let airport = {
-        arrival: "",
-        destination: ""
-    };
-    var unixTime = getCurrentTimeInUnix();
-    console.log(planeIcao);
-    const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.now);
-    console.log(airport_url);
-    const response = await fetch(airport_url);
-    const data = await response.json();
-    if (data[0].estArrivalAirport == null || data[0].estDepartureAirport == null) {
-        airport.arrival = data[1].estArrivalAirport;
-        airport.destination = data[1].estDepartureAirport;
-    } else {
-        console.log(data[0]);
-        airport.arrival = data[0].estArrivalAirport;
-        airport.destination = data[0].estDepartureAirport;
-    }
-    return airport;
 }
 
 function getCurrentTimeInUnix() {
@@ -152,10 +127,10 @@ var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?
         id: 'pjhooker.lad5pfap'
     });
 
-var map = L.map('Map', {
+var leafletMap = L.map('Map', {
     center: [53, -6.2603],
     zoom: 6,
     layers: [streets, airplanes]
 });
-const markers = {};
-plotStates(map, markers);
+const planeMarkers = {};
+plotStates(leafletMap, planeMarkers);

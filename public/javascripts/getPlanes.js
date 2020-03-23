@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-let indexPlane = 0;
 
 function getCurrentTimeInUnix() {
     const unixTime = {

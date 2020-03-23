@@ -27,13 +27,6 @@ function checkPlaneInformation(plane) {
 
 module.exports = async function getPlane(indexPlane) {
     console.log("Searching for plane");
-    let plane = {
-        icao: 0,
-        lat: 0,
-        long: 0,
-        callsign: "",
-        originCountry: ""
-    };
     const unixTime = getCurrentTimeInUnix();
     const url = "https://opensky-network.org/api/states/all?begin=" + unixTime.now + "&end=" + unixTime.twoHoursBehind;
     const response = await fetch(url);

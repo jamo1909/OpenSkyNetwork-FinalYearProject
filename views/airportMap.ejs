@@ -20,13 +20,36 @@
 </head>
 <style>
     .leaflet-popup-content-wrapper { /*colour of leaflet.js popup*/
-        background-color: #000;
+        background-color: #171c2b;
+        color: white;
+    }
+
+    .centerText {
+        text-align: center;
+        font-weight: bold;
+        width: 100%;
+        font-size: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        font-variant: small-caps;
+        text-decoration: underline;
+    }
+
+    button {
+        height: 20px;
+        position: relative;
+        width: 100px;
+        top: 50%;
+        left: 20%;
+        background-color: #2b3141;
         color: white;
     }
 </style>
 <body>
 <% include templates/header.ejs %>
-<!-- Imported Navbar from templates-->
+<!-- Header from views/templates/header.ejs-->
 <div class="splitOne left" id="mySidenav"> <!-- Left sided table (Closed on load)-->
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> <!-- close table button-->
     <div id="planeTitle"></div>

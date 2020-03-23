@@ -37,7 +37,6 @@ let thisPlane = {
         origin: "",
         destination: ""
     },
-    icao: "",
     iata: "",
     manufacture: "",
     model: "",
@@ -114,8 +113,8 @@ function checkAirportInformation(airports) {
     }
 }
 
-function checkPlaneinformation(plane, long, lat) {
-    if (plane == null || long == null || lat == null) {
+function checkPlaneinformation(planeICAO, long, lat) {
+    if (planeICAO == null || long == null || lat == null) {
         console.log("This Plane info is incorrect");
         return false
     } else {
@@ -215,15 +214,15 @@ function codeConvertion(airportCode) {
         .catch(e => console.log(e))
 }
 
-function fuelChartAssign(fuelUsed, distance) {
+function fuelChartAssign(fuelUsed, flightDistance) {
     // console.log(Object.entries(fuelUsed.rows[0])[0]);
-    const [dist, fuel] = Object.entries(fuelUsed.rows[0])[0];
+    const [fuelDistance, fuel] = Object.entries(fuelUsed.rows[0])[0];
     console.log("fuel used: " + fuel);
-    console.log("distance: " + dist + "nm");
-    let total = fuel / dist; //* 1.852);
+    console.log("distance: " + fuelDistance + "nm");
+    let total = fuel / fuelDistance; //* 1.852);
     console.log("fuel per nm: " + total.toFixed(2)); //kg/km
     thisPlane.fuelToUse = total.toFixed(2);
-    thisPlane.fuelUsed = (total * distance).toFixed(2);
+    thisPlane.fuelUsed = (total * flightDistance).toFixed(2);
 
 }
 
@@ -245,9 +244,9 @@ function roundDistance(currentDistanceKm) {
     return roundedDistance; // in nm/kg
 }
 
-function fuelChartDatabase(code, distance) {
+function fuelChartDatabase(code, flightDistance) {
     console.log("CODE: " + code);
-    let RoundedDistance = roundDistance(distance);
+    let RoundedDistance = roundDistance(flightDistance);
     model.query("SELECT \"" + RoundedDistance + "\" from Public.\"fuelChart\" where code = $1", [code])
         .then(function (results) {
             // console.log(results)

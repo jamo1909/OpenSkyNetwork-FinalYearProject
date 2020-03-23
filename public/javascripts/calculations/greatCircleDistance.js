@@ -11,11 +11,11 @@ module.exports = function distance(latOne, longOne, latTwo, longTwo) {
         Math.cos(latOneRad) * Math.cos(latTwoRad) *
         Math.sin(longitude / 2) * Math.sin(longitude / 2);
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    let distance = Math.round(earthRadius * c);
-    console.log("Distance in " + distance + " KM");
-    console.log("Distance in " + distance * 0.62137 + " Miles");
-    console.log("Distance in " + distance * 1.852 + " Nautical-Miles");
-    return icaoDistanceCorrectionFactor(distance);
+    let flightDistance = Math.round(earthRadius * c);
+    console.log("Distance in " + flightDistance + " KM");
+    console.log("Distance in " + flightDistance * 0.62137 + " Miles");
+    console.log("Distance in " + flightDistance * 1.852 + " Nautical-Miles");
+    return icaoDistanceCorrectionFactor(flightDistance);
 };
 
 //V2 - GreaterCircleDistance
