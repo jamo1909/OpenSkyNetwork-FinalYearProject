@@ -1,5 +1,5 @@
+// Integration And Unit testing
 const functions = require('./../public/javascripts/calculations/greatCircleDistance');
-
 
 test('Testing Null values - correction factor 50KM', () => {
     expect(functions.distance(1, 1, 1, 1)).toBe(50);
