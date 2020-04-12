@@ -1,5 +1,5 @@
-var airports = L.layerGroup();
-const icon = L.icon;
+var airports = L.layerGroup(); //leafletJS lay group to hold markers
+const icon = L.icon;//declare an icon for a marker
 var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
     '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
     'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -22,16 +22,18 @@ var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?
     });
 
 var map = L.map('Map', {
-    center: [53, -6.2603],
-    zoom: 6,
+    center: [53, -6.2603],//Center
+    zoom: 6, //size
     layers: [streets, airports]
-});
+});//Declaring map and it attributes
+
 const airportIcon = L.icon({
     iconUrl: '/images/airportIcon.png',
     iconSize: [15, 15], // size of the icon
     iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
     popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-});
+});//Declaring airport icon and it attributes
+
 for (let x in airportsData) {
     L.marker([airportsData[x].latitude, airportsData[x].longitude], {icon: airportIcon}).addTo(airports)
         .bindPopup(
@@ -41,13 +43,14 @@ for (let x in airportsData) {
             '<label>Latitude:</label>' + " " + airportsData[x].latitude + ' <br> ' +
             '<label>Longitude:</label>' + " " + airportsData[x].longitude + ' <br> ' +
             '<label>altitude:</label>' + " " + airportsData[x].altitude + "m" + '<br>')
-}
+}//loop through airport data and make a marker for each airport locations with a popup
+
 var baseLayers = {
     "Basic": streets,
     "Grayscale": grayscale,
     "Satellite": basemap,
-};
+};//Map layers
 var overlays = {
     "Airports": airports
-};
-L.control.layers(baseLayers, overlays).addTo(map);
+};//Markers
+L.control.layers(baseLayers, overlays).addTo(map);//Adding to map

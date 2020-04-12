@@ -1,8 +1,4 @@
-/*
-  Links:
-  https://opensky-network.org/api/flights/all?begin=1517227200&end=1517230800
-  https://opensky-network.org/api/states/all
-  */
+
 var airplanes = L.layerGroup();
 var bool = false;
 const unixTime = {
@@ -30,9 +26,6 @@ var map = L.map('Map', {
     zoom: 6,
     layers: [streets, airplanes]
 });
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-// }).addTo(map);
 
 
 const markers = {};
@@ -135,11 +128,8 @@ function getCurrentTimeInUnix() {
     let myDate = new Date();
     myDate.setDate(myDate.getDate() - 1);
     unixTime.now = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.now: " + unixTime.now);
     myDate.setHours(myDate.getHours() - 1);
     unixTime.hourBehind = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
     myDate.setHours(myDate.getHours() - 2);
     unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
 }

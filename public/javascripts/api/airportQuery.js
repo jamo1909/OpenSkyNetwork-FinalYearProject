@@ -1,7 +1,3 @@
-// export {getAirports};
-// var planeIcao = '3c675a';
-// const test_url = 'https://opensky-network.org/api/flights/aircraft?icao24=3c675a&begin=1517184000&end=1517270400';
-
 const fetch = require("node-fetch");
 
 function getCurrentTimeInUnix() { //function to get UNIX time for API call
@@ -11,15 +7,12 @@ function getCurrentTimeInUnix() { //function to get UNIX time for API call
         twoHoursBehind: 0
     }; //UNIX time variable
     let myDate = new Date();
-    unixTime.now = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.now: " + unixTime.now);
+    unixTime.now = myDate.getTime() / 1000.0; //Get current time
     myDate.setDate(myDate.getHours() - 1);
-    unixTime.hourBehind = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.hourBehind: " + unixTime.hourBehind);
+    unixTime.hourBehind = myDate.getTime() / 1000.0; //get hour behind
     myDate.setDate(myDate.getDay() - 2);
-    unixTime.twoHoursBehind = myDate.getTime() / 1000.0;
-    // console.log("UnixTime.twoHoursBehind: " + unixTime.twoHoursBehind);
-    return unixTime;
+    unixTime.twoHoursBehind = myDate.getTime() / 1000.0; //get 2 hours behind
+    return unixTime; //send unix time back
 }
 
 module.exports = async function getAirports(planeIcao) { //Get origin and destination airports for plane using ICAO
@@ -53,20 +46,6 @@ module.exports = async function getAirports(planeIcao) { //Get origin and destin
             }
         } while ((data[index].estArrivalAirport == null) || (data[index].estDepartureAirport == null));
     }
-    // if (data[0].estArrivalAirport == null || data[0].estDepartureAirport == null) {
-    //     // const airport_url = "https://opensky-network.org/api/flights/aircraft?icao24=" + planeIcao + "&begin=" + parseInt(unixTime.twoHoursBehind) + "&end=" + parseInt(unixTime.hourBehind);
-    //     // console.log(airport_url);
-    //     // const response = await fetch(airport_url);
-    //     // const data = await response.json();
-    //     airport.arrival = data[1].estArrivalAirport;
-    //     // console.log(data[0].estDepartureAirport);
-    //     airport.destination = data[1].estDepartureAirport;
-    // } else {
-    //     console.log(data[0]);
-    //     airport.arrival = data[0].estArrivalAirport;
-    //     airport.destination = data[0].estDepartureAirport;
-    // }
-
     return airport;
 };
 

@@ -1,128 +1,128 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!-- Plane Emissions-->
 <html>
 <head>
     <title>Search Aviation</title>
     <!-- Imported libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
-    <link href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script><!-- JQuery-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/> <!-- LeafletJS-->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script> <!-- LeafletJS-->
+    <link href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" rel="stylesheet"/> <!--   LeafletJS-->
     <!--   Created CSS files-->
-    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
-    <link rel='stylesheet' href='/stylesheets/planeEmissions.css'/>
+    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/><!-- Navbar/footer CSS-->
+    <link rel='stylesheet' href='/stylesheets/planeEmissions.css'/> <!-- Page CSS-->
 </head>
 <body>
 <% include templates/header.ejs %><!--navbar imported using ejs -->
-<div class="splitOne left">
-    <a href="/planeMap" class="closebtn">&times;</a>
+<div class="splitOne left">  <!-- side div for to display emissions-->
+    <a href="/planeMap" class="closebtn">&times;</a>  <!-- Close button for side div-->
     <div id="planeTitle">
-        <% if (planeManufacture.length < 1 || planeManufacture.length === null) { %>
-            Null
-        <% }else{ %>
-            <%= planeManufacture %>
+        <% if (planeManufacture.length < 1 || planeManufacture.length === null) { %>Null
+        <% }else{ %><%= planeManufacture %>
         <% } %>
-        <span id="airplaneModel"><%= planeModel %></span></div>
-    <div class="planePicture"></div>
+        <span id="airplaneModel"><%= planeModel %></span></div> <!--plane title in side div-->
+    <div class="planePicture"></div>  <!-- displays planes pictures from API-->
     <div class="search">
-        <table id="myTable">
+        <table id="myTable"> <!-- table to display emissions values-->
             <tr>
                 <td>Engine:</td>
                 <td>
-                    <% if (planeEngine == null ) { %>
+                    <% if (planeEngine == null ) { %> <!-- if engine returns null print null-->
                         Null
-                    <% }else{ %>
-                        <%= planeEngine %>
+                    <% }else{ %> <!-- if engine returns a valid response-->
+                    <%= planeEngine %> <!-- planes engine-->
                     <% } %>
-                </td>
-            </tr>
+                </td><!-- contains engine name from sql query -->
+            </tr> <!-- row 1-->
             <tr>
                 <td class="bold">Airline:</td>
                 <td>
-                    <% if (planeOwner.length < 1 || planeOwner == null ) { %>
+                    <% if (planeOwner.length < 1 || planeOwner == null ) { %><!-- if airline is not valid-->
                         Null
-                    <% }else{ %>
-                        <%= planeOwner %>
+                    <% }else{ %> <!-- if the airlines name is valid-->
+                    <%= planeOwner %> <!-- print the airlines name-->
                     <% } %>
-                </td>
-            </tr>
+                </td><!-- contains the planes airline name-->
+            </tr><!-- row 2-->
             <tr>
                 <td class="tab">Callsign:</td>
-                <td id="planeName"><%= planeIcao %></td>
-            </tr>
+                <td id="planeName"><%= planeIcao %></td><!-- prints the planes ICAO code-->
+            </tr><!-- row 3-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="planeLat"><%= planeLat %></td>
-            </tr>
+                <td id="planeLat"><%= planeLat %></td> <!-- prints the planes latitude-->
+            </tr> <!-- row 4-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="planeLong"><%= planeLong %></td>
-            </tr>
+                <td id="planeLong"><%= planeLong %></td><!-- prints the planes longitude-->
+            </tr> <!-- row 5-->
             <tr>
                 <td class="bold">Origin Airport:</td>
                 <td id="originName">
-                    <% if (originAirportName.length < 1) { %>
-                        Null
-                    <% }else{ %>
-                        <%= originAirportName %>
+                    <% if (originAirportName.length < 1) { %> <!-- if the origin airports name is not valid-->
+                    Null <!-- print-->
+                    <% }else{ %> <!-- else if origin airport name is greater than 1-->
+                    <%= originAirportName %><!-- prints origin airport name-->
                     <% } %>
-                </td>
-            </tr>
+                </td><!-- contains the origin airports name-->
+            </tr><!-- row 6-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="originLat"><%= originAirportLat %></td>
-            </tr>
+                <td id="originLat"><%= originAirportLat %></td><!-- prints origin airport latitude-->
+            </tr><!-- row 7-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="originLong"><%= originAirportLong %></td>
-            </tr>
+                <td id="originLong"><%= originAirportLong %></td><!-- print origin airport longitude-->
+            </tr><!-- row 8-->
             <tr>
                 <td class="bold">Destination Airport:</td>
                 <td id="destinationName">
-                    <% if (destinationAirportName.length < 1) { %>
-                        Null
-                    <% }else{ %>
-                        <%= destinationAirportName %>
+                    <% if (destinationAirportName.length < 1) { %><!-- if the destination airport name is not valid -->
+                    Null <!-- print-->
+                    <% }else{ %><!-- if the destination airport is valid-->
+                    <%= destinationAirportName %><!-- print destination airport name-->
                     <% } %>
                 </td>
-            </tr>
+            </tr><!-- row 9-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="destinationLat"><%= destinationAirportLat %></td>
-            </tr>
+                <td id="destinationLat"><%= destinationAirportLat %></td><!--print destination airport latitude -->
+            </tr><!-- row 10-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="destinationLong"><%= destinationAirportLong %></td>
-            </tr>
+                <td id="destinationLong"><%= destinationAirportLong %></td><!-- print destination airport longitude-->
+            </tr><!-- row 11-->
             <tr>
                 <td>Distance Between Airports:</td>
                 <td><%= distanceOriginToDestination %></td>
-            </tr>
+                <!-- prints the distance between the origin and destination airports-->
+            </tr><!-- row 12-->
             <tr>
                 <td>Distance Between plane to Destination:</td>
                 <td><%= distancePlaneToDestination %></td>
-            </tr>
+                <!-- prints the distance between the plane and destination airport-->
+            </tr><!-- row 13-->
             <tr>
                 <td>fuel used:</td>
-                <td><%= fuelUsed %></td>
-            </tr>
+                <td><%= fuelUsed %>kg</td><!-- prints the amount of fuel used so far on the plane journey -->
+            </tr><!-- row 13-->
             <tr>
                 <td>Fuel per Km:</td>
-                <td><%= fuelToUse %>kg/km</td>
-            </tr>
-        </table>
-    </div>
+                <td><%= fuelToUse %>kg/km</td><!-- average fuel consumption-->
+            </tr><!-- row 14-->
+        </table><!-- myTable-->
+    </div><!-- search-->
+</div><!-- splitOne -->
 
-</div>
-
-<div class="split right">
-    <div id='Map'></div>
+<div class="split right"><!-- right side of page with the map-->
+    <div id='Map'></div><!-- leafletJS map-->
     <div class="emissionDiv">
-        Emission: <span>000</span> C02
-    </div>
-</div>
+        Emission: <span>000</span> C02 <!-- display the emissions on fuel consumption-->
+    </div><!-- emissionDiv-->
+</div><!-- split-->
 </body>
 <!--    Created Javascript files-->
-<script type="text/javascript" src="/javascripts/planeEmissions/imageApi.js"></script>
+<script type="text/javascript" src="/javascripts/planeEmissions/imageApi.js"></script><!-- flickr.com image API-->
 <script type="text/javascript" src="/javascripts/planeEmissions/planeEmissionsMap.js"></script>
+<!-- LeafletJS map setup-->
 <!--JamesMurphy-16421512-->
 </html>

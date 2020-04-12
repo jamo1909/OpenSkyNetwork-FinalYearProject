@@ -52,69 +52,69 @@
 <!-- Header from views/templates/header.ejs-->
 <div class="splitOne left" id="mySidenav"> <!-- Left sided table (Closed on load)-->
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> <!-- close table button-->
-    <div id="planeTitle"></div>
-    <div class="planePicture"></div>
+    <div id="planeTitle"></div><!-- Plane model title-->
+    <div class="planePicture"></div><!-- flickr.com image of plane-->
     <div class="search">
         <table id="myTable">
             <tr>
                 <td>Name:</td>
-                <td></td>
+                <td></td><!-- Airport Name-->
             </tr>
             <tr>
                 <td>City:</td>
-                <td></td>
+                <td></td><!-- City of airport-->
             </tr>
             <tr>
                 <td>Country:</td>
-                <td></td>
+                <td></td><!-- Country of airport-->
             </tr>
             <tr>
                 <td>Longitude:</td>
-                <td></td>
+                <td></td><!-- Longitude of airport-->
             </tr>
             <tr>
                 <td>Latitude:</td>
-                <td></td>
+                <td></td><!-- Latitude of airport-->
             </tr>
             <tr>
                 <td>Altitude:</td>
-                <td></td>
+                <td></td><!-- Altitude of airport-->
             </tr>
             <tr>
                 <td>Air Quality :</td>
-                <td></td>
+                <td></td><!-- Air quality of airport-->
             </tr>
             <tr>
                 <td>Air Status:</td>
-                <td id="aqiColour"></td>
+                <td id="aqiColour"></td><!-- Air status of airport-->
             </tr>
             <tr>
                 <td>Nitrogen Dioxide(NO2):</td>
-                <td></td>
+                <td></td><!-- NO2 in the air of airport-->
             </tr>
             <tr>
                 <td>Ozone gas:</td>
-                <td></td>
+                <td></td><!-- Ozone gas in the air of airport-->
             </tr>
             <tr>
                 <td>PM10:</td>
-                <td></td>
+                <td></td><!-- PM10 in the air at airport-->
             </tr>
             <tr>
                 <td>PM2.5:</td>
-                <td></td>
+                <td></td><!-- PM2.5 in the air at airport-->
             </tr>
             <tr>
                 <td>Sulfur dioxide(SO2):</td>
-                <td></td>
+                <td></td><!-- SO2 in the air at the airport-->
             </tr>
             <tr>
                 <td>Link:</td>
-                <td><a id="airQualityLink">Aqicn Link</a></td>
+                <td><a id="airQualityLink">Aqicn Link</a></td><!-- Link to weather station-->
             </tr>
-        </table>
-    </div>
-</div>
+        </table><!-- myTable-->
+    </div><!-- search-->
+</div><!--splitOne left -->
 <div class="split right" id="mapDiv"> <!-- Map div (full page on load) -->
     <div id='Map'></div> <!-- leaflet.js Map-->
 </div>

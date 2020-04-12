@@ -1,6 +1,4 @@
-//Get json of planes in an area
 const api_url = 'https://opensky-network.org/api/states/all?';
-// const api_url = 'https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226';
 $(document).ready(() => {
     $.get(api_url, ({states}, status) => {
         const $data = $("#data");
@@ -16,13 +14,4 @@ $(document).ready(() => {
     })
 });
 
-//Other Example;
-// const api_url = 'https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226';
-// $(document).ready(function() {
-//     $.get(api_url, function(data, status) {
-//         var states = (data.states);
-//         $.each(states, function(index, state) {
-//             $("#data").append('<tr><td>' + state[0] + '</td><td>' + state[2] + '</td><td>' + state[5] + '</td><td>' + state[6] + '</td><td>' + state[7] + '</td><td>' + state[9] + '</td></tr>')
-//         })
-//     })
-// })
+//This function send the live aircraft Json file to a html table

@@ -1,9 +1,3 @@
-
-/*
-Links:
-https://opensky-network.org/api/flights/all?begin=1517227200&end=1517230800
-https://opensky-network.org/api/states/all
-*/
 const unixTime = {
     now: 0,
     hourBehind: 0,

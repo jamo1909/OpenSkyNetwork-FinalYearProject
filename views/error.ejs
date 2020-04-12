@@ -1,24 +1,22 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!-- Error Page-->
 <html>
 <head>
-    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
-    <link rel='stylesheet' href='/stylesheets/index.css'/>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <!--Imported Libraries -->
+    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/><!-- CSS for header and footer-->
+    <link rel='stylesheet' href='/stylesheets/index.css'/><!-- CSS for page (same as index)-->
 </head>
 <body>
-<% include templates/header.ejs %>
+<% include templates/header.ejs %><!-- Imported navbar-->
 <div class="bodyDiv">
     <div class="about">
         <div class="info">
             <h1><%= message %></h1>
             <h2><%= error.status %></h2>
             <p><%= error.stack %></p>
-
-
-        </div>
-    </div>
-</div>
-<% include templates/footer.ejs %>
+        </div><!-- info-->
+    </div><!-- about-->
+</div><!-- bodyDiv-->
+<% include templates/footer.ejs %><!-- Imported footer-->
 </body>
 <!--JamesMurphy-16421512-->
 </html>

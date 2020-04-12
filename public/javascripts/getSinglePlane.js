@@ -1,6 +1,5 @@
 const fetch = require("node-fetch");
-//TODO: fix to change
-// let indexPlane = 0;
+
 
 function getCurrentTimeInUnix() {
     const unixTime = {
@@ -31,12 +30,6 @@ module.exports = async function getPlane(indexPlane) {
     const url = "https://opensky-network.org/api/states/all?begin=" + unixTime.now + "&end=" + unixTime.twoHoursBehind;
     const response = await fetch(url);
     const data = await response.json();
-    // plane.icao = data.states[indexPlane][0];
-    // plane.callsign = data.states[indexPlane][1];
-    // plane.originCountry = data.states[indexPlane][2];
-    // plane.long = data.states[indexPlane][5];
-    // plane.lat = data.states[indexPlane][6];
-    // checkPlaneInformation(plane);
     return data;
 };
 
