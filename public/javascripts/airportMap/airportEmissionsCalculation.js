@@ -20,9 +20,9 @@ function openNav(airportName) {//The airport name is inserted into the function
     var cell2 = table.rows[2].cells[1];
     cell2.innerHTML = airportsData[index].country;//Print country to sideNav
     var cell2 = table.rows[3].cells[1];
-    cell2.innerHTML = airportsData[index].latitude;//Print latitude to sideNav
+    cell2.innerHTML = airportsData[index].latitude + "˚";//Print latitude to sideNav
     var cell2 = table.rows[4].cells[1];
-    cell2.innerHTML = airportsData[index].longitude;//Print longitude to sideNav
+    cell2.innerHTML = airportsData[index].longitude + "˚";//Print longitude to sideNav
     var cell2 = table.rows[5].cells[1];
     cell2.innerHTML = airportsData[index].altitude;//Print altitude to table
     airQualityFetch(airportsData[index].latitude, airportsData[index].longitude);//Send airport latitude and longitude to air quality API

@@ -49,11 +49,11 @@
             </tr><!-- row 3-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="planeLat"><%= planeLat %></td> <!-- prints the planes latitude-->
+                <td id="planeLat"><%= planeLat %>˚</td> <!-- prints the planes latitude-->
             </tr> <!-- row 4-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="planeLong"><%= planeLong %></td><!-- prints the planes longitude-->
+                <td id="planeLong"><%= planeLong %>˚</td><!-- prints the planes longitude-->
             </tr> <!-- row 5-->
             <tr>
                 <td class="bold">Origin Airport:</td>
@@ -67,11 +67,11 @@
             </tr><!-- row 6-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="originLat"><%= originAirportLat %></td><!-- prints origin airport latitude-->
+                <td id="originLat"><%= originAirportLat %>˚</td><!-- prints origin airport latitude-->
             </tr><!-- row 7-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="originLong"><%= originAirportLong %></td><!-- print origin airport longitude-->
+                <td id="originLong"><%= originAirportLong %>˚</td><!-- print origin airport longitude-->
             </tr><!-- row 8-->
             <tr>
                 <td class="bold">Destination Airport:</td>
@@ -85,28 +85,29 @@
             </tr><!-- row 9-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="destinationLat"><%= destinationAirportLat %></td><!--print destination airport latitude -->
+                <td id="destinationLat"><%= destinationAirportLat %>˚</td><!--print destination airport latitude -->
             </tr><!-- row 10-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="destinationLong"><%= destinationAirportLong %></td><!-- print destination airport longitude-->
+                <td id="destinationLong"><%= destinationAirportLong %>˚</td><!-- print destination airport longitude-->
             </tr><!-- row 11-->
             <tr>
                 <td>Distance Between Airports:</td>
-                <td><%= distanceOriginToDestination %></td>
+                <td><%= distanceOriginToDestination %>km</td>
                 <!-- prints the distance between the origin and destination airports-->
             </tr><!-- row 12-->
             <tr>
                 <td>Distance Between plane to Destination:</td>
-                <td><%= distancePlaneToDestination %></td>
+                <td><%= distancePlaneToDestination %>km</td>
                 <!-- prints the distance between the plane and destination airport-->
             </tr><!-- row 13-->
             <tr>
-                <td>fuel used:</td>
-                <td><%= fuelUsed %>kg</td><!-- prints the amount of fuel used so far on the plane journey -->
+                <td>Fuel Journey:</td>
+                <td><span id="totalFuelConsumption"><%= fuelUsed %></span>kg</td>
+                <!-- prints the amount of fuel used so far on the plane journey -->
             </tr><!-- row 13-->
             <tr>
-                <td>Fuel per Km:</td>
+                <td>Avg fuel KM:</td>
                 <td><%= fuelToUse %>kg/km</td><!-- average fuel consumption-->
             </tr><!-- row 14-->
         </table><!-- myTable-->
@@ -116,13 +117,14 @@
 <div class="split right"><!-- right side of page with the map-->
     <div id='Map'></div><!-- leafletJS map-->
     <div class="emissionDiv">
-        Emission: <span>000</span> C02 <!-- display the emissions on fuel consumption-->
+        Emission: <span id="emissionSpan"></span> C02 <!-- display the emissions on fuel consumption-->
     </div><!-- emissionDiv-->
 </div><!-- split-->
 </body>
 <!--    Created Javascript files-->
 <script type="text/javascript" src="/javascripts/planeEmissions/imageApi.js"></script><!-- flickr.com image API-->
 <script type="text/javascript" src="/javascripts/planeEmissions/planeEmissionsMap.js"></script>
+<script type="text/javascript" src="/javascripts/planeEmissions/emissionCalculation.js"></script>
 <!-- LeafletJS map setup-->
 <!--JamesMurphy-16421512-->
 </html>
