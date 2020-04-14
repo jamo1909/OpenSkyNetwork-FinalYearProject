@@ -253,8 +253,22 @@ function fuelChartDatabase(code, flightDistance) {
 }
 
 function insertEmissions(icaoValue, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, fuelPerKmValue, fuelUsedValue, callsign, originCountry) {
-    model.query("INSERT INTO Public.\"dataAnalysisTest\"(icao, callsign,originAirport, destinationAirport, airline, manufacture, model,origincountry, fuelPerKm, fuelUsed,emissions) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)", [icaoValue, callsign, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, originCountry, fuelPerKmValue, fuelUsedValue, null])//insert aircraft emissions into data analysis DB
+    let emissions = emissionCalculation(fuelUsedValue);
+    model.query("INSERT INTO Public.\"dataAnalysisTest\"(icao, callsign,originAirport, destinationAirport, airline, manufacture, model,origincountry, fuelPerKm, fuelUsed,emissions) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)", [icaoValue, callsign, originAirportValue, destinationAirportValue, ownerValue, manufactureValue, modelValue, originCountry, fuelPerKmValue, fuelUsedValue, emissions])//insert aircraft emissions into data analysis DB
         .catch(e => console.log(e))
 }
 
 
+let co2EmissionPerGramOfFuel = 3.16;
+let co2perKgFuel = co2EmissionPerGramOfFuel * 1000.00;
+let emission = 0.00;
+
+function emissionCalculation(totalFuelConsumption) {
+    console.log(co2EmissionPerGramOfFuel);
+    console.log(co2perKgFuel);
+    console.log(totalFuelConsumption);
+    console.log(co2EmissionPerGramOfFuel);
+    emission = parseFloat(totalFuelConsumption) * co2perKgFuel;
+    console.log(emission);
+    return emission;
+}

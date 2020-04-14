@@ -111,7 +111,6 @@
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Aircraft.." title="Type Aircraft">
 
 </div>
-<!--<% include templates/footer.ejs %>-->
 <script>
     var span = document.getElementById("avgFuelNum");
     span.textContent = (<%- JSON.stringify(avgFuelConsumption[0].avg) %>).toFixed(2);
@@ -128,6 +127,7 @@
     var originAirportCount = <%- JSON.stringify(originAirportCount) %>;
     var destinationAirportCount = <%- JSON.stringify(destinationAirportCount) %>;
     var fuelOverTime = <%- JSON.stringify(fuelOverTime) %>;
+    var test = <%- JSON.stringify(emissions) %>;
 
     var chart = new CanvasJS.Chart("pieChartOne", {
         animationEnabled: true,
@@ -291,17 +291,7 @@
             name: "companies",
             axisYType: "secondary",
             color: "#014D65",
-            dataPoints: [ //destinationAirportCount
-                {y: 3, label: "Sweden"},
-                {y: 7, label: "Taiwan"},
-                {y: 5, label: "Russia"},
-                {y: 9, label: "Spain"},
-                {y: 7, label: "Brazil"},
-                {y: 7, label: "India"},
-                {y: 9, label: "Italy"},
-                {y: 8, label: "Australia"},
-                {y: 11, label: "Canada"},
-            ]
+            dataPoints: destinationAirportCount
         }]
     });
     chart.render();
@@ -339,12 +329,13 @@
         {
             backgroundColor: "#171c2b",
             title: {
-                text: "Simple Date-Time Chart",
+                text: "Fuel Consumption (Passed 10 Days)",
                 fontColor: "white"
             },
             axisX: {
                 title: "timeline",
                 labelFontColor: "white",
+                valueFormatString: "##th"
             },
             axisY: {
                 title: "Downloads",
@@ -352,20 +343,12 @@
             },
             data: [
                 {
+                    xValueFormatString: "day ##th",
+                    yValueFormatString: "######kg",
                     type: "area",
-                    dataPoints: [//array
-                        {x: new Date(2012, 01, 1), y: 26},
-                        {x: new Date(2012, 01, 3), y: 38},
-                        {x: new Date(2012, 01, 5), y: 43},
-                        {x: new Date(2012, 01, 7), y: 29},
-                        {x: new Date(2012, 01, 11), y: 41},
-                        {x: new Date(2012, 01, 13), y: 54},
-                        {x: new Date(2012, 01, 20), y: 66},
-                        {x: new Date(2012, 01, 21), y: 60},
-                        {x: new Date(2012, 01, 25), y: 53},
-                        {x: new Date(2012, 01, 27), y: 60}
+                    xValueType: "timestamp",
+                    dataPoints: fuelOverTime,
 
-                    ]
                 }
             ]
         });
@@ -376,12 +359,13 @@
         {
             backgroundColor: "#171c2b",
             title: {
-                text: "Simple Date-Time Chart",
+                text: "Emissions (Passed 10 Days)",
                 fontColor: "white"
             },
             axisX: {
                 title: "timeline",
                 labelFontColor: "white",
+                valueFormatString: "##th"
             },
             axisY: {
                 title: "Downloads",
@@ -390,8 +374,8 @@
             data: [
                 {
                     type: "area",
-                    xValueType: "date",
-                    dataPoints: fuelOverTime
+                    xValueType: "timestamp",
+                    dataPoints: test,
                 }
             ]
         });

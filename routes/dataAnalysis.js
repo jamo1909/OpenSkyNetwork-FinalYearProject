@@ -24,6 +24,7 @@ var modelPanesCount;
 var originAirportCount;
 var destinationAirportCount;
 var fuelOverTime;
+var emissions;
 
 //FUEL USAGE
 //SELECT SUM(fuelused)FROM Public."dataAnalysisTest"
@@ -85,6 +86,7 @@ model.query("SELECT count(*) AS y, airline AS label From Public.\"dataAnalysisTe
         // console.log(airlinePlanes.rows)
         airlinePlanesCount = airlinePlanes.rows;
     }).catch(e => console.log(e));
+
 //SELECT SUM(fuelused) AS y, model AS label FROM Public."dataAnalysisTest" GROUP BY model
 model.query("SELECT SUM(fuelused) AS y, model AS label From Public.\"dataAnalysisTest\" GROUP BY model LIMIT 10")
     .then(function (aircraftModels) {
@@ -103,23 +105,30 @@ model.query("SELECT count(*) AS y, model AS label From Public.\"dataAnalysisTest
 
 
 //SELECT count(*), originairport FROM Public."dataAnalysisTest" GROUP BY originairport
-model.query("SELECT count(*) as y, originairport as label From Public.\"dataAnalysisTest\" GROUP BY originairport")
+model.query("SELECT CAST(count(*) AS INT) as y, originairport as label From Public.\"dataAnalysisTest\" GROUP BY originairport LIMIT 10")
     .then(function (originAirport) {
         // console.log(originAirport.rows)
         originAirportCount = originAirport.rows;
     }).catch(e => console.log(e));
 //SELECT count(*), destinationairport FROM Public."dataAnalysisTest" GROUP BY destinationairport
-model.query("SELECT count(*) as y, destinationairport as label From Public.\"dataAnalysisTest\" GROUP BY destinationairport")
+model.query("SELECT CAST(count(*) AS INT) as y, destinationairport as label From Public.\"dataAnalysisTest\" GROUP BY destinationairport LIMIT 10")
     .then(function (destinationAirport) {
         // console.log(destinationAirport.rows)
         destinationAirportCount = destinationAirport.rows;
     }).catch(e => console.log(e));
 
 //SELECT extract(epoch from timedate) as x, SUM(fuelused) as y FROM Public."dataAnalysisTest" GROUP BY x
-model.query("SELECT extract(epoch from timedate) as x, SUM(fuelused) as y FROM Public.\"dataAnalysisTest\" GROUP BY x")
+model.query("SELECT extract(day from timedate) as x, SUM(fuelused) as y FROM Public.\"dataAnalysisTest\" GROUP BY x ORDER BY x desc LIMIT 10")
     .then(function (fuel) {
         console.log(fuel.rows);
         fuelOverTime = fuel.rows;
+    }).catch(e => console.log(e));
+
+//SELECT extract(epoch from timedate) as x, SUM(fuelused) as y FROM Public."dataAnalysisTest" GROUP BY x
+model.query("SELECT extract(day from timedate) as x, SUM(emissions) as y FROM Public.\"dataAnalysisTest\" WHERE emissions IS NOT NULL GROUP BY x ORDER BY x desc LIMIT 10")
+    .then(function (emissionsTest) {
+        console.log(emissionsTest.rows);
+        emissions = emissionsTest.rows;
     }).catch(e => console.log(e));
 
 
@@ -140,6 +149,7 @@ router.get('/', function (req, res, next) {
         originAirportCount: originAirportCount,
         destinationAirportCount: destinationAirportCount,
         fuelOverTime: fuelOverTime,
+        emissions: emissions
     });
 
 });
