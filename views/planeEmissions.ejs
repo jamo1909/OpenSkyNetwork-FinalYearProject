@@ -27,7 +27,7 @@
                 <td>Engine:</td>
                 <td>
                     <% if (planeEngine == null ) { %> <!-- if engine returns null print null-->
-                        Null
+                    Null
                     <% }else{ %> <!-- if engine returns a valid response-->
                     <%= planeEngine %> <!-- planes engine-->
                     <% } %>
@@ -37,7 +37,7 @@
                 <td class="bold">Airline:</td>
                 <td>
                     <% if (planeOwner.length < 1 || planeOwner == null ) { %><!-- if airline is not valid-->
-                        Null
+                    Null
                     <% }else{ %> <!-- if the airlines name is valid-->
                     <%= planeOwner %> <!-- print the airlines name-->
                     <% } %>
@@ -49,11 +49,11 @@
             </tr><!-- row 3-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="planeLat"><%= planeLat %>˚</td> <!-- prints the planes latitude-->
+                <td id="planeLat"><%= planeLat %></td> <!-- prints the planes latitude-->
             </tr> <!-- row 4-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="planeLong"><%= planeLong %>˚</td><!-- prints the planes longitude-->
+                <td id="planeLong"><%= planeLong %></td><!-- prints the planes longitude-->
             </tr> <!-- row 5-->
             <tr>
                 <td class="bold">Origin Airport:</td>
@@ -67,11 +67,11 @@
             </tr><!-- row 6-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="originLat"><%= originAirportLat %>˚</td><!-- prints origin airport latitude-->
+                <td id="originLat"><%= originAirportLat %></td><!-- prints origin airport latitude-->
             </tr><!-- row 7-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="originLong"><%= originAirportLong %>˚</td><!-- print origin airport longitude-->
+                <td id="originLong"><%= originAirportLong %></td><!-- print origin airport longitude-->
             </tr><!-- row 8-->
             <tr>
                 <td class="bold">Destination Airport:</td>
@@ -85,11 +85,11 @@
             </tr><!-- row 9-->
             <tr>
                 <td class="tab">Latitude:</td>
-                <td id="destinationLat"><%= destinationAirportLat %>˚</td><!--print destination airport latitude -->
+                <td id="destinationLat"><%= destinationAirportLat %></td><!--print destination airport latitude -->
             </tr><!-- row 10-->
             <tr>
                 <td class="tab">Longitude:</td>
-                <td id="destinationLong"><%= destinationAirportLong %>˚</td><!-- print destination airport longitude-->
+                <td id="destinationLong"><%= destinationAirportLong %></td><!-- print destination airport longitude-->
             </tr><!-- row 11-->
             <tr>
                 <td>Distance Between Airports:</td>
