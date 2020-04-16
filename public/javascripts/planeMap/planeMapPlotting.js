@@ -70,8 +70,8 @@ function plotStates(map, markers) {
             };
 
             var overlays = {
-                "Airplanes": airplanes,
                 "Demo All Planes": demo,
+                "Airplanes": airplanes,
             };
             L.control.layers(baseLayers, overlays).addTo(map);
             bool = true;
@@ -130,7 +130,7 @@ var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?
 var leafletMap = L.map('Map', {
     center: [53, -6.2603],
     zoom: 6,
-    layers: [streets, airplanes]
+    layers: [streets, demo]
 });
 const planeMarkers = {};
 plotStates(leafletMap, planeMarkers);
