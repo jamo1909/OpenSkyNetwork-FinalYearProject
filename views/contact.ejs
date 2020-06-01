@@ -4,7 +4,7 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
-    <link rel='stylesheet' href='/stylesheets/documentation.css'/>
+    <link rel='stylesheet' href='/stylesheets/contact.css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
@@ -16,9 +16,26 @@
 <div class="bodyDiv">
     <div class="about">
         <h1 class="Heading">Get in touch</h1>
+        <h3 class="subHeading">"Love to hear from you"</h3>
         <div class="info">
             <div class="personalInfo">
-
+                <form>
+                    <input type="text" placeholder=" Name:">
+                    <input type="text" placeholder=" Email:">
+                    <br>
+                    <select >
+                        <option> Subject: </option>
+                        <option> Problem</option>
+                        <option> Comment</option>
+                        <option> Business Enquiry</option>
+                        <option> Improvement</option>
+                        <option> Other...</option>
+                    </select>
+                    <br>
+                    <textarea name="text"  placeholder=" Message"></textarea>
+                    <br>
+                    <button class="button" style="vertical-align:middle"><span>Send </span></button>
+                </form>
 
             </div>
         </div>
