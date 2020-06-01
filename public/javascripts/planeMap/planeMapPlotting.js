@@ -129,7 +129,7 @@ var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?
 
 var leafletMap = L.map('Map', {
     center: [53, -6.2603],
-    zoom: 6,
+    zoom: 3,
     layers: [streets, demo]
 });
 const planeMarkers = {};
