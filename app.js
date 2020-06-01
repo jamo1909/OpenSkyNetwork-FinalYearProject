@@ -13,6 +13,7 @@ var planeEmissions = require('./routes/planeEmissions');
 var dataAnalysis = require('./routes/dataAnalysis');
 var documentation = require('./routes/documentation');
 var data = require('./routes/data');
+var contact = require('./routes/contact');
 
 
 var app = express();
@@ -35,7 +36,7 @@ app.use('/planeMap', planeMap);
 app.use('/airportMap', airportMap);
 app.use('/dataAnalysis', dataAnalysis);
 app.use('/documentation', documentation);
-
+app.use('/contact', contact);
 
 //TODO: Get rid when finished
 app.use('/data', data);
