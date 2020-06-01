@@ -19,9 +19,9 @@
         <h3 class="subHeading">"Love to hear from you"</h3>
         <div class="info">
             <div class="personalInfo">
-                <form>
-                    <input type="text" placeholder=" Name:">
-                    <input type="text" placeholder=" Email:">
+                <form action="/messageSent" method="post">
+                    <input type="text" placeholder=" Name:"  name="name">
+                    <input type="text" placeholder=" Email:" name="email">
                     <br>
                     <select >
                         <option> Subject: </option>
@@ -32,7 +32,7 @@
                         <option> Other...</option>
                     </select>
                     <br>
-                    <textarea name="text"  placeholder=" Message"></textarea>
+                    <textarea name="text"  placeholder=" Message" name="message"></textarea>
                     <br>
                     <button class="button" style="vertical-align:middle"><span>Send </span></button>
                 </form>
