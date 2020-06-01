@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
+    <link rel='stylesheet' href='/stylesheets/messageSent.css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<style>
+
+</style>
+<body>
+<% include templates/header.ejs %>
+<div class="bodyDiv">
+    <div class="about">
+        <h1 class="Heading">MESSAGE SENT!</h1>
+        <div class="info">
+            <div class="personalInfo">
+                <p>Dear <%=name%>, </p>
+                <p>We will be in contact with you soon by email.</p>
+                <p>Thanking you,</p>
+                <p>TURE</p>
+            </div>
+            <a href="\contact" style="text-decoration: underline; color: grey; font-size: 15px;">Send another message</a>
+        </div>
+    </div>
+</div>
+<% include templates/footer.ejs %>
+</body>
+<!--JamesMurphy-16421512-->
+</html>
