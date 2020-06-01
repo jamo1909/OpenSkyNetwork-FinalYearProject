@@ -33,16 +33,23 @@ body {
 }
 
 .footer {
-    overflow: hidden;
     background-color: #171c2b;
     z-index: 1000;
     position: absolute;
     bottom: 0px;
     width: 100%;
+
 }
 
 .footerTitle {
     padding-left: 10px;
     color: white;
-}
+    font-size: 15px;
 
+}
+.ProduceBy{
+    padding-right: 10px;
+    float: right;
+    color: white;
+    font-size: 15px;
+}
