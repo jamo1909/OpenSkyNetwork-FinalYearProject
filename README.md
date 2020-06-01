@@ -26,3 +26,7 @@ PDF Documentation: https://www.icao.int/environmental-protection/CarbonOffset/Do
 ![Data Analysis One](/public/images/usageImages/dataAnalysisOne.png)
 
 ![Data Analysis Two](/public/images/usageImages/dataAnalysisTwo.png)
+
+![Contact](/public/images/usageImages/contact.png)
+
+![ContactComplete](/public/images/usageImages/contactComplete.png)
