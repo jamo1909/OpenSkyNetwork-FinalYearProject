@@ -20,10 +20,10 @@
         <div class="info">
             <div class="personalInfo">
                 <form action="/messageSent" method="post">
-                    <input type="text" placeholder=" Name:"  name="name">
-                    <input type="text" placeholder=" Email:" name="email">
+                    <input type="text" placeholder=" Name:"  name="name" required>
+                    <input type="text" placeholder=" Email:" name="email" required>
                     <br>
-                    <select >
+                    <select name="subject">
                         <option> Subject: </option>
                         <option> Problem</option>
                         <option> Comment</option>
@@ -32,7 +32,7 @@
                         <option> Other...</option>
                     </select>
                     <br>
-                    <textarea name="text"  placeholder=" Message" name="message"></textarea>
+                    <textarea placeholder=" Message:" name="message" required></textarea>
                     <br>
                     <button class="button" style="vertical-align:middle"><span>Send </span></button>
                 </form>
