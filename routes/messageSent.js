@@ -6,6 +6,7 @@ var nodemailer = require('nodemailer');
 router.post('/', function (req, res) {
     var name = req.body.name;
     var email = req.body.email;
+    console.log(email);
     var subject = req.body.subject;
     var message = req.body.message;
 
@@ -18,9 +19,9 @@ router.post('/', function (req, res) {
     });
 
     var mailOptions = {
-        from:'jmurphy1909@gmail.com',
-        to: email,
-        subject: subject,
+        from: email,
+        to: 'jmurphy1909@gmail.com',
+        subject: "RTAE - "+subject,
         text: message
     };
 
