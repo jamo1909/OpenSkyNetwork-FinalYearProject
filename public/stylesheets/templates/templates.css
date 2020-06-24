@@ -94,7 +94,9 @@ body {
     .contactLink{
         text-align: center;
     }
-
+    .topnav a:hover{
+        color: gray;
+    }
 
 }
 
