@@ -55,13 +55,21 @@ body {
     font-size: 15px;
 }
 
-
+.navbarTitle{
+    display: none;
+}
 /*Mobile Version in CSS*/
 @media screen and (max-width: 840px) {
     .topnav a {display: none;}
     .topnav a.icon {
         float: left;
         display: block;
+    }
+    .navbarTitle{
+        display: block;
+        font-size: 20px;
+        color: white;
+        text-align: center;
     }
 }
 
@@ -86,6 +94,8 @@ body {
     .contactLink{
         text-align: center;
     }
+
+
 }
 
 
