@@ -21,22 +21,22 @@
 <% include templates/header.ejs %>
 <h2 align="center" style="color: white; font-size: 50px;">Data Analysis</h2>
 <div class="container">
-    <div style="margin-left:12px;"><span><i class="material-icons">access_alarm</i></span>Time:
+    <div class="marginOne"><span><i class="material-icons">access_alarm</i></span>Time:
         <div id="txt" style="display: inline-block;"></div>
     </div>
-    <div style="margin-left:5px;"><span><i class="material-icons">flight_takeoff</i></span>Live Planes: <span
+    <div class="marginTwo"><span><i class="material-icons">flight_takeoff</i></span>Live Planes: <span
                 id="numPlanes">000</span></div>
-    <div style="margin-left:12px;"><span><i class="material-icons">card_travel</i></span>Total
+    <div class="marginOne"><span><i class="material-icons">card_travel</i></span>Total
         Airlines: <%= airlineCount %></div>
 </div>
 <div class="container" style="margin-bottom: 30px;">
-    <div style="margin-left:12px;"><span><i class="material-icons">airplanemode_active</i></span>Total Aircraft models:
+    <div class="marginOne"><span><i class="material-icons">airplanemode_active</i></span>Total Aircraft models:
         <%= modelCount %>
     </div>
-    <div style="margin-left:5px;"><span><i class="material-icons">network_check</i></span>Avg fuel: <span
+    <div class="marginTwo"><span><i class="material-icons">network_check</i></span>Avg fuel: <span
                 id="avgFuelNum"></span>kg/km
     </div>
-    <div style="margin-left:12px;"><span><i class="material-icons">local_gas_station</i></span>Total
+    <div class="marginOne"><span><i class="material-icons">local_gas_station</i></span>Total
         Fuel: <%- JSON.stringify(totalFuelConsumption[0].sum) %>
     </div>
 </div>
