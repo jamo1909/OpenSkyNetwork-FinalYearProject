@@ -1,0 +1,61 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-image: url("../images/nightPlaneBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-attachment: fixed;
+}
+
+.Heading {
+    font-weight: bold;
+    padding-top: 0;
+    color: white;
+    font-size: 50px;
+    text-decoration: underline;
+}
+
+.personalInfo {
+    font-size: 30px;
+}
+
+personalInfo p{
+    margin-bottom: 50px;
+}
+a {
+    color: #00B7FF;
+}
+
+.bodyDiv {
+    text-align: center;
+    width: 60%;
+    height: 100%;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.about {
+    height: 100%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-top: 1%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.about p {
+    font-weight: bold;
+    color: white;
+}
+
+.descriptionHeading {
+    text-align: left;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.description {
+    font-size: 18px;
+}

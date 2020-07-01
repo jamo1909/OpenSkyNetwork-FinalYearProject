@@ -125,3 +125,45 @@ tr:nth-child(odd) {
     color: white;
 }
 
+@media screen and (max-width: 840px) {
+    .bodyDiv {
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+    .about {
+        height: 100%;
+        padding-top: 1%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+
+
+}
+
+
+/*Mobile Version in CSS*/
+@media screen and (max-width: 600px) {
+    .bodyDiv {
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+    .about {
+        height: 100%;
+        padding-top: 1%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+
+  .topnav {
+      z-index:100; position: fixed;
+  }
+
+}
+
+

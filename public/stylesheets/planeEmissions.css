@@ -7,7 +7,6 @@ body {
     height: 100%;
     width: 65%;
     position: fixed;
-    z-index: 1;
     top: 0;
     overflow-x: hidden;
     padding-top: 0px;
@@ -17,7 +16,6 @@ body {
     height: 100%;
     width: 35%;
     position: fixed;
-    z-index: 1;
     top: 0;
     overflow-x: hidden;
     padding-top: 20px;
@@ -137,4 +135,49 @@ tr:nth-child(odd) {
 
 .engine {
     font-size: 15px;
+}
+@media screen and (max-width: 840px) {
+    .splitOne{
+        width: 40%;
+    }
+    .split{
+        width: 60%;
+    }
+    .topnav{
+        z-index: 100;
+        position: relative;
+    }
+}
+
+
+/*Mobile Version in CSS*/
+@media screen and (max-width: 600px) {
+    .splitOne{
+        width: 100%;
+    }
+    .split{
+        width: 0%;
+    }
+
+
+    /*.split {*/
+    /*    height: 100%;*/
+    /*    width: 65%;*/
+    /*    position: fixed;*/
+    /*    z-index: 1;*/
+    /*    top: 0;*/
+    /*    overflow-x: hidden;*/
+    /*    padding-top: 0px;*/
+    /*}*/
+
+    /*.splitOne {*/
+    /*    height: 100%;*/
+    /*    width: 35%;*/
+    /*    position: fixed;*/
+    /*    z-index: 1;*/
+    /*    top: 0;*/
+    /*    overflow-x: hidden;*/
+    /*    padding-top: 20px;*/
+    /*}*/
+
 }

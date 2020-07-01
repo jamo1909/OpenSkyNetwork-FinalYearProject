@@ -32,17 +32,75 @@ body {
     color: white;
 }
 
+
 .footer {
-    overflow: hidden;
     background-color: #171c2b;
     z-index: 1000;
     position: absolute;
     bottom: 0px;
     width: 100%;
+
 }
 
 .footerTitle {
     padding-left: 10px;
     color: white;
+    font-size: 15px;
+
+}
+.ProduceBy{
+    padding-right: 10px;
+    float: right;
+    color: white;
+    font-size: 15px;
 }
 
+.navbarTitle{
+    display: none;
+}
+/*Mobile Version in CSS*/
+@media screen and (max-width: 840px) {
+    .topnav a {display: none;}
+    .topnav a.icon {
+        float: left;
+        display: block;
+    }
+    .navbarTitle{
+        display: block;
+        font-size: 20px;
+        color: white;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .topnav.responsive {
+        position: relative;
+    }
+
+    .topnav.responsive .icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    .contactLink{
+        text-align: center;
+    }
+    .topnav a:hover{
+        color: gray;
+    }
+
+}
+
+
+.topnav .icon {
+    display: none;
+}

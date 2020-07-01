@@ -23,7 +23,7 @@ var basemap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?
 
 var map = L.map('Map', {
     center: [53, -6.2603],//Center
-    zoom: 6, //size
+    zoom: 3, //size
     layers: [streets, airports]
 });//Declaring map and it attributes
 

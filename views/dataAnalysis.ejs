@@ -1,41 +1,42 @@
 
 <!DOCTYPE html>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
-    <title>Map</title>
+    <title>Data Analysis</title>
     <link rel='stylesheet' href='/stylesheets/map.css'/>
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/>
     <link rel='stylesheet' href='/stylesheets/dataAnalysis.css'/>
     <link rel='stylesheet' href='/stylesheets/data.css'/>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script rel="script" src='/javascripts/api/displayData.js'></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body onload="startTime()">
 <% include templates/header.ejs %>
 <h2 align="center" style="color: white; font-size: 50px;">Data Analysis</h2>
 <div class="container">
-    <div style="margin-left:12px;"><span><i class="material-icons">access_alarm</i></span>Time:
+    <div class="marginOne"><span><i class="material-icons">access_alarm</i></span>Time:
         <div id="txt" style="display: inline-block;"></div>
     </div>
-    <div style="margin-left:5px;"><span><i class="material-icons">flight_takeoff</i></span>Live Planes: <span
+    <div class="marginTwo"><span><i class="material-icons">flight_takeoff</i></span>Live Planes: <span
                 id="numPlanes">000</span></div>
-    <div style="margin-left:12px;"><span><i class="material-icons">card_travel</i></span>Total
+    <div class="marginOne"><span><i class="material-icons">card_travel</i></span>Total
         Airlines: <%= airlineCount %></div>
 </div>
 <div class="container" style="margin-bottom: 30px;">
-    <div style="margin-left:12px;"><span><i class="material-icons">airplanemode_active</i></span>Total Aircraft models:
+    <div class="marginOne"><span><i class="material-icons">airplanemode_active</i></span>Total Aircraft models:
         <%= modelCount %>
     </div>
-    <div style="margin-left:5px;"><span><i class="material-icons">network_check</i></span>Avg fuel: <span
+    <div class="marginTwo"><span><i class="material-icons">network_check</i></span>Avg fuel: <span
                 id="avgFuelNum"></span>kg/km
     </div>
-    <div style="margin-left:12px;"><span><i class="material-icons">local_gas_station</i></span>Total
+    <div class="marginOne"><span><i class="material-icons">local_gas_station</i></span>Total
         Fuel: <%- JSON.stringify(totalFuelConsumption[0].sum) %>
     </div>
 </div>

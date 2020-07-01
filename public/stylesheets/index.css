@@ -14,6 +14,7 @@ body {
     padding-top: 0;
     color: white;
     font-size: 50px;
+    text-decoration: underline;
 }
 
 .personalInfo {
@@ -46,6 +47,10 @@ a {
     font-weight: bold;
     color: white;
 }
+.info{
+    font-size: 20px;
+
+}
 
 .descriptionHeading {
     text-align: left;
@@ -56,4 +61,59 @@ a {
 .description {
     font-size: 18px;
 }
+/*Mobile Version in CSS*/
+@media screen and (max-width: 840px) {
+    .bodyDiv {
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+    .about {
+        height: 100%;
+        padding-top: 1%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
 
+    .Heading{
+        font-size: 35px;
+    }
+
+    .info {
+        font-size: 22px;
+    }
+    .personalInfo{
+        font-size: 22px;
+    }
+}
+
+
+/*Mobile Version in CSS*/
+@media screen and (max-width: 600px) {
+    .bodyDiv {
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+    .about {
+        height: 100%;
+        padding-top: 1%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+
+    .Heading{
+        font-size: 25px;
+    }
+
+    .info {
+        font-size: 12px;
+    }
+    .personalInfo{
+        font-size: 12px;
+    }
+}

@@ -5,6 +5,8 @@
     <link rel='stylesheet' href='/stylesheets/templates/templates.css'/><!-- header and footer CSS-->
     <link rel='stylesheet' href='/stylesheets/index.css'/><!-- Import CSS files for index page-->
 </head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
 <% include templates/header.ejs %><!-- Header from views/templates/header.ejs-->
 <div class="bodyDiv">
@@ -13,32 +15,29 @@
         <div class="info">
             <div class="personalInfo">
                 <p>Author: <%= nameStudent %></p> <!-- Import name from routing file-->
-                <p>Student ID: <%= student_id %></p> <!-- Import Student id from routing file-->
-                <p>University: <%= uni %></p> <!-- Import university name from routing file-->
-                <p>Course: Computer Science and Software Engineering - mh602</p>
+                <p>Version: <%= versionOfApplication %></p> <!-- Import version from routing file-->
                 <p>GitHub: <a href="https://github.com/jamo1909/OpenSkyNetwork-FinalYearProject"><u>Source Code</u></a>
                 </p><!-- Make link for GitHub-->
-                <p>Gitlab: <a href="https://gitlab.cs.nuim.ie/u180351/OpenSkyNetwork-FinalYearProject"><u>Source
-                            Code</u></a></p> <!-- Make link to GitLab-->
-            </div> <!-- personalInfor-->
+            </div> <!-- personalInfo-->
             <p class="description"> <!-- Descriptions -->
-            <p class="descriptionHeading">Description: </p> <!-- Heading-->
-            The OpenSky Network API lets you retrieve live airspace information in the form of state vectors
-                as JSON objects giving a summary of mainly position, velocity, and identity at a certain point in time.
-                The Api is available as a Rest, python or Java implementation. This project will use the API to build a
-                customised version for Irish airport tracking, in particular, the arrival and departure times of
-            flights. An interface displaying the data will be a key aspect of the project.
-            </p><!-- description-->
-            <p class="description"> <!--Description -->
-            <p class="descriptionHeading">Project: </p> <!-- Heading-->
-                I decided that I would involve a problem that we are currently facing that involves aviation. I began to
-                do research to current media about problem we currently facing in the aviation. A major topic in
-                aviation at the moment is the Emissions and carbon footprint being created from aircraft and Airports. I
-                then developed an idea to use the real time tracking from the OpenSky Network API and calculate the real
-                time emissions and carbon footprint from planes. So, the current goal of my project is to build a
-                cross-platform web app using OpenSky Network API to calculate the emissions and carbon footprint of
-                aircraft and airports in real time. The project will also involve using data analytics on the real time
-                data that I have collected.
+            <p >
+            The Real Time Aviation Emissions(RTAE) project is a project that addresses
+            a problem that we are currently facing in the aviation industry. A major topic
+            in the aviation industries at the moment is the emissions and carbon footprint
+            being created from airports and aircraft's. This project was developed to use
+            real time tracking of aircraft's using OpenSky Network API. The project also
+            was developed to provide emissions and carbon footprints of Airports using Aqicn
+            air quality API. This project provide data analysis on the data that it will collect
+            in real time.
+            <br>
+            This project is an ExpressJS project which is a web framework for NodeJS. This
+            project incorporates technologies such as JQuery, JavaScript, EJS, LeafletJS and
+            PostgreSQL.
+            <br>
+            This project is currently a Beta version and will continue to improve. This project
+            plans to be a cross-platform web application to produce an accurate real time aviation
+            emissions calculation.
+            </p>
             </p><!-- description-->
         </div><!-- info-->
     </div> <!-- about-->

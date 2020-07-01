@@ -2,8 +2,14 @@ var token = "aa3ebd6aab71743de4b90ba32e545cee0865be78"; //Token for air quality 
 var API_KEY = '15296087-cbd41a05f8c372ea3ac846dcc';//API key for flickr API
 
 function openNav(airportName) {//The airport name is inserted into the function
-    document.getElementById("mySidenav").style.width = "30%"; //Open the size nav
-    document.getElementById("mapDiv").style.width = "70%";//Make map smaller
+    if($(window).width() <  600){
+        document.getElementById("mySidenav").style.width = "100%"; //Open the size nav
+        document.getElementById("mapDiv").style.width = "0%";//Make map smaller
+    }else{
+        document.getElementById("mySidenav").style.width = "30%"; //Open the size nav
+        document.getElementById("mapDiv").style.width = "70%";//Make map smaller
+    }
+
     map._onResize();
     var val = airportName;
     var index = airportsData.findIndex(function (item, i) {
